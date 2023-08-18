@@ -63,10 +63,68 @@
             scrollbar-width: none;
             /* Firefox */
         }
+
+        #todolist {
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: flex;
+            wrap: no-wrap;
+            flex-direction: column;
+            align-items: left;
+            justify-content: center;
+            max-width: calc( 100% - 200px );
+            margin: 0;
+            text-align: left;
+            margin-right: 20px;
+        }
     </style>
+
+    <script>
+        
+
+        fetch("https://api.github.com/repos/al1-ce/todoer/issues")
+            .then((r) => r.json())
+            .then((j) => addTodo(j));
+
+        function addTodo(json) {
+            // console.log(json);
+
+            if (json.length == 0) {
+                document.getElementById("todolist").style.display = "none";
+            }
+            
+            for (let i = 0; i < json.length; ++i) {
+                let j = json[i];
+
+                let url = j.html_url;
+                let str = j.title;
+
+                document.getElementById("todolist").innerHTML += `<a href="${url}">◈ ${str}</a>`;
+            }
+        }
+
+        addEventListener("resize", (event) => resize());
+
+        function resize() {
+            // console.log("Resizing " + window.innerWidth);
+            if (window.innerWidth >= 400) {
+                document.getElementById("todolist").style.visibility = "visible";
+            } else {
+                document.getElementById("todolist").style.visibility = "hidden";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            resize();
+        });
+    </script>
 </head>
 
 <body class="flex">
+    <div id="todolist">
+        <h2>Todo</h2>
+    </div>
     <div class="container flex">
         <section class="main flex noblur">
             <div class="markdown-body">
