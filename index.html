@@ -7,7 +7,7 @@
     <meta lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/al1-ce/homepage/master/style.css">
+    <!-- <link rel="stylesheet" href="https://raw.githubusercontent.com/al1-ce/homepage/master/style.css"> -->
     <style>
         html,
         body,
@@ -74,25 +74,29 @@
             align-items: left;
             justify-content: center;
             max-width: calc( 100% - 200px );
+            min-width: 5ex;
             margin: 0;
             text-align: left;
             margin-right: 20px;
         }
+
+        #todotoggle {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 
     <script>
-        
-
-        fetch("https://api.github.com/repos/al1-ce/todoer/issues")
-            .then((r) => r.json())
-            .then((j) => addTodo(j));
 
         function addTodo(json) {
             // console.log(json);
-
-            if (json.length == 0) {
-                document.getElementById("todolist").style.display = "none";
-            }
             
             for (let i = 0; i < json.length; ++i) {
                 let j = json[i];
@@ -102,6 +106,16 @@
 
                 document.getElementById("todolist").innerHTML += `<a href="${url}">◈ ${str}</a>`;
             }
+
+
+
+            if (json.length == 0) {
+                document.getElementById("todolist").style.display = "none";
+            } else {
+                document.getElementById("todolist").innerHTML += `<br>`;
+            }
+
+            document.getElementById("todolist").innerHTML += `<a href="https://github.com/al1-ce/todoer/issues/new">◈ New</a>`;
         }
 
         addEventListener("resize", (event) => resize());
@@ -115,8 +129,23 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function(event) { 
+        document.addEventListener("DOMContentLoaded", function(event) {         
+            fetch("https://api.github.com/repos/al1-ce/todoer/issues")
+                .then((r) => r.json())
+                .then((j) => addTodo(j));
+
             resize();
+
+            document.getElementById("todotoggle").addEventListener("click", (e) => {
+                let el = document.getElementById("todolist");
+
+                if (el.style.display == "none") {
+                    el.style.display = "flex";
+                } else {
+                    el.style.display = "none";
+                    }
+            });
+
         });
     </script>
 </head>
@@ -125,6 +154,7 @@
     <div id="todolist">
         <h2>Todo</h2>
     </div>
+    <div id="todotoggle">◈</div>
     <div class="container flex">
         <section class="main flex noblur">
             <div class="markdown-body">
@@ -184,7 +214,8 @@
                     <a href="https://steampeek.hu">SteamPeek</a><br>
                     <a href="https://www.radio.garden">Radio Garden</a><br>
                     <a href="https://partner.steamgames.com/newpartner/">Steampartner</a><br>
-                    <a href="https://advcash.com/en">AdvCash</a>
+                    <a href="https://advcash.com/en">AdvCash</a><br>
+                    <a href="https://natto.dev">natto.dev</a>
                 </p>
             </div>
         </section>
