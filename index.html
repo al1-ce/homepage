@@ -16,6 +16,7 @@
             color: #fbf1c7;
             font-family: 'Cascadia Mono PL';
             padding-left: 0.5em;
+            font-size: 16px;
         }
 
         .bar {
@@ -74,7 +75,7 @@
             align-items: left;
             justify-content: center;
             max-width: calc( 100% - 200px );
-            min-width: 5ex;
+            min-width: 18em;
             margin: 0;
             text-align: left;
             margin-right: 20px;
@@ -90,6 +91,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        #notepad {
+            border: 0;
+            padding: 0.25em 0;
+            box-sizing: border-box;
+            background: #222;
+            color: #fbf1c7;
+            font-family: 'Cascadia Mono PL';
+            overflow-y: hidden;
+            border-bottom: 1px solid #444;
+            font-size: 13px;
+        }
+
+        #notepad:focus {
+            outline: none;
         }
     </style>
 
@@ -115,7 +132,27 @@
                 document.getElementById("todolist").innerHTML += `<br>`;
             }
 
-            document.getElementById("todolist").innerHTML += `<a href="https://github.com/al1-ce/todoer/issues/new">◈ New</a>`;
+            document.getElementById("todolist").innerHTML += `<a href="https://github.com/al1-ce/todoer/issues/new">◈ New</a><br>`;
+
+            document.getElementById("todolist").innerHTML += `<textarea id="notepad" placeholder="Start typing ..."></textarea>`;
+            
+            let savedContent = localStorage.getItem("notepadcontent");
+
+            if (savedContent != null){
+                document.getElementById("notepad").value = savedContent;
+            }
+
+            document.getElementById("notepad").style.height = 0;
+            document.getElementById("notepad").style.height = 
+                (document.getElementById("notepad").scrollHeight) + "px";
+
+            document.getElementById("notepad").oninput = function(){
+                let data = document.getElementById("notepad").value;  
+                localStorage.setItem("notepadcontent", data);
+                document.getElementById("notepad").style.height = 0;
+                document.getElementById("notepad").style.height = 
+                    (document.getElementById("notepad").scrollHeight) + "px";
+            }
         }
 
         addEventListener("resize", (event) => resize());
@@ -159,41 +196,30 @@
         <section class="main flex noblur">
             <div class="markdown-body">
                 <h2 id="work">Work</h2>
-                <p><a href="https://github.com/al1-ce">GitHub</a><br>
+                <p><a href="https://github.com/al1-ce">GitHub</a><br> 
                     <a href="https://gitlab.com">GitLab</a> <br>
                     <a href="https://al1-ce.dev">al1-ce</a><br>
                     <a href="http://127.0.0.1:8080">Localhost</a><br>
                     <a href="https://eu-develop.backendless.com/app/">Backendless</a><br>
                     <a href="https://regex101.com">Regex</a><br>
-                    <a href="https://code.dlang.org">dub</a>
                 </p>
                 <h2 id="socials">Socials</h2>
-                <p><a href="https://twitch.tv">Twitch</a><br>
-                    <a href="https://twitter.com">Twitter</a><br>
+                <p>
                     <a href="https://youtube.com">YouTube</a><br>
+                    <a href="https://twitter.com">Twitter</a><br>
+                    <a href="https://web.telegram.org/k/">Telegram</a><br>
+                    <a href="https://discord.com/app">Discord</a><br>
+                    <a href="https://mail.com">Mail</a><br>
+                    <a href="https://twitch.tv">Twitch</a><br>
                     <a href="https://neocities.org">Neocities</a><br>
-                    <a href="https://dev.to">dev.to</a>
-                </p>
-                <h2 id="mirrors">Mirrors</h2>
-                <p><a href="https://nitter.pussthecat.org">Nitter</a><br>
-                    <a href="https://libredd.it">Libreddit</a><br>
-                    <a href="https://yewtu.be/">Invidious</a><br>
-                    <a href="https://teddit.net/">Teddit</a>
-                </p>
-                <h2 id="chat">Chat</h2>
-                <p><a href="https://web.telegram.org/k/">Telegram</a><br>
-                    <a href="https://mail.ru">Mail</a> <a href="https://mail.com">Alt</a><br>
-                    <a href="https://chat.jspp.io/onux/channels/town-square">Mattermost</a>
+                    <a href="https://dev.to">dev.to</a><br>
+                    <!-- <a href="https://chat.jspp.io/onux/channels/town-square">Mattermost</a> -->
                 </p>
                 <h2 id="docs">Docs</h2>
-                <p><a href="https://run.dlang.io">Dlang</a><br>
-                    <a href="https://www.onux.com/jspp/docs">js++</a><br>
-                    <a href="https://godotshaders.com">GodotShaders</a><br>
-                    <a href="http://docs.qtile.org/en/v0.22.1/index.html">Qtile</a><br>
+                <p><a href="https://run.dlang.io">rund</a> <a href="https://code.dlang.org">dub</a><br>
                     <a
                         href="https://camo.githubusercontent.com/410b3ab80570bcd5b470a08d84f93caa5b4962ccd994ebceeb3d1f78364c2120/687474703a2f2f692e696d6775722e636f6d2f776136363678672e706e67">Gruvbox</a><br>
-                    <a href="https://shields.io">Badges</a> <a href="https://badgen.net">Alt</a> <a
-                        href="https://forthebadge.com">Alt</a><br>
+                    <a href="https://shields.io">Badge</a> <a href="https://badgen.net">en</a><br>
                     <a href="https://simpleicons.org">Icons</a><br>
                     <a href="https://charm.sh">Charm TUI</a>
                 </p>
@@ -202,21 +228,17 @@
                     <a href="https://excalidraw.com">Blackboard</a><br>
                     <a href="https://tinywow.com">TinyWow</a><br>
                     <a href="https://disk.yandex.com/client/disk">YDisk</a><br>
-                    <a href="https://usevia.app">V&#47;A</a>
+                    <a href="https://www.phind.com">AI Search</a><br>
+                    <a href="https://usevia.app">V&#47;A</a> <a href="http://www.keyboard-layout-editor.com">Layout</a> <br>
                 </p>
-                <h2 id="irl">IRL</h2>
-                <p><a href="https://www.supercook.com/#/desktop">Supercook</a></p>
                 <h2 id="misc">Misc</h2>
                 <p>
-                    <a href="https://www.phind.com">AI Search</a><br>
-                    <a href="https://trakt.tv">TV Track</a><br>
-                    <a href="https://shikimori.me">Anime Track</a><br>
+                    <a href="https://trakt.tv">Trakt</a> <a href="https://shikimori.me">Anime</a><br>
                     <a href="https://brug.dev">Web OS</a><br>
                     <a href="https://steampeek.hu">SteamPeek</a><br>
                     <a href="https://www.radio.garden">Radio Garden</a><br>
                     <a href="https://partner.steamgames.com/newpartner/">Steampartner</a><br>
-                    <a href="https://advcash.com/en">AdvCash</a><br>
-                    <a href="https://natto.dev">natto.dev</a>
+                    <a href="https://natto.dev">JS Canvas</a>
                 </p>
                 <h2 id="starcitizen">Star Citizen</h2>
                 <p>
@@ -224,7 +246,7 @@
                     <a href="https://finder.cstone.space">Item Finder</a><br>
                     <a href="https://uexcorp.space/trade">Trade</a><br>
                     <a href="https://images.squarespace-cdn.com/content/v1/5c40969f1137a6095d90a1fe/1600776220529-VRJPXY57BE90XQKFMM4H/Mining+Resources+and+Info+%283.10%29.PNG?format=2500w">Mining</a><br>
-                    <a href="https://vngd.net">Vanguard</a><br>
+                    <a href="https://vngd.net">Vanguard</a> <a href="https://www.profile.vngd.net/">Alt</a><br>
                     <a href="https://testsquadron.com">TEST</a><br>
                     <a href="https://starcitizen.tools">Wiki</a><br>
                     <a href="https://fleetyards.net">FleetYard</a><br>
