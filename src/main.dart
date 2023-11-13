@@ -13,7 +13,7 @@ string __currentNoteId = "";
 int __currentNoteInd = 0;
 
 Future<void> main() async {
-    setPageTo(4);
+    setPageTo(0);
     bk.initApp("modernthought");
     // Project on home
     // addGithubProjects();
@@ -211,7 +211,9 @@ void addLinkTo(string name, string href, string whereid, string oid) {
     int linkID = __link_id;
 
     $("#c-link-$linkID").on("mouseup", (QueryEvent e) {
-
+        if (e.button == 0) window.location.href = href;
+        if (e.button == 1) js.context.callMethod("open", [href]);
+        if (e.button == 2); // TODO: edit
     });
 
     ++__link_id;

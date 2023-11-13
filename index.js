@@ -8630,7 +8630,7 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              A.setPageTo(4);
+              A.setPageTo(0);
               $.BackendlessDB_serverURL = "modernthought.backendless.app";
               $.BackendlessDB_userToken = A.getCookie("userToken");
               A.UserService_isValidLogin();
@@ -8762,7 +8762,7 @@
         q = A.$(t1, _null);
       }
       A._domManip(q, A.Element_Element$html('        <div id="c-link-' + $.__link_id + '" class="c-link">\n            ' + $name + "\n        </div>\n    ", new A.NodeValidatorAllowAll()), A.dquery___appendFunc$closure());
-      A.$("#c-link-" + $.__link_id, _null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addLinkTo_closure()), _null, false);
+      A.$("#c-link-" + $.__link_id, _null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addLinkTo_closure(href)), _null, false);
       $.__link_id = $.__link_id + 1;
     },
     addBackendlessTodos() {
@@ -8875,7 +8875,8 @@
     },
     addBackendlessLinks_closure: function addBackendlessLinks_closure() {
     },
-    addLinkTo_closure: function addLinkTo_closure() {
+    addLinkTo_closure: function addLinkTo_closure(t0) {
+      this.href = t0;
     },
     addBackendlessTodos_closure: function addBackendlessTodos_closure() {
     },
@@ -19781,6 +19782,11 @@
   A.addLinkTo_closure.prototype = {
     call$1(e) {
       type$.QueryEvent._as(e);
+      if (e.get$button(e) === 0)
+        type$.Location._as(window.location).href = this.href;
+      if (e.get$button(e) === 1)
+        $.$get$_context().callMethod$2("open", [this.href]);
+      e.get$button(e);
     },
     $signature: 9
   };
