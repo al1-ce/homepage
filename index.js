@@ -8813,7 +8813,7 @@
       }
       t3 = A.$(".c-tasks", null);
       t4 = "" + $.__todo_id;
-      A._domManip(t3, A.Element_Element$html('        <button id="c-task-' + t4 + '" class="c-task ' + addStatus + '">\n            <img id="c-task-' + t4 + '-img" src="/assets/icons/' + t2 + '.svg" />\n            <div>' + $name + "</div>\n        </button>\n    ", new A.NodeValidatorAllowAll()), A.dquery___prependFunc$closure());
+      A._domManip(t3, A.Element_Element$html('        <button id="c-task-' + t4 + '" class="c-task ' + addStatus + '">\n            <img id="c-task-' + t4 + '-img" src="assets/icons/' + t2 + '.svg" />\n            <div>' + $name + "</div>\n        </button>\n    ", new A.NodeValidatorAllowAll()), A.dquery___prependFunc$closure());
       todoID = $.__todo_id;
       A.$("#c-task-" + todoID, null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addTodo_closure(t1, oid, todoID)), null, false);
       $.__todo_id = $.__todo_id + 1;
@@ -19852,7 +19852,7 @@
         }
         t2 = t3;
       }
-      A.MapAttr_attr(A.$("#c-task-" + t2 + "-img", _null), A.LinkedHashMap_LinkedHashMap$_literal(["src", "/assets/icons/" + t1.icon + ".svg"], type$.String, type$.Object));
+      A.MapAttr_attr(A.$("#c-task-" + t2 + "-img", _null), A.LinkedHashMap_LinkedHashMap$_literal(["src", "assets/icons/" + t1.icon + ".svg"], type$.String, type$.Object));
       e.preventDefault$0(0);
     },
     $signature: 9
