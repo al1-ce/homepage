@@ -240,7 +240,7 @@ void addTodo(string name, string status, string oid) {
 
     $(".c-tasks").prepend("""
         <button id="c-task-$__todo_id" class="c-task $addStatus">
-            <img id="c-task-$__todo_id-img" src="/assets/icons/$icon.svg" />
+            <img id="c-task-$__todo_id-img" src="assets/icons/$icon.svg" />
             <div>$name</div>
         </button>
     """.parseHTML());
@@ -282,7 +282,7 @@ void addTodo(string name, string status, string oid) {
             $("#c-task-$todoID").removeClass("c-task-done");
         }
 
-        $("#c-task-$todoID-img").attr({"src": "/assets/icons/$icon.svg"});
+        $("#c-task-$todoID-img").attr({"src": "assets/icons/$icon.svg"});
 
         e.preventDefault();
     });
@@ -354,9 +354,9 @@ void addConfig(string name, string cookieName, Function(bool) callback, [bool in
             setCookie(cookieName, state ? "true" : "false");
         }
         if (state) {
-            $("#$_id-img").attr({"src": "/assets/icons/check_box_complete.svg"});
+            $("#$_id-img").attr({"src": "assets/icons/check_box_complete.svg"});
         } else {
-            $("#$_id-img").attr({"src": "/assets/icons/check_box_outline.svg"});
+            $("#$_id-img").attr({"src": "assets/icons/check_box_outline.svg"});
         }
         callback(state);
     }
