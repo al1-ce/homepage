@@ -34,7 +34,7 @@
     --f_fg: invert(83%) sepia(32%) saturate(231%) hue-rotate(5deg) brightness(101%) contrast(92%);
 }
 
-@font-face{font-family: 'Custom'; src: url("/assets/space.ttf") format('truetype');}
+@font-face{font-family: 'Custom'; src: url("assets/space.ttf") format('truetype');}
 
 body {
     background: var(--bg);
