@@ -1,0 +1,11 @@
+name: Homepage
+description: Personal homepage
+version: 1.0.0
+# repository: https://.....
+
+environment:
+  sdk: '>=2.19.5 <3.0.0'
+
+dependencies:
+  dquery: ^3.0.0
+  http: ^1.1.0
