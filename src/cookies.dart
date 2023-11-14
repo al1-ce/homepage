@@ -5,9 +5,7 @@ import "dart:html";
 import "types.dart";
 
 void setCookie(string cname, string cvalue, [int exdays = 365]) {
-    DateTime d = DateTime.now();
-    d.add(Duration(days: exdays));
-    string expires = "expires=" + d.toString();
+    string expires = "max-age=" + (exdays * 24 * 60 * 60).toString();
 
     document.cookie = cname + "=" + cvalue + "\;" + expires + "\;path=/";
 }
@@ -34,12 +32,12 @@ void delCookie(string cname) {
     document.cookie = cname + "=\; expires=Thu, 01 Jan 1970 00:00:00 UTC\; path=/\;";
 }
 
-string getOrInitCookie(string cname, cdef) {
+string getOrInitCookie(string cname, cdef, [int exdays = 365]) {
     string c = getCookie(cname);
 
     if (c == "") {
         c = cdef;
-        setCookie(cname, c, 365);
+        setCookie(cname, c, exdays);
     }
 
     return c;

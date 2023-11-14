@@ -1819,8 +1819,8 @@
     JsLinkedHashMap: function JsLinkedHashMap(t0) {
       var _ = this;
       _.__js_helper$_length = 0;
-      _.__js_helper$_last = _._first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
-      _._modifications = 0;
+      _.__js_helper$_last = _.__js_helper$_first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
+      _.__js_helper$_modifications = 0;
       _.$ti = t0;
     },
     JsLinkedHashMap_values_closure: function JsLinkedHashMap_values_closure(t0) {
@@ -1833,7 +1833,7 @@
       var _ = this;
       _.hashMapCellKey = t0;
       _.hashMapCellValue = t1;
-      _._previous = _._next = null;
+      _.__js_helper$_previous = _.__js_helper$_next = null;
     },
     LinkedHashMapKeyIterable: function LinkedHashMapKeyIterable(t0, t1) {
       this._map = t0;
@@ -1842,8 +1842,8 @@
     LinkedHashMapKeyIterator: function LinkedHashMapKeyIterator(t0, t1, t2) {
       var _ = this;
       _._map = t0;
-      _._modifications = t1;
-      _.__js_helper$_current = _._cell = null;
+      _.__js_helper$_modifications = t1;
+      _.__js_helper$_current = _.__js_helper$_cell = null;
       _.$ti = t2;
     },
     initHooks_closure: function initHooks_closure(t0) {
@@ -4277,7 +4277,7 @@
     },
     _LinkedHashSetIterator$(_set, _modifications, $E) {
       var t1 = new A._LinkedHashSetIterator(_set, _modifications, $E._eval$1("_LinkedHashSetIterator<0>"));
-      t1._collection$_cell = _set._collection$_first;
+      t1._cell = _set._first;
       return t1;
     },
     _defaultEquals(a, b) {
@@ -4324,8 +4324,8 @@
     _LinkedIdentityHashMap: function _LinkedIdentityHashMap(t0) {
       var _ = this;
       _.__js_helper$_length = 0;
-      _.__js_helper$_last = _._first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
-      _._modifications = 0;
+      _.__js_helper$_last = _.__js_helper$_first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
+      _.__js_helper$_modifications = 0;
       _.$ti = t0;
     },
     _LinkedCustomHashMap: function _LinkedCustomHashMap(t0, t1, t2, t3) {
@@ -4334,8 +4334,8 @@
       _._hashCode = t1;
       _._validKey = t2;
       _.__js_helper$_length = 0;
-      _.__js_helper$_last = _._first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
-      _._modifications = 0;
+      _.__js_helper$_last = _.__js_helper$_first = _.__js_helper$_rest = _.__js_helper$_nums = _.__js_helper$_strings = null;
+      _.__js_helper$_modifications = 0;
       _.$ti = t3;
     },
     _LinkedCustomHashMap_closure: function _LinkedCustomHashMap_closure(t0) {
@@ -4344,19 +4344,19 @@
     _LinkedHashSet: function _LinkedHashSet(t0) {
       var _ = this;
       _._collection$_length = 0;
-      _._last = _._collection$_first = _._collection$_rest = _._nums = _._strings = null;
-      _._collection$_modifications = 0;
+      _._last = _._first = _._collection$_rest = _._nums = _._strings = null;
+      _._modifications = 0;
       _.$ti = t0;
     },
     _LinkedHashSetCell: function _LinkedHashSetCell(t0) {
-      this._collection$_element = t0;
-      this._collection$_previous = this._collection$_next = null;
+      this._element = t0;
+      this._previous = this._next = null;
     },
     _LinkedHashSetIterator: function _LinkedHashSetIterator(t0, t1, t2) {
       var _ = this;
       _._set = t0;
-      _._collection$_modifications = t1;
-      _._collection$_current = _._collection$_cell = null;
+      _._modifications = t1;
+      _._collection$_current = _._cell = null;
       _.$ti = t2;
     },
     LinkedHashMap_LinkedHashMap$from_closure: function LinkedHashMap_LinkedHashMap$from_closure(t0, t1, t2) {
@@ -4852,17 +4852,6 @@
         stackTrace = A.getTraceFromException(exception);
         return stackTrace;
       }
-    },
-    DateTime$_withValue(_value, isUtc) {
-      var t1;
-      if (Math.abs(_value) <= 864e13)
-        t1 = false;
-      else
-        t1 = true;
-      if (t1)
-        A.throwExpression(A.ArgumentError$("DateTime is outside valid range: " + _value, null));
-      A.checkNotNullable(isUtc, "isUtc", type$.bool);
-      return new A.DateTime(_value, isUtc);
     },
     DateTime__fourDigits(n) {
       var absN = Math.abs(n),
@@ -6541,12 +6530,12 @@
     _ChildrenElementList__remove(_element, object) {
       return false;
     },
-    Element_Element$html(html, validator) {
+    Element_Element$html(html, treeSanitizer, validator) {
       var t2,
         t1 = document.body;
       t1.toString;
       t2 = type$._ChildNodeListLazy;
-      t2 = new A.WhereIterable(new A._ChildNodeListLazy(B.BodyElement_methods.createFragment$3$treeSanitizer$validator(t1, html, null, validator)), t2._eval$1("bool(ListBase.E)")._as(new A.Element_Element$html_closure()), t2._eval$1("WhereIterable<ListBase.E>"));
+      t2 = new A.WhereIterable(new A._ChildNodeListLazy(B.BodyElement_methods.createFragment$3$treeSanitizer$validator(t1, html, treeSanitizer, validator)), t2._eval$1("bool(ListBase.E)")._as(new A.Element_Element$html_closure()), t2._eval$1("WhereIterable<ListBase.E>"));
       return type$.Element._as(t2.get$single(t2));
     },
     Element__safeTagName(element) {
@@ -6567,6 +6556,14 @@
       var t1 = onData == null ? null : A._wrapZone(new A._EventStreamSubscription_closure(onData), type$.Event);
       t1 = new A._EventStreamSubscription(_target, _eventType, t1, false, $T._eval$1("_EventStreamSubscription<0>"));
       t1._tryResume$0();
+      return t1;
+    },
+    _Html5NodeValidator$(uriPolicy) {
+      var t1 = document.createElement("a");
+      t1.toString;
+      t1 = new A._SameOriginUriPolicy(t1, type$.Location._as(window.location));
+      t1 = new A._Html5NodeValidator(t1);
+      t1._Html5NodeValidator$1$uriPolicy(uriPolicy);
       return t1;
     },
     _Html5NodeValidator__standardAttributeValidator(element, attributeName, value, context) {
@@ -6682,7 +6679,7 @@
     DomTokenList: function DomTokenList() {
     },
     _ChildrenElementList: function _ChildrenElementList(t0, t1) {
-      this._element = t0;
+      this._html$_element = t0;
       this._childElements = t1;
     },
     _FrozenElementList: function _FrozenElementList(t0, t1) {
@@ -6724,9 +6721,17 @@
     },
     NodeList: function NodeList() {
     },
+    OListElement: function OListElement() {
+    },
     ProgressEvent: function ProgressEvent() {
     },
     SelectElement: function SelectElement() {
+    },
+    TableElement: function TableElement() {
+    },
+    TableRowElement: function TableRowElement() {
+    },
+    TableSectionElement: function TableSectionElement() {
     },
     TemplateElement: function TemplateElement() {
     },
@@ -6747,10 +6752,10 @@
     _AttributeMap: function _AttributeMap() {
     },
     _ElementAttributeMap: function _ElementAttributeMap(t0) {
-      this._element = t0;
+      this._html$_element = t0;
     },
     _ElementCssClassSet: function _ElementCssClassSet(t0) {
-      this._element = t0;
+      this._html$_element = t0;
     },
     EventStreamProvider: function EventStreamProvider(t0, t1) {
       this._eventType = t0;
@@ -6808,6 +6813,8 @@
       _.uriPolicy = t4;
     },
     _TemplatingNodeValidator_closure: function _TemplatingNodeValidator_closure() {
+    },
+    _SvgNodeValidator: function _SvgNodeValidator() {
     },
     FixedSizeListIterator: function FixedSizeListIterator(t0, t1, t2) {
       var _ = this;
@@ -6995,6 +7002,8 @@
     NullRejectionException: function NullRejectionException(t0) {
       this.isUndefined = t0;
     },
+    ScriptElement0: function ScriptElement0() {
+    },
     AttributeClassSet: function AttributeClassSet(t0) {
       this._svg$_element = t0;
     },
@@ -7018,24 +7027,25 @@
       this.ifAbsent = t2;
     },
     $(selector, context) {
+      var _null = null;
       if (typeof selector == "string")
         selector = B.JSString_methods.trim$0(selector);
       if (selector == null || selector === "")
         return new A._ElementQuery(A._setArrayType([], type$.JSArray_Element));
       if (typeof selector == "string") {
         if (B.JSString_methods.startsWith$1(selector, "<"))
-          return new A._ElementQuery(A._setArrayType([A.Element_Element$html(selector, null)], type$.JSArray_Element));
+          return new A._ElementQuery(A._setArrayType([A.Element_Element$html(selector, _null, _null)], type$.JSArray_Element));
         if (context == null)
           return $.$get$_rootDQuery().find$1(0, selector);
         else if (type$.HtmlDocument._is(context))
           return new A._DocumentQuery(context).find$1(0, selector);
         else if (type$.Element._is(context))
           return new A._ElementQuery(A._setArrayType([context], type$.JSArray_Element)).find$1(0, selector);
-        throw A.wrapException(A.ArgumentError$("Context type should be Document, Element, or DQuery: " + A.S(context), null));
+        throw A.wrapException(A.ArgumentError$("Context type should be Document, Element, or DQuery: " + A.S(context), _null));
       }
       if (type$.Element._is(selector))
         return new A._ElementQuery(A._setArrayType([selector], type$.JSArray_Element));
-      throw A.wrapException(A.ArgumentError$("Selector type should be String, Element, or List<Element>: " + A.S(selector), null));
+      throw A.wrapException(A.ArgumentError$("Selector type should be String, Element, or List<Element>: " + A.S(selector), _null));
     },
     _isHidden(elem) {
       var t1 = elem.style.display;
@@ -8363,12 +8373,10 @@
                 t1 = A._asString(j.$index(0, "user-token"));
                 $.BackendlessDB_userToken = t1;
                 if (stayLoggedFor > 0) {
-                  t2 = Date.now();
-                  A.DateTime$_withValue(t2 + B.JSInt_methods._tdivFast$1(864e8 * stayLoggedFor, 1000), false);
-                  t2 = new A.DateTime(t2, false).toString$0(0);
+                  t2 = B.JSInt_methods.toString$0(stayLoggedFor * 24 * 60 * 60);
                   t3 = document;
                   t3.toString;
-                  B.HtmlDocument_methods.set$cookie(t3, "userToken=" + t1 + ";" + ("expires=" + t2) + ";path=/");
+                  B.HtmlDocument_methods.set$cookie(t3, "userToken=" + t1 + ";" + ("max-age=" + t2) + ";path=/");
                 }
               }
               $async$returnValue = j;
@@ -8622,7 +8630,7 @@
     main() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        sel, selButtons, t1, i, $async$temp1;
+        re, t1, isMobile, screenWidth, screenHeight, sel, selButtons, i, $async$temp1;
       var $async$main = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -8637,6 +8645,26 @@
               A.addBackendlessNotes();
               A.addBackendlessLinks();
               A.addBackendlessTodos();
+              re = A.RegExp_RegExp("Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini");
+              t1 = window.navigator.userAgent;
+              t1.toString;
+              isMobile = re._nativeRegExp.test(t1);
+              if (!isMobile) {
+                t1 = window.screen;
+                screenWidth = t1 == null ? null : t1.width;
+                if (screenWidth == null)
+                  screenWidth = A._asInt(screenWidth);
+                t1 = window.screen;
+                screenHeight = t1 == null ? null : t1.height;
+                if (screenHeight == null)
+                  screenHeight = A._asInt(screenHeight);
+                isMobile = screenWidth < 768 || screenHeight < 768;
+              }
+              if (isMobile) {
+                t1 = A.$("#mobile-style", null);
+                J.set$innerHtml$x(t1.get$first(t1), "body{font-size:0.7em;}#c-title{font-size:1.3em}");
+                A.printString("IM MOBILE YE WANKER");
+              }
               sel = A.$(".c-page-sel", null);
               selButtons = sel.toList$0(sel);
               for (t1 = type$.nullable_dynamic_Function_Event, i = 0; i < selButtons.length; ++i)
@@ -8662,6 +8690,8 @@
               A.$("#newnote-cancel", null)._on$4("click", t1._as(new A.main_closure4()), null, false);
               A.$("#newnote-delete", null)._on$4("click", t1._as(new A.main_closure5()), null, false);
               A.$("#newnote-create", null)._on$4("click", t1._as(new A.main_closure6()), null, false);
+              A.$("#links-close", null)._on$4("click", t1._as(new A.main_closure7()), null, false);
+              A.$("#edit-links", null)._on$4("click", t1._as(new A.main_closure8()), null, false);
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
@@ -8671,29 +8701,20 @@
     setPageTo(page) {
       var _s12_ = "#c-page-home",
         _null = null,
-        _s12_0 = "#c-page-work",
-        _s12_1 = "#c-page-tool",
-        _s12_2 = "#c-page-docs",
-        _s12_3 = "#c-page-link",
-        _s12_4 = "#c-page-conf";
+        _s12_0 = "#c-page-link",
+        _s12_1 = "#c-page-conf";
       A._showHide(A.$(_s12_, _null)._elements, false);
+      A._showHide(A.$("#c-page-work", _null)._elements, false);
+      A._showHide(A.$("#c-page-tool", _null)._elements, false);
+      A._showHide(A.$("#c-page-docs", _null)._elements, false);
       A._showHide(A.$(_s12_0, _null)._elements, false);
       A._showHide(A.$(_s12_1, _null)._elements, false);
-      A._showHide(A.$(_s12_2, _null)._elements, false);
-      A._showHide(A.$(_s12_3, _null)._elements, false);
-      A._showHide(A.$(_s12_4, _null)._elements, false);
       if (page === 0)
         A._showHide(A.$(_s12_, _null)._elements, true);
       if (page === 1)
         A._showHide(A.$(_s12_0, _null)._elements, true);
       if (page === 2)
         A._showHide(A.$(_s12_1, _null)._elements, true);
-      if (page === 3)
-        A._showHide(A.$(_s12_2, _null)._elements, true);
-      if (page === 4)
-        A._showHide(A.$(_s12_3, _null)._elements, true);
-      if (page === 5)
-        A._showHide(A.$(_s12_4, _null)._elements, true);
     },
     addBackendlessNotes() {
       var $async$goto = 0,
@@ -8725,7 +8746,7 @@
     addBackendlessLinks() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t1, $async$temp1;
+        t1, $async$temp1, $async$temp2;
       var $async$addBackendlessLinks = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -8733,37 +8754,46 @@
           switch ($async$goto) {
             case 0:
               // Function start
-              A.$("c-links-work", null).children$0(0).detach$0(0);
-              A.$("c-links-tool", null).children$0(0).detach$0(0);
-              A.$("c-links-docs", null).children$0(0).detach$0(0);
-              A.$("c-page-link", null).children$0(0).detach$0(0);
+              A.addLinkTo("", "", "", 0, "");
               t1 = type$.String;
               t1 = A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
               t1.$indexSet(0, "pageSize", B.JSInt_methods.toString$0(100));
+              t1.$indexSet(0, "sortBy", B.JSArray_methods.join$1(type$.List_String._as(A._setArrayType(["category", "priority"], type$.JSArray_String)), ","));
               $async$temp1 = J;
+              $async$temp2 = J;
               $async$goto = 2;
               return A._asyncAwait(A.Data_find("links", new A.DataQuery(t1)), $async$addBackendlessLinks);
             case 2:
               // returning from await.
-              $async$temp1.forEach$1$ax($async$result.$index(0, "jsarr"), new A.addBackendlessLinks_closure());
+              $async$temp1.forEach$1$ax($async$temp2.get$reversed$ax($async$result.$index(0, "jsarr")), new A.addBackendlessLinks_closure());
               // implicit return
               return A._asyncReturn(null, $async$completer);
           }
       });
       return A._asyncStartSync($async$addBackendlessLinks, $async$completer);
     },
-    addLinkTo($name, href, whereid, oid) {
-      var _null = null,
+    addLinkTo($name, href, whereid, priority, oid) {
+      var q, t2, _null = null,
+        _s21_ = '" type="text" value="',
         escWhereid = A.stringReplaceAllUnchecked(whereid, " ", "-"),
-        t1 = ".c-links-" + escWhereid,
+        t1 = oid === "",
+        linkID = t1 ? -1 : $.__link_id;
+      if (!t1) {
+        t1 = ".c-links-" + escWhereid;
         q = A.$(t1, _null);
-      if (J.get$length$asx(q._elements) === 0) {
-        A._domManip(A.$("#c-page-link", _null), A.Element_Element$html('            <div class="c-links-' + escWhereid + ' c-links-list">\n                <div class="c-links-title">' + whereid + "</div>\n            </div>\n        ", new A.NodeValidatorAllowAll()), A.dquery___appendFunc$closure());
-        q = A.$(t1, _null);
+        if (J.get$length$asx(q._elements) === 0) {
+          A._domManip(A.$("#c-page-link", _null), A.Element_Element$html('                <div class="c-links-' + escWhereid + ' c-links-list">\n                    <div class="c-links-title">' + whereid + "</div>\n                </div>\n            ", _null, new A.NodeValidatorAllowAll()), A.dquery___appendFunc$closure());
+          q = A.$(t1, _null);
+        }
+        A._domManip(q, A.Element_Element$html('            <button id="c-link-' + $.__link_id + '" class="c-link button-no-style">\n                ' + $name + "\n            </button>\n        ", _null, new A.NodeValidatorAllowAll()), A.dquery___appendFunc$closure());
+        A.$("#c-link-" + linkID, _null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addLinkTo_closure(href)), _null, false);
+        $.__link_id = $.__link_id + 1;
       }
-      A._domManip(q, A.Element_Element$html('        <div id="c-link-' + $.__link_id + '" class="c-link">\n            ' + $name + "\n        </div>\n    ", new A.NodeValidatorAllowAll()), A.dquery___appendFunc$closure());
-      A.$("#c-link-" + $.__link_id, _null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addLinkTo_closure(href)), _null, false);
-      $.__link_id = $.__link_id + 1;
+      t1 = "" + linkID;
+      A._domManip(A.$("#links-container", _null), A.Element_Element$html('        <div class="links-container-link" id="links-container-' + t1 + '">\n            <input id="links-name-' + t1 + _s21_ + $name + '" />\n            <input id="links-href-' + t1 + _s21_ + href + '" />\n            <input id="links-cate-' + t1 + _s21_ + whereid + '" class="icat"/>\n            <input id="links-prio-' + t1 + '" type="number" value="' + priority + '" class="inum" />\n            <button id="link-delete-' + t1 + '" class="button-no-style">delete</button>\n            <button id="link-submit-' + t1 + '" class="button-no-style">submit</button>\n        </div>\n    ', _null, new A.NodeValidatorAllowAll()), A.dquery___appendFunc$closure());
+      t2 = type$.void_Function_QueryEvent;
+      A.$("#link-submit-" + t1, _null)._on$4("click", t2._as(new A.addLinkTo_closure0(oid, linkID)), _null, false);
+      A.$("#link-delete-" + t1, _null)._on$4("click", t2._as(new A.addLinkTo_closure1(oid, linkID)), _null, false);
     },
     addBackendlessTodos() {
       var $async$goto = 0,
@@ -8796,7 +8826,7 @@
       var t2, addStatus, t3, t4, todoID,
         _s17_ = "check_box_outline",
         _s14_ = "check_box_line",
-        t1 = {};
+        _null = null, t1 = {};
       t1.status = $status;
       t1.icon = _s17_;
       if ($status === "doing") {
@@ -8811,18 +8841,18 @@
         t2 = t1.icon = "check_box_complete";
         addStatus = "c-task-done";
       }
-      t3 = A.$(".c-tasks", null);
+      t3 = A.$(".c-tasks", _null);
       t4 = "" + $.__todo_id;
-      A._domManip(t3, A.Element_Element$html('        <button id="c-task-' + t4 + '" class="c-task ' + addStatus + '">\n            <img id="c-task-' + t4 + '-img" src="assets/icons/' + t2 + '.svg" />\n            <div>' + $name + "</div>\n        </button>\n    ", new A.NodeValidatorAllowAll()), A.dquery___prependFunc$closure());
+      A._domManip(t3, A.Element_Element$html('        <button id="c-task-' + t4 + '" class="c-task ' + addStatus + '">\n            <img id="c-task-' + t4 + '-img" src="assets/icons/' + t2 + '.svg" />\n            <div>' + $name + "</div>\n        </button>\n    ", _null, new A.NodeValidatorAllowAll()), A.dquery___prependFunc$closure());
       todoID = $.__todo_id;
-      A.$("#c-task-" + todoID, null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addTodo_closure(t1, oid, todoID)), null, false);
+      A.$("#c-task-" + todoID, _null)._on$4("mouseup", type$.void_Function_QueryEvent._as(new A.addTodo_closure(t1, oid, todoID)), _null, false);
       $.__todo_id = $.__todo_id + 1;
     },
     addNote($name, date, type, oid) {
-      var noteID;
-      A._domManip(A.$(".c-notes", null), A.Element_Element$html('        <div class="c-notes-note" id="c-notes-note-' + $.__note_id + '">\n            <div class="c-notes-note-text">' + $name + '</div>\n            <div class="c-notes-note-date">' + date + '</div>\n            <div class="c-notes-note-type">' + type + "</div>\n        </div>\n    ", new A.NodeValidatorAllowAll()), A.dquery___prependFunc$closure());
+      var noteID, _null = null;
+      A._domManip(A.$(".c-notes", _null), A.Element_Element$html('        <button class="c-notes-note button-no-style" id="c-notes-note-' + $.__note_id + '">\n            <div class="c-notes-note-text">' + $name + '</div>\n            <div class="c-notes-note-date">' + date + '</div>\n            <div class="c-notes-note-type">' + type + "</div>\n        </button>\n    ", _null, new A.NodeValidatorAllowAll()), A.dquery___prependFunc$closure());
       noteID = $.__note_id;
-      A.$("#c-notes-note-" + noteID, null)._on$4("click", type$.void_Function_QueryEvent._as(new A.addNote_closure(oid, noteID)), null, false);
+      A.$("#c-notes-note-" + noteID, _null)._on$4("click", type$.void_Function_QueryEvent._as(new A.addNote_closure(oid, noteID)), _null, false);
       $.__note_id = $.__note_id + 1;
     },
     monthShort(m) {
@@ -8871,12 +8901,24 @@
     },
     main_closure6: function main_closure6() {
     },
+    main_closure7: function main_closure7() {
+    },
+    main_closure8: function main_closure8() {
+    },
     addBackendlessNotes_closure: function addBackendlessNotes_closure() {
     },
     addBackendlessLinks_closure: function addBackendlessLinks_closure() {
     },
     addLinkTo_closure: function addLinkTo_closure(t0) {
       this.href = t0;
+    },
+    addLinkTo_closure0: function addLinkTo_closure0(t0, t1) {
+      this.oid = t0;
+      this.linkID = t1;
+    },
+    addLinkTo_closure1: function addLinkTo_closure1(t0, t1) {
+      this.oid = t0;
+      this.linkID = t1;
     },
     addBackendlessTodos_closure: function addBackendlessTodos_closure() {
     },
@@ -8891,6 +8933,21 @@
     },
     isBrowserObject(o) {
       return type$.Blob._is(o) || type$.Event._is(o) || type$.KeyRange._is(o) || type$.ImageData._is(o) || type$.Node._is(o) || type$.Window._is(o) || type$.WorkerGlobalScope._is(o);
+    },
+    printString(string) {
+      if (typeof dartPrint == "function") {
+        dartPrint(string);
+        return;
+      }
+      if (typeof console == "object" && typeof console.log != "undefined") {
+        console.log(string);
+        return;
+      }
+      if (typeof print == "function") {
+        print(string);
+        return;
+      }
+      throw "Unable to print message: " + String(string);
     },
     throwLateFieldADI(fieldName) {
       return A.throwExpression(A.LateError$fieldADI(fieldName));
@@ -9300,6 +9357,9 @@
     set$_innerHtml$x(receiver, value) {
       return J.getInterceptor$x(receiver).set$_innerHtml(receiver, value);
     },
+    set$innerHtml$x(receiver, value) {
+      return J.getInterceptor$x(receiver).set$innerHtml(receiver, value);
+    },
     set$length$asx(receiver, value) {
       return J.getInterceptor$asx(receiver).set$length(receiver, value);
     },
@@ -9342,6 +9402,9 @@
     get$relatedTarget$x(receiver) {
       return J.getInterceptor$x(receiver).get$relatedTarget(receiver);
     },
+    get$reversed$ax(receiver) {
+      return J.getInterceptor$ax(receiver).get$reversed(receiver);
+    },
     get$runtimeType$(receiver) {
       return J.getInterceptor$(receiver).get$runtimeType(receiver);
     },
@@ -9376,6 +9439,9 @@
     },
     _addEventListener$3$x(receiver, a0, a1, a2) {
       return J.getInterceptor$x(receiver)._addEventListener$3(receiver, a0, a1, a2);
+    },
+    _clearChildren$0$x(receiver) {
+      return J.getInterceptor$x(receiver)._clearChildren$0(receiver);
     },
     _querySelectorAll$1$x(receiver, a0) {
       return J.getInterceptor$x(receiver)._querySelectorAll$1(receiver, a0);
@@ -9700,7 +9766,6 @@
       return A.SubListIterable$(receiver, n, null, A._arrayInstanceType(receiver)._precomputed1);
     },
     elementAt$1(receiver, index) {
-      A._asInt(index);
       if (!(index >= 0 && index < receiver.length))
         return A.ioore(receiver, index);
       return receiver[index];
@@ -9757,6 +9822,9 @@
           throw A.wrapException(A.ConcurrentModificationError$(receiver));
       }
       return false;
+    },
+    get$reversed(receiver) {
+      return new A.ReversedListIterable(receiver, A._arrayInstanceType(receiver)._eval$1("ReversedListIterable<1>"));
     },
     sort$1(receiver, compare) {
       var t2,
@@ -10030,7 +10098,6 @@
       return new A.StringMatch(start, receiver);
     },
     $add(receiver, other) {
-      A._asString(other);
       return receiver + other;
     },
     endsWith$1(receiver, other) {
@@ -10320,8 +10387,6 @@
       endOrLength = this._endOrLength;
       if (endOrLength != null) {
         A.RangeError_checkNotNegative(endOrLength, "end");
-        if (typeof t1 !== "number")
-          return t1.$gt();
         if (t1 > endOrLength)
           throw A.wrapException(A.RangeError$range(t1, 0, endOrLength, "start", null));
       }
@@ -10336,8 +10401,6 @@
     get$_startIndex() {
       var $length = J.get$length$asx(this.__internal$_iterable),
         t1 = this.__internal$_start;
-      if (typeof t1 !== "number")
-        return t1.$gt();
       if (t1 > $length)
         return $length;
       return t1;
@@ -10346,8 +10409,6 @@
       var endOrLength,
         $length = J.get$length$asx(this.__internal$_iterable),
         t1 = this.__internal$_start;
-      if (typeof t1 !== "number")
-        return t1.$ge();
       if (t1 >= $length)
         return 0;
       endOrLength = this._endOrLength;
@@ -10358,23 +10419,16 @@
       return endOrLength - t1;
     },
     elementAt$1(_, index) {
-      var t1, realIndex, _this = this;
-      A._asInt(index);
-      t1 = _this.get$_startIndex();
-      if (typeof t1 !== "number")
-        return t1.$add();
-      realIndex = t1 + index;
+      var _this = this,
+        realIndex = _this.get$_startIndex() + index;
       if (index < 0 || realIndex >= _this.get$_endIndex())
         throw A.wrapException(A.IndexError$withLength(index, _this.get$length(_this), _this, "index"));
       return J.elementAt$1$ax(_this.__internal$_iterable, realIndex);
     },
     skip$1(_, count) {
-      var t1, newStart, endOrLength, _this = this;
+      var newStart, endOrLength, _this = this;
       A.RangeError_checkNotNegative(count, "count");
-      t1 = _this.__internal$_start;
-      if (typeof t1 !== "number")
-        return t1.$add();
-      newStart = t1 + count;
+      newStart = _this.__internal$_start + count;
       endOrLength = _this._endOrLength;
       if (endOrLength != null && newStart >= endOrLength)
         return new A.EmptyIterable(_this.$ti._eval$1("EmptyIterable<1>"));
@@ -10473,7 +10527,7 @@
       return J.get$length$asx(this._source);
     },
     elementAt$1(_, index) {
-      return this._f.call$1(J.elementAt$1$ax(this._source, A._asInt(index)));
+      return this._f.call$1(J.elementAt$1$ax(this._source, index));
     }
   };
   A.WhereIterable.prototype = {
@@ -10689,10 +10743,8 @@
       return J.get$length$asx(this._source);
     },
     elementAt$1(_, index) {
-      var t1, t2;
-      A._asInt(index);
-      t1 = this._source;
-      t2 = J.getInterceptor$asx(t1);
+      var t1 = this._source,
+        t2 = J.getInterceptor$asx(t1);
       return t2.elementAt$1(t1, t2.get$length(t1) - 1 - index);
     }
   };
@@ -11077,10 +11129,10 @@
       t1._rest[1]._as(value);
       if (typeof key == "string") {
         strings = _this.__js_helper$_strings;
-        _this._addHashTableEntry$3(strings == null ? _this.__js_helper$_strings = _this._newHashTable$0() : strings, key, value);
+        _this.__js_helper$_addHashTableEntry$3(strings == null ? _this.__js_helper$_strings = _this._newHashTable$0() : strings, key, value);
       } else if (typeof key == "number" && (key & 0x3fffffff) === key) {
         nums = _this.__js_helper$_nums;
-        _this._addHashTableEntry$3(nums == null ? _this.__js_helper$_nums = _this._newHashTable$0() : nums, key, value);
+        _this.__js_helper$_addHashTableEntry$3(nums == null ? _this.__js_helper$_nums = _this._newHashTable$0() : nums, key, value);
       } else
         _this.internalSet$2(key, value);
     },
@@ -11095,13 +11147,13 @@
       hash = _this.internalComputeHashCode$1(key);
       bucket = rest[hash];
       if (bucket == null)
-        rest[hash] = [_this._newLinkedCell$2(key, value)];
+        rest[hash] = [_this.__js_helper$_newLinkedCell$2(key, value)];
       else {
         index = _this.internalFindBucketIndex$2(bucket, key);
         if (index >= 0)
           bucket[index].hashMapCellValue = value;
         else
-          bucket.push(_this._newLinkedCell$2(key, value));
+          bucket.push(_this.__js_helper$_newLinkedCell$2(key, value));
       }
     },
     putIfAbsent$2(key, ifAbsent) {
@@ -11145,23 +11197,23 @@
     forEach$1(_, action) {
       var cell, modifications, _this = this;
       A._instanceType(_this)._eval$1("~(1,2)")._as(action);
-      cell = _this._first;
-      modifications = _this._modifications;
+      cell = _this.__js_helper$_first;
+      modifications = _this.__js_helper$_modifications;
       for (; cell != null;) {
         action.call$2(cell.hashMapCellKey, cell.hashMapCellValue);
-        if (modifications !== _this._modifications)
+        if (modifications !== _this.__js_helper$_modifications)
           throw A.wrapException(A.ConcurrentModificationError$(_this));
-        cell = cell._next;
+        cell = cell.__js_helper$_next;
       }
     },
-    _addHashTableEntry$3(table, key, value) {
+    __js_helper$_addHashTableEntry$3(table, key, value) {
       var cell,
         t1 = A._instanceType(this);
       t1._precomputed1._as(key);
       t1._rest[1]._as(value);
       cell = table[key];
       if (cell == null)
-        table[key] = this._newLinkedCell$2(key, value);
+        table[key] = this.__js_helper$_newLinkedCell$2(key, value);
       else
         cell.hashMapCellValue = value;
     },
@@ -11177,19 +11229,19 @@
       return cell.hashMapCellValue;
     },
     __js_helper$_modified$0() {
-      this._modifications = this._modifications + 1 & 1073741823;
+      this.__js_helper$_modifications = this.__js_helper$_modifications + 1 & 1073741823;
     },
-    _newLinkedCell$2(key, value) {
+    __js_helper$_newLinkedCell$2(key, value) {
       var _this = this,
         t1 = A._instanceType(_this),
         cell = new A.LinkedHashMapCell(t1._precomputed1._as(key), t1._rest[1]._as(value));
-      if (_this._first == null)
-        _this._first = _this.__js_helper$_last = cell;
+      if (_this.__js_helper$_first == null)
+        _this.__js_helper$_first = _this.__js_helper$_last = cell;
       else {
         t1 = _this.__js_helper$_last;
         t1.toString;
-        cell._previous = t1;
-        _this.__js_helper$_last = t1._next = cell;
+        cell.__js_helper$_previous = t1;
+        _this.__js_helper$_last = t1.__js_helper$_next = cell;
       }
       ++_this.__js_helper$_length;
       _this.__js_helper$_modified$0();
@@ -11197,16 +11249,16 @@
     },
     __js_helper$_unlinkCell$1(cell) {
       var _this = this,
-        previous = cell._previous,
-        next = cell._next;
+        previous = cell.__js_helper$_previous,
+        next = cell.__js_helper$_next;
       if (previous == null)
-        _this._first = next;
+        _this.__js_helper$_first = next;
       else
-        previous._next = next;
+        previous.__js_helper$_next = next;
       if (next == null)
         _this.__js_helper$_last = previous;
       else
-        next._previous = previous;
+        next.__js_helper$_previous = previous;
       --_this.__js_helper$_length;
       _this.__js_helper$_modified$0();
     },
@@ -11265,8 +11317,8 @@
     },
     get$iterator(_) {
       var t1 = this._map,
-        t2 = new A.LinkedHashMapKeyIterator(t1, t1._modifications, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
-      t2._cell = t1._first;
+        t2 = new A.LinkedHashMapKeyIterator(t1, t1.__js_helper$_modifications, this.$ti._eval$1("LinkedHashMapKeyIterator<1>"));
+      t2.__js_helper$_cell = t1.__js_helper$_first;
       return t2;
     },
     contains$1(_, element) {
@@ -11276,13 +11328,13 @@
       var t1, cell, modifications;
       this.$ti._eval$1("~(1)")._as(f);
       t1 = this._map;
-      cell = t1._first;
-      modifications = t1._modifications;
+      cell = t1.__js_helper$_first;
+      modifications = t1.__js_helper$_modifications;
       for (; cell != null;) {
         f.call$1(cell.hashMapCellKey);
-        if (modifications !== t1._modifications)
+        if (modifications !== t1.__js_helper$_modifications)
           throw A.wrapException(A.ConcurrentModificationError$(t1));
-        cell = cell._next;
+        cell = cell.__js_helper$_next;
       }
     }
   };
@@ -11293,15 +11345,15 @@
     moveNext$0() {
       var cell, _this = this,
         t1 = _this._map;
-      if (_this._modifications !== t1._modifications)
+      if (_this.__js_helper$_modifications !== t1.__js_helper$_modifications)
         throw A.wrapException(A.ConcurrentModificationError$(t1));
-      cell = _this._cell;
+      cell = _this.__js_helper$_cell;
       if (cell == null) {
         _this.set$__js_helper$_current(null);
         return false;
       } else {
         _this.set$__js_helper$_current(cell.hashMapCellKey);
-        _this._cell = cell._next;
+        _this.__js_helper$_cell = cell.__js_helper$_next;
         return true;
       }
     },
@@ -11742,13 +11794,13 @@
     call$0() {
       this.callback.call$0();
     },
-    $signature: 1
+    $signature: 2
   };
   A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback.prototype = {
     call$0() {
       this.callback.call$0();
     },
-    $signature: 1
+    $signature: 2
   };
   A._TimerImpl.prototype = {
     _TimerImpl$2(milliseconds, callback) {
@@ -11793,7 +11845,7 @@
     call$1(result) {
       return this.bodyFunction.call$2(0, result);
     },
-    $signature: 6
+    $signature: 7
   };
   A._awaitOnObject_closure0.prototype = {
     call$2(error, stackTrace) {
@@ -12875,8 +12927,8 @@
   A._LinkedHashSet.prototype = {
     get$iterator(_) {
       var _this = this,
-        t1 = new A._LinkedHashSetIterator(_this, _this._collection$_modifications, A._instanceType(_this)._eval$1("_LinkedHashSetIterator<1>"));
-      t1._collection$_cell = _this._collection$_first;
+        t1 = new A._LinkedHashSetIterator(_this, _this._modifications, A._instanceType(_this)._eval$1("_LinkedHashSetIterator<1>"));
+      t1._cell = _this._first;
       return t1;
     },
     get$length(_) {
@@ -12907,13 +12959,13 @@
       var cell, modifications, _this = this,
         t1 = A._instanceType(_this);
       t1._eval$1("~(1)")._as(action);
-      cell = _this._collection$_first;
-      modifications = _this._collection$_modifications;
+      cell = _this._first;
+      modifications = _this._modifications;
       for (t1 = t1._precomputed1; cell != null;) {
-        action.call$1(t1._as(cell._collection$_element));
-        if (modifications !== _this._collection$_modifications)
+        action.call$1(t1._as(cell._element));
+        if (modifications !== _this._modifications)
           throw A.wrapException(A.ConcurrentModificationError$(_this));
-        cell = cell._collection$_next;
+        cell = cell._next;
       }
     },
     add$1(_, element) {
@@ -12921,10 +12973,10 @@
       A._instanceType(_this)._precomputed1._as(element);
       if (typeof element == "string" && element !== "__proto__") {
         strings = _this._strings;
-        return _this._collection$_addHashTableEntry$2(strings == null ? _this._strings = A._LinkedHashSet__newHashTable() : strings, element);
+        return _this._addHashTableEntry$2(strings == null ? _this._strings = A._LinkedHashSet__newHashTable() : strings, element);
       } else if (typeof element == "number" && (element & 1073741823) === element) {
         nums = _this._nums;
-        return _this._collection$_addHashTableEntry$2(nums == null ? _this._nums = A._LinkedHashSet__newHashTable() : nums, element);
+        return _this._addHashTableEntry$2(nums == null ? _this._nums = A._LinkedHashSet__newHashTable() : nums, element);
       } else
         return _this._add$1(element);
     },
@@ -12937,11 +12989,11 @@
       hash = _this._computeHashCode$1(element);
       bucket = rest[hash];
       if (bucket == null)
-        rest[hash] = [_this._collection$_newLinkedCell$1(element)];
+        rest[hash] = [_this._newLinkedCell$1(element)];
       else {
         if (_this._findBucketIndex$2(bucket, element) >= 0)
           return false;
-        bucket.push(_this._collection$_newLinkedCell$1(element));
+        bucket.push(_this._newLinkedCell$1(element));
       }
       return true;
     },
@@ -12973,16 +13025,16 @@
     clear$0(_) {
       var _this = this;
       if (_this._collection$_length > 0) {
-        _this._strings = _this._nums = _this._collection$_rest = _this._collection$_first = _this._last = null;
+        _this._strings = _this._nums = _this._collection$_rest = _this._first = _this._last = null;
         _this._collection$_length = 0;
         _this._modified$0();
       }
     },
-    _collection$_addHashTableEntry$2(table, element) {
+    _addHashTableEntry$2(table, element) {
       A._instanceType(this)._precomputed1._as(element);
       if (type$.nullable__LinkedHashSetCell._as(table[element]) != null)
         return false;
-      table[element] = this._collection$_newLinkedCell$1(element);
+      table[element] = this._newLinkedCell$1(element);
       return true;
     },
     _removeHashTableEntry$2(table, element) {
@@ -12997,18 +13049,18 @@
       return true;
     },
     _modified$0() {
-      this._collection$_modifications = this._collection$_modifications + 1 & 1073741823;
+      this._modifications = this._modifications + 1 & 1073741823;
     },
-    _collection$_newLinkedCell$1(element) {
+    _newLinkedCell$1(element) {
       var t1, _this = this,
         cell = new A._LinkedHashSetCell(A._instanceType(_this)._precomputed1._as(element));
-      if (_this._collection$_first == null)
-        _this._collection$_first = _this._last = cell;
+      if (_this._first == null)
+        _this._first = _this._last = cell;
       else {
         t1 = _this._last;
         t1.toString;
-        cell._collection$_previous = t1;
-        _this._last = t1._collection$_next = cell;
+        cell._previous = t1;
+        _this._last = t1._next = cell;
       }
       ++_this._collection$_length;
       _this._modified$0();
@@ -13016,16 +13068,16 @@
     },
     _unlinkCell$1(cell) {
       var _this = this,
-        previous = cell._collection$_previous,
-        next = cell._collection$_next;
+        previous = cell._previous,
+        next = cell._next;
       if (previous == null)
-        _this._collection$_first = next;
+        _this._first = next;
       else
-        previous._collection$_next = next;
+        previous._next = next;
       if (next == null)
         _this._last = previous;
       else
-        next._collection$_previous = previous;
+        next._previous = previous;
       --_this._collection$_length;
       _this._modified$0();
     },
@@ -13038,7 +13090,7 @@
         return -1;
       $length = bucket.length;
       for (i = 0; i < $length; ++i)
-        if (J.$eq$(bucket[i]._collection$_element, element))
+        if (J.$eq$(bucket[i]._element, element))
           return i;
       return -1;
     }
@@ -13051,16 +13103,16 @@
     },
     moveNext$0() {
       var _this = this,
-        cell = _this._collection$_cell,
+        cell = _this._cell,
         t1 = _this._set;
-      if (_this._collection$_modifications !== t1._collection$_modifications)
+      if (_this._modifications !== t1._modifications)
         throw A.wrapException(A.ConcurrentModificationError$(t1));
       else if (cell == null) {
         _this.set$_collection$_current(null);
         return false;
       } else {
-        _this.set$_collection$_current(_this.$ti._eval$1("1?")._as(cell._collection$_element));
-        _this._collection$_cell = cell._collection$_next;
+        _this.set$_collection$_current(_this.$ti._eval$1("1?")._as(cell._element));
+        _this._cell = cell._next;
         return true;
       }
     },
@@ -13080,7 +13132,7 @@
       return new A.ListIterator(receiver, this.get$length(receiver), A.instanceType(receiver)._eval$1("ListIterator<ListBase.E>"));
     },
     elementAt$1(receiver, index) {
-      return this.$index(receiver, A._asInt(index));
+      return this.$index(receiver, index);
     },
     forEach$1(receiver, action) {
       var $length, i;
@@ -13204,6 +13256,9 @@
       else
         for (i = 0; i < $length; ++i)
           this.$indexSet(receiver, start + i, t1.$index(otherList, otherStart + i));
+    },
+    get$reversed(receiver) {
+      return new A.ReversedListIterable(receiver, A.instanceType(receiver)._eval$1("ReversedListIterable<ListBase.E>"));
     },
     toString$0(receiver) {
       return A.Iterable_iterableToFullString(receiver, "[", "]");
@@ -13527,9 +13582,7 @@
       return t1.get$length(t1);
     },
     elementAt$1(_, index) {
-      var t1;
-      A._asInt(index);
-      t1 = this._parent;
+      var t1 = this._parent;
       if (t1._processed == null)
         t1 = t1.get$keys().elementAt$1(0, index);
       else {
@@ -14634,7 +14687,6 @@
     },
     elementAt$1(_, index) {
       var iterator, skipCount;
-      A._asInt(index);
       A.RangeError_checkNotNegative(index, "index");
       iterator = this.get$iterator(this);
       for (skipCount = index; iterator.moveNext$0();) {
@@ -15003,7 +15055,7 @@
     call$1(s) {
       return A._Uri__uriEncode(B.List_XRg0, A._asString(s), B.C_Utf8Codec, false);
     },
-    $signature: 7
+    $signature: 8
   };
   A._Uri__makeQuery_writeParameter.prototype = {
     call$2(key, value) {
@@ -15430,7 +15482,7 @@
   };
   A._ChildrenElementList.prototype = {
     get$isEmpty(_) {
-      return this._element.firstElementChild == null;
+      return this._html$_element.firstElementChild == null;
     },
     get$length(_) {
       return this._childElements.length;
@@ -15449,14 +15501,14 @@
       t1 = this._childElements;
       if (!(index >= 0 && index < t1.length))
         return A.ioore(t1, index);
-      this._element.replaceChild(value, t1[index]).toString;
+      this._html$_element.replaceChild(value, t1[index]).toString;
     },
     set$length(_, newLength) {
       throw A.wrapException(A.UnsupportedError$("Cannot resize element lists"));
     },
     add$1(_, value) {
       type$.Element._as(value);
-      this._element.appendChild(value).toString;
+      this._html$_element.appendChild(value).toString;
       return value;
     },
     get$iterator(_) {
@@ -15468,7 +15520,7 @@
       throw A.wrapException(A.UnsupportedError$("Cannot sort element lists"));
     },
     remove$1(_, object) {
-      return A._ChildrenElementList__remove(this._element, object);
+      return A._ChildrenElementList__remove(this._html$_element, object);
     }
   };
   A._FrozenElementList.prototype = {
@@ -15560,33 +15612,31 @@
       }
     },
     createFragment$3$treeSanitizer$validator(receiver, html, treeSanitizer, validator) {
-      var t1, t2, t3, contextElement, fragment;
-      if (validator == null) {
-        t1 = $.Element__defaultValidator;
+      var t1, t2, contextElement, fragment;
+      if (treeSanitizer == null) {
+        if (validator == null) {
+          t1 = $.Element__defaultValidator;
+          if (t1 == null) {
+            t1 = A._setArrayType([], type$.JSArray_NodeValidator);
+            t2 = new A.NodeValidatorBuilder(t1);
+            B.JSArray_methods.add$1(t1, A._Html5NodeValidator$(null));
+            B.JSArray_methods.add$1(t1, A._TemplatingNodeValidator$());
+            $.Element__defaultValidator = t2;
+            validator = t2;
+          } else
+            validator = t1;
+        }
+        t1 = $.Element__defaultSanitizer;
         if (t1 == null) {
-          t1 = A._setArrayType([], type$.JSArray_NodeValidator);
-          t2 = new A.NodeValidatorBuilder(t1);
-          t3 = document.createElement("a");
-          t3.toString;
-          t3 = new A._SameOriginUriPolicy(t3, type$.Location._as(window.location));
-          t3 = new A._Html5NodeValidator(t3);
-          t3._Html5NodeValidator$1$uriPolicy(null);
-          B.JSArray_methods.add$1(t1, t3);
-          B.JSArray_methods.add$1(t1, A._TemplatingNodeValidator$());
-          $.Element__defaultValidator = t2;
-          validator = t2;
-        } else
-          validator = t1;
-      }
-      t1 = $.Element__defaultSanitizer;
-      if (t1 == null) {
-        t1 = new A._ValidatingTreeSanitizer(validator);
-        $.Element__defaultSanitizer = t1;
-        treeSanitizer = t1;
-      } else {
-        t1.validator = validator;
-        treeSanitizer = t1;
-      }
+          t1 = new A._ValidatingTreeSanitizer(validator);
+          $.Element__defaultSanitizer = t1;
+          treeSanitizer = t1;
+        } else {
+          t1.validator = validator;
+          treeSanitizer = t1;
+        }
+      } else if (validator != null)
+        throw A.wrapException(A.ArgumentError$("validator can only be passed if treeSanitizer is null", null));
       if ($.Element__parseDocument == null) {
         t1 = document;
         t2 = t1.implementation;
@@ -15647,6 +15697,16 @@
       treeSanitizer.sanitizeTree$1(fragment);
       document.adoptNode(fragment).toString;
       return fragment;
+    },
+    createFragment$2$treeSanitizer($receiver, html, treeSanitizer) {
+      return this.createFragment$3$treeSanitizer$validator($receiver, html, treeSanitizer, null);
+    },
+    set$innerHtml(receiver, html) {
+      this.setInnerHtml$1(receiver, html);
+    },
+    setInnerHtml$1(receiver, html) {
+      this.set$text(receiver, null);
+      receiver.appendChild(this.createFragment$3$treeSanitizer$validator(receiver, html, null, null)).toString;
     },
     set$_innerHtml(receiver, value) {
       receiver.innerHTML = value;
@@ -15741,7 +15801,6 @@
       throw A.wrapException(A.UnsupportedError$("Cannot resize immutable List."));
     },
     elementAt$1(receiver, index) {
-      A._asInt(index);
       if (!(index >= 0 && index < receiver.length))
         return A.ioore(receiver, index);
       return receiver[index];
@@ -15830,8 +15889,36 @@
         throw A.wrapException(A.StateError$("No elements"));
       return result;
     },
+    get$single(_) {
+      var t1 = this._this,
+        l = t1.childNodes.length;
+      if (l === 0)
+        throw A.wrapException(A.StateError$("No elements"));
+      if (l > 1)
+        throw A.wrapException(A.StateError$("More than one element"));
+      t1 = t1.firstChild;
+      t1.toString;
+      return t1;
+    },
     add$1(_, value) {
       this._this.appendChild(type$.Node._as(value)).toString;
+    },
+    addAll$1(_, iterable) {
+      var t1, t2, len, i, t3;
+      type$.Iterable_Node._as(iterable);
+      if (iterable instanceof A._ChildNodeListLazy) {
+        t1 = iterable._this;
+        t2 = this._this;
+        if (t1 !== t2)
+          for (len = t1.childNodes.length, i = 0; i < len; ++i) {
+            t3 = t1.firstChild;
+            t3.toString;
+            t2.appendChild(t3).toString;
+          }
+        return;
+      }
+      for (t1 = iterable.get$iterator(iterable), t2 = this._this; t1.moveNext$0();)
+        t2.appendChild(t1.get$current()).toString;
     },
     remove$1(_, object) {
       return false;
@@ -15885,9 +15972,17 @@
       }
       return receiver;
     },
+    _clearChildren$0(receiver) {
+      var t1;
+      for (; t1 = receiver.firstChild, t1 != null;)
+        receiver.removeChild(t1).toString;
+    },
     toString$0(receiver) {
       var value = receiver.nodeValue;
       return value == null ? this.super$Interceptor$toString(receiver) : value;
+    },
+    set$text(receiver, value) {
+      receiver.textContent = value;
     },
     clone$1(receiver, deep) {
       var t1 = receiver.cloneNode(true);
@@ -15937,7 +16032,6 @@
       throw A.wrapException(A.UnsupportedError$("Cannot resize immutable List."));
     },
     elementAt$1(receiver, index) {
-      A._asInt(index);
       if (!(index >= 0 && index < receiver.length))
         return A.ioore(receiver, index);
       return receiver[index];
@@ -15948,13 +16042,78 @@
     $isIterable: 1,
     $isList: 1
   };
+  A.OListElement.prototype = {
+    get$reversed(receiver) {
+      return receiver.reversed;
+    }
+  };
   A.ProgressEvent.prototype = {$isProgressEvent: 1};
   A.SelectElement.prototype = {
     get$length(receiver) {
       return receiver.length;
     }
   };
-  A.TemplateElement.prototype = {$isTemplateElement: 1};
+  A.TableElement.prototype = {
+    createFragment$3$treeSanitizer$validator(receiver, html, treeSanitizer, validator) {
+      var table,
+        t1 = "createContextualFragment" in window.Range.prototype;
+      t1.toString;
+      if (t1)
+        return this.super$Element$createFragment(receiver, html, treeSanitizer, validator);
+      table = A.Element_Element$html("<table>" + html + "</table>", treeSanitizer, validator);
+      t1 = document.createDocumentFragment();
+      t1.toString;
+      new A._ChildNodeListLazy(t1).addAll$1(0, new A._ChildNodeListLazy(table));
+      return t1;
+    }
+  };
+  A.TableRowElement.prototype = {
+    createFragment$3$treeSanitizer$validator(receiver, html, treeSanitizer, validator) {
+      var t2,
+        t1 = "createContextualFragment" in window.Range.prototype;
+      t1.toString;
+      if (t1)
+        return this.super$Element$createFragment(receiver, html, treeSanitizer, validator);
+      t1 = document;
+      t2 = t1.createDocumentFragment();
+      t2.toString;
+      t1 = t1.createElement("table");
+      t1.toString;
+      t1 = new A._ChildNodeListLazy(B.TableElement_methods.createFragment$3$treeSanitizer$validator(t1, html, treeSanitizer, validator));
+      t1 = new A._ChildNodeListLazy(t1.get$single(t1));
+      new A._ChildNodeListLazy(t2).addAll$1(0, new A._ChildNodeListLazy(t1.get$single(t1)));
+      return t2;
+    }
+  };
+  A.TableSectionElement.prototype = {
+    createFragment$3$treeSanitizer$validator(receiver, html, treeSanitizer, validator) {
+      var t2,
+        t1 = "createContextualFragment" in window.Range.prototype;
+      t1.toString;
+      if (t1)
+        return this.super$Element$createFragment(receiver, html, treeSanitizer, validator);
+      t1 = document;
+      t2 = t1.createDocumentFragment();
+      t2.toString;
+      t1 = t1.createElement("table");
+      t1.toString;
+      t1 = new A._ChildNodeListLazy(B.TableElement_methods.createFragment$3$treeSanitizer$validator(t1, html, treeSanitizer, validator));
+      new A._ChildNodeListLazy(t2).addAll$1(0, new A._ChildNodeListLazy(t1.get$single(t1)));
+      return t2;
+    }
+  };
+  A.TemplateElement.prototype = {
+    setInnerHtml$1(receiver, html) {
+      var t1, fragment;
+      this.set$text(receiver, null);
+      t1 = receiver.content;
+      t1.toString;
+      J._clearChildren$0$x(t1);
+      fragment = this.createFragment$3$treeSanitizer$validator(receiver, html, null, null);
+      receiver.content.appendChild(fragment).toString;
+    },
+    $isTemplateElement: 1
+  };
   A.Text.prototype = {$isText: 1};
   A.TextAreaElement.prototype = {
     set$value(receiver, value) {
@@ -16005,7 +16164,6 @@
       throw A.wrapException(A.UnsupportedError$("Cannot resize immutable List."));
     },
     elementAt$1(receiver, index) {
-      A._asInt(index);
       if (!(index >= 0 && index < receiver.length))
         return A.ioore(receiver, index);
       return receiver[index];
@@ -16020,7 +16178,7 @@
     putIfAbsent$2(key, ifAbsent) {
       var t1, t2;
       type$.String_Function._as(ifAbsent);
-      t1 = this._element;
+      t1 = this._html$_element;
       t2 = t1.hasAttribute(key);
       t2.toString;
       if (!t2)
@@ -16031,7 +16189,7 @@
     forEach$1(_, f) {
       var t1, t2, t3, _i, t4, value;
       type$.void_Function_String_String._as(f);
-      for (t1 = this.get$keys(), t2 = t1.length, t3 = this._element, _i = 0; _i < t1.length; t1.length === t2 || (0, A.throwConcurrentModificationError)(t1), ++_i) {
+      for (t1 = this.get$keys(), t2 = t1.length, t3 = this._html$_element, _i = 0; _i < t1.length; t1.length === t2 || (0, A.throwConcurrentModificationError)(t1), ++_i) {
         t4 = A._asString(t1[_i]);
         value = t3.getAttribute(t4);
         f.call$2(t4, value == null ? A._asString(value) : value);
@@ -16039,7 +16197,7 @@
     },
     get$keys() {
       var keys, len, t2, i, attr, t3,
-        t1 = this._element.attributes;
+        t1 = this._html$_element.attributes;
       t1.toString;
       keys = A._setArrayType([], type$.JSArray_String);
       for (len = t1.length, t2 = type$._Attr, i = 0; i < len; ++i) {
@@ -16060,20 +16218,20 @@
   };
   A._ElementAttributeMap.prototype = {
     containsKey$1(key) {
-      var t1 = this._element.hasAttribute(key);
+      var t1 = this._html$_element.hasAttribute(key);
       t1.toString;
       return t1;
     },
     $index(_, key) {
-      return this._element.getAttribute(A._asString(key));
+      return this._html$_element.getAttribute(A._asString(key));
     },
     $indexSet(_, key, value) {
-      this._element.setAttribute(A._asString(key), A._asString(value));
+      this._html$_element.setAttribute(A._asString(key), A._asString(value));
     },
     remove$1(_, key) {
       var t1, value;
       if (typeof key == "string") {
-        t1 = this._element;
+        t1 = this._html$_element;
         value = t1.getAttribute(key);
         t1.removeAttribute(key);
         t1 = value;
@@ -16089,7 +16247,7 @@
     readClasses$0() {
       var t1, t2, _i, trimmed,
         s = A.LinkedHashSet_LinkedHashSet(type$.String);
-      for (t1 = this._element.className.split(" "), t2 = t1.length, _i = 0; _i < t2; ++_i) {
+      for (t1 = this._html$_element.className.split(" "), t2 = t1.length, _i = 0; _i < t2; ++_i) {
         trimmed = J.trim$0$s(t1[_i]);
         if (trimmed.length !== 0)
           s.add$1(0, trimmed);
@@ -16097,22 +16255,22 @@
       return s;
     },
     writeClasses$1(s) {
-      this._element.className = type$.Set_String._as(s).join$1(0, " ");
+      this._html$_element.className = type$.Set_String._as(s).join$1(0, " ");
     },
     get$length(_) {
-      var t1 = this._element.classList.length;
+      var t1 = this._html$_element.classList.length;
       t1.toString;
       return t1;
     },
     get$isEmpty(_) {
-      var t1 = this._element.classList.length;
+      var t1 = this._html$_element.classList.length;
       t1.toString;
       return t1 === 0;
     },
     add$1(_, value) {
       var list, t1;
       A._asString(value);
-      list = this._element.classList;
+      list = this._html$_element.classList;
       t1 = list.contains(value);
       t1.toString;
       list.add(value);
@@ -16121,7 +16279,7 @@
     remove$1(_, value) {
       var list, t1;
       if (typeof value == "string") {
-        list = this._element.classList;
+        list = this._html$_element.classList;
         t1 = list.contains(value);
         t1.toString;
         list.remove(value);
@@ -16299,13 +16457,13 @@
     call$1(x) {
       return !B.JSArray_methods.contains$1(B.List_Jwp, A._asString(x));
     },
-    $signature: 8
+    $signature: 9
   };
   A._SimpleNodeValidator_closure0.prototype = {
     call$1(x) {
       return B.JSArray_methods.contains$1(B.List_Jwp, A._asString(x));
     },
-    $signature: 8
+    $signature: 9
   };
   A._TemplatingNodeValidator.prototype = {
     allowsAttribute$3(element, attributeName, value) {
@@ -16322,7 +16480,26 @@
     call$1(attr) {
       return "TEMPLATE::" + A._asString(attr);
     },
-    $signature: 7
+    $signature: 8
+  };
+  A._SvgNodeValidator.prototype = {
+    allowsElement$1(element) {
+      var t1;
+      if (type$.ScriptElement._is(element))
+        return false;
+      t1 = type$.SvgElement._is(element);
+      if (t1 && A.Element__safeTagName(element) === "foreignObject")
+        return false;
+      if (t1)
+        return true;
+      return false;
+    },
+    allowsAttribute$3(element, attributeName, value) {
+      if (attributeName === "is" || B.JSString_methods.startsWith$1(attributeName, "on"))
+        return false;
+      return this.allowsElement$1(element);
+    },
+    $isNodeValidator: 1
   };
   A.FixedSizeListIterator.prototype = {
     moveNext$0() {
@@ -16385,7 +16562,7 @@
         attrs = null, isAttr = null;
       try {
         attrs = J.get$attributes$x(element);
-        isAttr = attrs._element.getAttribute("is");
+        isAttr = attrs._html$_element.getAttribute("is");
         type$.Element._as(element);
         t1 = function(element) {
           if (!(element.attributes instanceof NamedNodeMap))
@@ -16476,7 +16653,7 @@
         }
       t1 = attrs.get$keys();
       keys = A._setArrayType(t1.slice(0), A._arrayInstanceType(t1));
-      for (i = attrs.get$keys().length - 1, t1 = attrs._element, t2 = "Removing disallowed attribute <" + tag + " "; i >= 0; --i) {
+      for (i = attrs.get$keys().length - 1, t1 = attrs._html$_element, t2 = "Removing disallowed attribute <" + tag + " "; i >= 0; --i) {
         if (!(i < keys.length))
           return A.ioore(keys, i);
         $name = keys[i];
@@ -16681,7 +16858,7 @@
     },
     get$iterator(_) {
       var t1 = this.readClasses$0();
-      return A._LinkedHashSetIterator$(t1, t1._collection$_modifications, A._instanceType(t1)._precomputed1);
+      return A._LinkedHashSetIterator$(t1, t1._modifications, A._instanceType(t1)._precomputed1);
     },
     forEach$1(_, f) {
       type$.void_Function_String._as(f);
@@ -16766,6 +16943,10 @@
     add$1(_, value) {
       this._childNodes._this.appendChild(type$.Element._as(value)).toString;
     },
+    get$reversed(_) {
+      var t1 = A.List_List$from(this.get$_html_common$_iterable(), false, type$.Element);
+      return new A.ReversedListIterable(t1, A._arrayInstanceType(t1)._eval$1("ReversedListIterable<1>"));
+    },
     sort$1(_, compare) {
       type$.nullable_int_Function_Element_Element._as(compare);
       throw A.wrapException(A.UnsupportedError$("Cannot sort filtered list"));
@@ -16808,7 +16989,7 @@
     call$1(el) {
       return J.remove$0$ax(type$.Element._as(el));
     },
-    $signature: 5
+    $signature: 6
   };
   A.KeyRange.prototype = {$isKeyRange: 1};
   A.VersionChangeEvent.prototype = {
@@ -16944,7 +17125,7 @@
     call$1(r) {
       return this.completer.complete$1(0, this.T._eval$1("0/?")._as(r));
     },
-    $signature: 6
+    $signature: 7
   };
   A.promiseToFuture_closure0.prototype = {
     call$1(e) {
@@ -16952,7 +17133,7 @@
         return this.completer.completeError$1(new A.NullRejectionException(e === undefined));
       return this.completer.completeError$1(e);
     },
-    $signature: 6
+    $signature: 7
   };
   A.NullRejectionException.prototype = {
     toString$0(_) {
@@ -16960,6 +17141,7 @@
     },
     $isException: 1
   };
+  A.ScriptElement0.prototype = {$isScriptElement0: 1};
   A.AttributeClassSet.prototype = {
     readClasses$0() {
       var t1, t2, _i, trimmed,
@@ -16984,7 +17166,30 @@
     },
     get$children(receiver) {
       return new A.FilteredElementList(receiver, new A._ChildNodeListLazy(receiver));
-    }
+    },
+    set$innerHtml(receiver, value) {
+      this.setInnerHtml$1(receiver, value);
+    },
+    createFragment$3$treeSanitizer$validator(receiver, svg, treeSanitizer, validator) {
+      var t2, fragment, root,
+        t1 = A._setArrayType([], type$.JSArray_NodeValidator);
+      B.JSArray_methods.add$1(t1, A._Html5NodeValidator$(null));
+      B.JSArray_methods.add$1(t1, A._TemplatingNodeValidator$());
+      B.JSArray_methods.add$1(t1, new A._SvgNodeValidator());
+      treeSanitizer = new A._ValidatingTreeSanitizer(new A.NodeValidatorBuilder(t1));
+      t1 = document;
+      t2 = t1.body;
+      t2.toString;
+      fragment = B.BodyElement_methods.createFragment$2$treeSanitizer(t2, '<svg version="1.1">' + svg + "</svg>", treeSanitizer);
+      t1 = t1.createDocumentFragment();
+      t1.toString;
+      t2 = new A._ChildNodeListLazy(fragment);
+      root = t2.get$single(t2);
+      for (; t2 = root.firstChild, t2 != null;)
+        t1.appendChild(t2).toString;
+      return t1;
+    },
+    $isSvgElement: 1
   };
   A.CanonicalizedMap.prototype = {
     $index(_, key) {
@@ -17283,7 +17488,7 @@
         J.remove$0$ax(e);
       return null;
     },
-    $signature: 5
+    $signature: 6
   };
   A._EventUtil_add_closure.prototype = {
     call$0() {
@@ -17410,7 +17615,7 @@
       }
       return null;
     },
-    $signature: 9
+    $signature: 5
   };
   A._initNotSupportFocusinBubbles_closure.prototype = {
     call$1($event) {
@@ -17535,13 +17740,13 @@
       t1.toString;
       return t1;
     },
-    $signature: 5
+    $signature: 6
   };
   A._prependFunc_closure.prototype = {
     call$1(elem) {
       return J.insertBefore$2$x(this.ref, type$.Element._as(elem), this.before);
     },
-    $signature: 5
+    $signature: 6
   };
   A.__DocumentQuery__Query_ListMixin.prototype = {};
   A.__ElementQuery__Query_ListMixin.prototype = {};
@@ -17725,7 +17930,7 @@
     close$0(_) {
       var t1, t2, t3, t4;
       this._isClosed = true;
-      for (t1 = this._xhrs, t2 = A._LinkedHashSetIterator$(t1, t1._collection$_modifications, A._instanceType(t1)._precomputed1), t3 = t2.$ti._precomputed1; t2.moveNext$0();) {
+      for (t1 = this._xhrs, t2 = A._LinkedHashSetIterator$(t1, t1._modifications, A._instanceType(t1)._precomputed1), t3 = t2.$ti._precomputed1; t2.moveNext$0();) {
         t4 = t2._collection$_current;
         (t4 == null ? t3._as(t4) : t4).abort();
       }
@@ -17828,7 +18033,7 @@
     call$1(key) {
       return A._asString(key).toLowerCase();
     },
-    $signature: 7
+    $signature: 8
   };
   A.MediaType.prototype = {
     change$1$parameters(parameters) {
@@ -18167,13 +18372,13 @@
     call$1(part) {
       return A._asString(part) !== "";
     },
-    $signature: 8
+    $signature: 9
   };
   A.Context_split_closure.prototype = {
     call$1(part) {
       return A._asString(part).length !== 0;
     },
-    $signature: 8
+    $signature: 9
   };
   A._validateArgList_closure.prototype = {
     call$1(arg) {
@@ -19024,14 +19229,14 @@
       var t1 = this.startLine === this.line.number ? "\u250c" : "\u2514";
       this.$this._highlighter$_buffer._contents += t1;
     },
-    $signature: 1
+    $signature: 2
   };
   A.Highlighter__writeMultilineHighlights_closure0.prototype = {
     call$0() {
       var t1 = this.highlight == null ? "\u2500" : "\u253c";
       this.$this._highlighter$_buffer._contents += t1;
     },
-    $signature: 1
+    $signature: 2
   };
   A.Highlighter__writeMultilineHighlights_closure1.prototype = {
     call$0() {
@@ -19066,20 +19271,20 @@
         }
       }
     },
-    $signature: 1
+    $signature: 2
   };
   A.Highlighter__writeMultilineHighlights__closure.prototype = {
     call$0() {
       var t1 = this._box_0.openedOnThisLine ? "\u252c" : "\u250c";
       this.$this._highlighter$_buffer._contents += t1;
     },
-    $signature: 1
+    $signature: 2
   };
   A.Highlighter__writeMultilineHighlights__closure0.prototype = {
     call$0() {
       this.$this._highlighter$_buffer._contents += this.vertical;
     },
-    $signature: 1
+    $signature: 2
   };
   A.Highlighter__writeHighlightedText_closure.prototype = {
     call$0() {
@@ -19139,7 +19344,7 @@
       t3 = this.end;
       t2._contents = t1 + (t3 == null ? "\u2502" : t3);
     },
-    $signature: 1
+    $signature: 2
   };
   A._Highlight.prototype = {
     toString$0(_) {
@@ -19432,7 +19637,7 @@
       type$.Element._as(e).setAttribute(this.key, this.val);
       return null;
     },
-    $signature: 5
+    $signature: 6
   };
   A.NodeValidatorAllowAll.prototype = {
     allowsAttribute$3(element, attributeName, value) {
@@ -19502,7 +19707,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
   };
   A.main_closure1.prototype = {
     call$1(e) {
@@ -19540,7 +19745,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
   };
   A.main_closure2.prototype = {
     call$1(e) {
@@ -19579,7 +19784,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
   };
   A.main_closure3.prototype = {
     call$1(e) {
@@ -19610,7 +19815,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
   };
   A.main_closure4.prototype = {
     call$1(e) {
@@ -19634,7 +19839,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
   };
   A.main_closure5.prototype = {
     call$1(e) {
@@ -19678,7 +19883,7 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
   };
   A.main_closure6.prototype = {
     call$1(e) {
@@ -19759,7 +19964,21 @@
       });
       return A._asyncStartSync($async$call$1, $async$completer);
     },
-    $signature: 2
+    $signature: 1
+  };
+  A.main_closure7.prototype = {
+    call$1(e) {
+      type$.QueryEvent._as(e);
+      type$.Location._as(window.location).reload();
+    },
+    $signature: 5
+  };
+  A.main_closure8.prototype = {
+    call$1(e) {
+      type$.QueryEvent._as(e);
+      A._showHide(A.$("#links-gui", null)._elements, true);
+    },
+    $signature: 5
   };
   A.addBackendlessNotes_closure.prototype = {
     call$1(obj) {
@@ -19775,7 +19994,7 @@
   A.addBackendlessLinks_closure.prototype = {
     call$1(obj) {
       var t1 = J.getInterceptor$asx(obj);
-      A.addLinkTo(A._asString(t1.$index(obj, "name")), A._asString(t1.$index(obj, "href")), A._asString(t1.$index(obj, "category")), A._asString(t1.$index(obj, "objectId")));
+      A.addLinkTo(A._asString(t1.$index(obj, "name")), A._asString(t1.$index(obj, "href")), A._asString(t1.$index(obj, "category")), A._asInt(t1.$index(obj, "priority")), A._asString(t1.$index(obj, "objectId")));
     },
     $signature: 4
   };
@@ -19788,7 +20007,121 @@
         $.$get$_context().callMethod$2("open", [this.href]);
       e.get$button(e);
     },
-    $signature: 9
+    $signature: 5
+  };
+  A.addLinkTo_closure0.prototype = {
+    call$1(e) {
+      return this.$call$body$addLinkTo_closure0(type$.QueryEvent._as(e));
+    },
+    $call$body$addLinkTo_closure0(e) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        $async$self = this, t4, t5, t6, t7, t8, t9, t1, t2, t3;
+      var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              t1 = $async$self.oid;
+              t2 = type$.InputElement;
+              t3 = "" + $async$self.linkID;
+              $async$goto = t1 === "" ? 2 : 4;
+              break;
+            case 2:
+              // then
+              t1 = "#links-name-" + t3;
+              t4 = A.$(t1, null);
+              t4 = t2._as(t4.get$first(t4)).value;
+              t5 = "#links-href-" + t3;
+              t6 = A.$(t5, null);
+              t6 = t2._as(t6.get$first(t6)).value;
+              t7 = "#links-cate-" + t3;
+              t8 = A.$(t7, null);
+              t8 = t2._as(t8.get$first(t8)).value;
+              t3 = "#links-prio-" + t3;
+              t9 = A.$(t3, null);
+              t9 = t2._as(t9.get$first(t9)).value;
+              $async$goto = 5;
+              return A._asyncAwait(A.Data_add("links", A._setArrayType([A.LinkedHashMap_LinkedHashMap$_literal(["name", t4, "href", t6, "category", t8, "priority", A.int_parse(t9 == null ? A._asString(t9) : t9, null)], type$.String, type$.dynamic)], type$.JSArray_Map_String_dynamic)), $async$call$1);
+            case 5:
+              // returning from await.
+              t1 = A.$(t1, null);
+              B.InputElement_methods.set$value(t2._as(t1.get$first(t1)), "");
+              t5 = A.$(t5, null);
+              B.InputElement_methods.set$value(t2._as(t5.get$first(t5)), "");
+              t7 = A.$(t7, null);
+              B.InputElement_methods.set$value(t2._as(t7.get$first(t7)), "");
+              t3 = A.$(t3, null);
+              B.InputElement_methods.set$value(t2._as(t3.get$first(t3)), "0");
+              // goto join
+              $async$goto = 3;
+              break;
+            case 4:
+              // else
+              t4 = A.$("#links-name-" + t3, null);
+              t4 = t2._as(t4.get$first(t4)).value;
+              t5 = A.$("#links-href-" + t3, null);
+              t5 = t2._as(t5.get$first(t5)).value;
+              t6 = A.$("#links-cate-" + t3, null);
+              t6 = t2._as(t6.get$first(t6)).value;
+              t3 = A.$("#links-prio-" + t3, null);
+              t3 = t2._as(t3.get$first(t3)).value;
+              $async$goto = 6;
+              return A._asyncAwait(A.Data_update("links", t1, A.LinkedHashMap_LinkedHashMap$_literal(["name", t4, "href", t5, "category", t6, "priority", A.int_parse(t3 == null ? A._asString(t3) : t3, null)], type$.String, type$.dynamic)), $async$call$1);
+            case 6:
+              // returning from await.
+            case 3:
+              // join
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$1, $async$completer);
+    },
+    $signature: 1
+  };
+  A.addLinkTo_closure1.prototype = {
+    call$1(e) {
+      return this.$call$body$addLinkTo_closure(type$.QueryEvent._as(e));
+    },
+    $call$body$addLinkTo_closure(e) {
+      var $async$goto = 0,
+        $async$completer = A._makeAsyncAwaitCompleter(type$.void),
+        $async$self = this, t2, t1;
+      var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
+        if ($async$errorCode === 1)
+          return A._asyncRethrow($async$result, $async$completer);
+        while (true)
+          switch ($async$goto) {
+            case 0:
+              // Function start
+              t1 = $async$self.oid;
+              if (t1 !== "") {
+                t2 = window;
+                t2.toString;
+                t2 = B.Window_methods.confirm$1(t2, "delete link?");
+              } else
+                t2 = false;
+              $async$goto = t2 ? 2 : 3;
+              break;
+            case 2:
+              // then
+              $async$goto = 4;
+              return A._asyncAwait(A.Data_delete("links", t1), $async$call$1);
+            case 4:
+              // returning from await.
+              A.$("#links-container-" + $async$self.linkID, null).detach$0(0);
+            case 3:
+              // join
+              // implicit return
+              return A._asyncReturn(null, $async$completer);
+          }
+      });
+      return A._asyncStartSync($async$call$1, $async$completer);
+    },
+    $signature: 1
   };
   A.addBackendlessTodos_closure.prototype = {
     call$1(obj) {
@@ -19855,7 +20188,7 @@
       A.MapAttr_attr(A.$("#c-task-" + t2 + "-img", _null), A.LinkedHashMap_LinkedHashMap$_literal(["src", "assets/icons/" + t1.icon + ".svg"], type$.String, type$.Object));
       e.preventDefault$0(0);
     },
-    $signature: 9
+    $signature: 5
   };
   A.addNote_closure.prototype = {
     call$1(e) {
@@ -19879,7 +20212,7 @@
       t1.toString;
       B.TextAreaElement_methods.set$value(t3, t1);
     },
-    $signature: 9
+    $signature: 5
   };
   (function aliases() {
     var _ = J.Interceptor.prototype;
@@ -19897,6 +20230,8 @@
     _.super$Iterable$where = _.where$1;
     _ = A.Object.prototype;
     _.super$Object$toString = _.toString$0;
+    _ = A.Element.prototype;
+    _.super$Element$createFragment = _.createFragment$3$treeSanitizer$validator;
     _ = A._SimpleNodeValidator.prototype;
     _.super$_SimpleNodeValidator$allowsAttribute = _.allowsAttribute$3;
     _ = A.JsObject.prototype;
@@ -19926,7 +20261,7 @@
     _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 14);
     _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 14);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 0);
-    _static_1(A, "async___nullDataHandler$closure", "_nullDataHandler", 6);
+    _static_1(A, "async___nullDataHandler$closure", "_nullDataHandler", 7);
     _instance(A._Completer.prototype, "get$completeError", 0, 1, function() {
       return [null];
     }, ["call$2", "call$1"], ["completeError$2", "completeError$1"], 75, 0, 0);
@@ -19941,7 +20276,7 @@
     _instance_0_i(_, "get$close", "close$0", 0);
     _static_1(A, "core__identityHashCode$closure", "identityHashCode", 31);
     _static_2(A, "core__identical$closure", "identical", 30);
-    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 7);
+    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 8);
     _static(A, "html__Html5NodeValidator__standardAttributeValidator$closure", 4, null, ["call$4"], ["_Html5NodeValidator__standardAttributeValidator"], 32, 0);
     _static(A, "html__Html5NodeValidator__uriAttributeValidator$closure", 4, null, ["call$4"], ["_Html5NodeValidator__uriAttributeValidator"], 32, 0);
     _instance_2_i(A.HttpRequest.prototype, "get$setRequestHeader", "setRequestHeader$2", 22);
@@ -19962,7 +20297,7 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(A.Object, null);
-    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A.Error, A.ListBase, A.Closure, A.SentinelValue, A.Iterable, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A.Symbol, A.MapView, A.ConstantMap, A.JSInvocationMirror, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A._Required, A.MapBase, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A.AsyncError, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A._StreamController, A._AsyncStreamControllerDispatch, A._BufferingStreamSubscription, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._DoneStreamSubscription, A._StreamIterator, A._Zone, A.SetBase, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._UnmodifiableMapMixin, A.Codec, A.Converter, A._Base64Encoder, A.ByteConversionSink, A._JsonStringifier, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A.CssStyleDeclarationBase, A.EventStreamProvider, A._EventStreamSubscription, A._Html5NodeValidator, A.ImmutableListMixin, A.NodeValidatorBuilder, A._SimpleNodeValidator, A.FixedSizeListIterator, A._DOMWindowCrossFrame, A._SameOriginUriPolicy, A._ValidatingTreeSanitizer, A._AcceptStructuredClone, A.JsObject, A.NullRejectionException, A.CanonicalizedMap, A._Storage, A._Query, A._HandleObjectContext, A._HandlerQueueEntry, A._HandleObject, A._SpecialEventHandler, A.QueryEvent, A.BaseClient, A.BaseRequest, A.BaseResponse, A.ClientException, A.MediaType, A.Context, A.Style, A.ParsedPath, A.PathException, A.SourceFile, A.SourceLocationMixin, A.SourceSpanMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.SourceSpanException, A.StringScanner, A.DataQuery, A.NodeValidatorAllowAll]);
+    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A.Error, A.ListBase, A.Closure, A.SentinelValue, A.Iterable, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A.Symbol, A.MapView, A.ConstantMap, A.JSInvocationMirror, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A._Required, A.MapBase, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A.AsyncError, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A._StreamController, A._AsyncStreamControllerDispatch, A._BufferingStreamSubscription, A._DelayedEvent, A._DelayedDone, A._PendingEvents, A._DoneStreamSubscription, A._StreamIterator, A._Zone, A.SetBase, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._UnmodifiableMapMixin, A.Codec, A.Converter, A._Base64Encoder, A.ByteConversionSink, A._JsonStringifier, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Expando, A.CssStyleDeclarationBase, A.EventStreamProvider, A._EventStreamSubscription, A._Html5NodeValidator, A.ImmutableListMixin, A.NodeValidatorBuilder, A._SimpleNodeValidator, A._SvgNodeValidator, A.FixedSizeListIterator, A._DOMWindowCrossFrame, A._SameOriginUriPolicy, A._ValidatingTreeSanitizer, A._AcceptStructuredClone, A.JsObject, A.NullRejectionException, A.CanonicalizedMap, A._Storage, A._Query, A._HandleObjectContext, A._HandlerQueueEntry, A._HandleObject, A._SpecialEventHandler, A.QueryEvent, A.BaseClient, A.BaseRequest, A.BaseResponse, A.ClientException, A.MediaType, A.Context, A.Style, A.ParsedPath, A.PathException, A.SourceFile, A.SourceLocationMixin, A.SourceSpanMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.SourceSpanException, A.StringScanner, A.DataQuery, A.NodeValidatorAllowAll]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JSNumber, J.JSString]);
     _inheritMany(J.JavaScriptObject, [J.LegacyJavaScriptObject, J.JSArray, A.NativeByteBuffer, A.NativeTypedData, A.EventTarget, A.Blob, A._CssStyleDeclaration_JavaScriptObject_CssStyleDeclarationBase, A.DomException, A.DomImplementation, A.DomTokenList, A.Event, A._HtmlCollection_JavaScriptObject_ListMixin, A.ImageData, A.Location, A._NodeList_JavaScriptObject_ListMixin, A.__NamedNodeMap_JavaScriptObject_ListMixin, A.KeyRange]);
     _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction]);
@@ -19971,7 +20306,7 @@
     _inheritMany(A.Error, [A.LateError, A.TypeError, A.JsNoSuchMethodError, A.UnknownJsTypeError, A._CyclicInitializationError, A.RuntimeError, A.AssertionError, A._Error, A.JsonUnsupportedObjectError, A.ArgumentError, A.NoSuchMethodError, A.UnsupportedError, A.UnimplementedError, A.StateError, A.ConcurrentModificationError]);
     _inheritMany(A.ListBase, [A.UnmodifiableListBase, A._ChildrenElementList, A._FrozenElementList, A._ChildNodeListLazy, A.FilteredElementList]);
     _inherit(A.CodeUnits, A.UnmodifiableListBase);
-    _inheritMany(A.Closure, [A.Closure0Args, A.Instantiation, A.Closure2Args, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_forEach_closure0, A.Stream_forEach__closure0, A.Stream_length_closure, A.Stream_isEmpty_closure0, A.Stream_first_closure0, A._RootZone_bindUnaryCallbackGuarded_closure, A._LinkedCustomHashMap_closure, A.MapBase_entries_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A.Element_Element$html_closure, A._EventStreamSubscription_closure, A._EventStreamSubscription_onData_closure, A.NodeValidatorBuilder_allowsElement_closure, A.NodeValidatorBuilder_allowsAttribute_closure, A._SimpleNodeValidator_closure, A._SimpleNodeValidator_closure0, A._TemplatingNodeValidator_closure, A.CssClassSetImpl_add_closure, A.FilteredElementList__iterable_closure, A.FilteredElementList__iterable_closure0, A.FilteredElementList_removeRange_closure, A._convertToJS_closure, A._convertToJS_closure0, A._wrapToDart_closure, A._wrapToDart_closure0, A._wrapToDart_closure1, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.CanonicalizedMap_keys_closure, A._Query__on_closure, A._ElementQuery_clone_closure, A._ElementQuery_detach_closure, A._EventUtil_add__closure, A._EventUtil_remove_closure, A._initMouseenterleave_closure, A._initNotSupportFocusinBubbles_closure, A._initNotSupportFocusinBubbles_closure0, A._initNotSupportFocusinBubbles_closure1, A.QueryEvent_relatedTarget_closure, A.QueryEvent_button_closure, A.QueryEvent_defaultPrevented_closure, A._appendFunc_closure, A._prependFunc_closure, A.get_closure, A.post_closure, A.put_closure, A.delete_closure, A.BaseRequest_closure0, A.BrowserClient_send_closure, A.BrowserClient_send_closure0, A.ByteStream_toBytes_closure, A.CaseInsensitiveMap$from_closure, A.MediaType_toString__closure, A.expectQuotedString_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.MapAttr_attr__closure, A.main_closure, A.main_closure0, A.main_closure1, A.main_closure2, A.main_closure3, A.main_closure4, A.main_closure5, A.main_closure6, A.addBackendlessNotes_closure, A.addBackendlessLinks_closure, A.addLinkTo_closure, A.addBackendlessTodos_closure, A.addTodo_closure, A.addNote_closure]);
+    _inheritMany(A.Closure, [A.Closure0Args, A.Instantiation, A.Closure2Args, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_forEach_closure0, A.Stream_forEach__closure0, A.Stream_length_closure, A.Stream_isEmpty_closure0, A.Stream_first_closure0, A._RootZone_bindUnaryCallbackGuarded_closure, A._LinkedCustomHashMap_closure, A.MapBase_entries_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A.Element_Element$html_closure, A._EventStreamSubscription_closure, A._EventStreamSubscription_onData_closure, A.NodeValidatorBuilder_allowsElement_closure, A.NodeValidatorBuilder_allowsAttribute_closure, A._SimpleNodeValidator_closure, A._SimpleNodeValidator_closure0, A._TemplatingNodeValidator_closure, A.CssClassSetImpl_add_closure, A.FilteredElementList__iterable_closure, A.FilteredElementList__iterable_closure0, A.FilteredElementList_removeRange_closure, A._convertToJS_closure, A._convertToJS_closure0, A._wrapToDart_closure, A._wrapToDart_closure0, A._wrapToDart_closure1, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.CanonicalizedMap_keys_closure, A._Query__on_closure, A._ElementQuery_clone_closure, A._ElementQuery_detach_closure, A._EventUtil_add__closure, A._EventUtil_remove_closure, A._initMouseenterleave_closure, A._initNotSupportFocusinBubbles_closure, A._initNotSupportFocusinBubbles_closure0, A._initNotSupportFocusinBubbles_closure1, A.QueryEvent_relatedTarget_closure, A.QueryEvent_button_closure, A.QueryEvent_defaultPrevented_closure, A._appendFunc_closure, A._prependFunc_closure, A.get_closure, A.post_closure, A.put_closure, A.delete_closure, A.BaseRequest_closure0, A.BrowserClient_send_closure, A.BrowserClient_send_closure0, A.ByteStream_toBytes_closure, A.CaseInsensitiveMap$from_closure, A.MediaType_toString__closure, A.expectQuotedString_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.MapAttr_attr__closure, A.main_closure, A.main_closure0, A.main_closure1, A.main_closure2, A.main_closure3, A.main_closure4, A.main_closure5, A.main_closure6, A.main_closure7, A.main_closure8, A.addBackendlessNotes_closure, A.addBackendlessLinks_closure, A.addLinkTo_closure, A.addLinkTo_closure0, A.addLinkTo_closure1, A.addBackendlessTodos_closure, A.addTodo_closure, A.addNote_closure]);
     _inheritMany(A.Closure0Args, [A.nullFuture_closure, A._AsyncRun__scheduleImmediateJsOverride_internalCallback, A._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, A._TimerImpl_internalCallback, A._Future__addListener_closure, A._Future__prependListeners_closure, A._Future__chainForeignFuture_closure1, A._Future__asyncCompleteWithValue_closure, A._Future__chainFuture_closure, A._Future__asyncCompleteError_closure, A._Future__propagateToListeners_handleWhenCompleteCallback, A._Future__propagateToListeners_handleValueCallback, A._Future__propagateToListeners_handleError, A.Stream_forEach_closure, A.Stream_forEach__closure, A.Stream_length_closure0, A.Stream_isEmpty_closure, A.Stream_first_closure, A._StreamController__subscribe_closure, A._StreamController__recordCancel_complete, A._BufferingStreamSubscription__sendDone_sendDone, A._PendingEvents_schedule_closure, A._cancelAndError_closure, A._cancelAndValue_closure, A._rootHandleError_closure, A._RootZone_bindCallbackGuarded_closure, A.Utf8Decoder__decoder_closure, A.Utf8Decoder__decoderNonfatal_closure, A.CanonicalizedMap_putIfAbsent_closure, A._EventUtil_add_closure, A._EventUtil_add_closure0, A._EventUtil_remove_closure_matchNamespaces, A._EventUtil_handlers_closure, A.MediaType_MediaType$parse_closure, A.Highlighter_closure, A.Highlighter__writeFileStart_closure, A.Highlighter__writeMultilineHighlights_closure, A.Highlighter__writeMultilineHighlights_closure0, A.Highlighter__writeMultilineHighlights_closure1, A.Highlighter__writeMultilineHighlights_closure2, A.Highlighter__writeMultilineHighlights__closure, A.Highlighter__writeMultilineHighlights__closure0, A.Highlighter__writeHighlightedText_closure, A.Highlighter__writeIndicator_closure, A.Highlighter__writeIndicator_closure0, A.Highlighter__writeIndicator_closure1, A.Highlighter__writeSidebar_closure, A._Highlight_closure]);
     _inheritMany(A.Iterable, [A.EfficientLengthIterable, A.MappedIterable, A.WhereIterable, A.ExpandIterable, A.TakeIterable, A.SkipIterable, A.WhereTypeIterable, A._ConstantMapKeyIterable, A._AllMatchesIterable, A._StringAllMatchesIterable]);
     _inheritMany(A.EfficientLengthIterable, [A.ListIterable, A.EmptyIterable, A.LinkedHashMapKeyIterable]);
@@ -20020,7 +20355,7 @@
     _inheritMany(A.EventTarget, [A.Node, A.HttpRequestEventTarget, A.Window, A.WorkerGlobalScope]);
     _inheritMany(A.Node, [A.Element, A.CharacterData, A.Document, A._Attr]);
     _inheritMany(A.Element, [A.HtmlElement, A.SvgElement]);
-    _inheritMany(A.HtmlElement, [A.AnchorElement, A.AreaElement, A.BaseElement, A.BodyElement, A.FormElement, A.InputElement, A.SelectElement, A.TemplateElement, A.TextAreaElement]);
+    _inheritMany(A.HtmlElement, [A.AnchorElement, A.AreaElement, A.BaseElement, A.BodyElement, A.FormElement, A.InputElement, A.OListElement, A.SelectElement, A.TableElement, A.TableRowElement, A.TableSectionElement, A.TemplateElement, A.TextAreaElement]);
     _inherit(A.CssStyleDeclaration, A._CssStyleDeclaration_JavaScriptObject_CssStyleDeclarationBase);
     _inheritMany(A.Event, [A.UIEvent, A.ProgressEvent, A.VersionChangeEvent]);
     _inheritMany(A.UIEvent, [A.FocusEvent, A.MouseEvent]);
@@ -20039,6 +20374,7 @@
     _inherit(A._AcceptStructuredCloneDart2Js, A._AcceptStructuredClone);
     _inheritMany(A.JsObject, [A.JsFunction, A._JsArray_JsObject_ListMixin]);
     _inherit(A.JsArray, A._JsArray_JsObject_ListMixin);
+    _inherit(A.ScriptElement0, A.SvgElement);
     _inheritMany(A._Query, [A.__DocumentQuery__Query_ListMixin, A.__ElementQuery__Query_ListMixin]);
     _inherit(A._DocumentQuery, A.__DocumentQuery__Query_ListMixin);
     _inherit(A._ElementQuery, A.__ElementQuery__Query_ListMixin);
@@ -20076,12 +20412,12 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"},
     mangledNames: {},
-    types: ["~()", "Null()", "Future<~>(QueryEvent)", "@(@)", "Null(@)", "~(Element)", "~(@)", "String(String)", "bool(String)", "~(QueryEvent)", "Future<Response>(Client)", "~(Event)", "bool(EventTarget,@)", "bool(_Highlight)", "~(~())", "~(Element,ElementQuery)", "~(String,@)", "~(Object,StackTrace)", "~(Object?,Object?)", "@()", "~(Uint8List,String,int)", "bool(Node)", "~(String,String)", "bool(NodeValidator)", "bool()", "bool(EventTarget?)", "Null(ProgressEvent)", "String(Match)", "int()", "int(@,@)", "bool(Object?,Object?)", "int(Object?)", "bool(Element,String,String,_Html5NodeValidator)", "Uint8List(@,@)", "Null(~)", "~(Node,Node?)", "@(@,@)", "bool(Set<String>)", "Element(Node)", "bool(@)", "JsFunction(@)", "JsArray<@>(@)", "JsObject(@)", "~(EventTarget)", "Element(Element)", "Null(@)()", "_HandleObjectContext()", "bool(_HandleObject)", "~(@,@)", "@(@,String)", "Null(~())", "~(Object?)", "EventTarget(@)", "~(Symbol0,@)", "0^(0^,0^)<num>", "int(String)", "~(String,int)", "~(List<int>)", "MediaType()", "~(String,int?)", "String(String?)", "String?()", "int(_Line)", "int(int,int)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "Null(@,StackTrace)", "SourceSpanWithContext()", "~(String,Object)", "Null(Event)", "~(String,String?)", "Future<Null>()", "~(int,@)", "~(Object[StackTrace?])", "@(String)", "Null(Object,StackTrace)", "Object?(Object?)", "Object?(@)", "_Future<@>(@)", "Map<0^,1^>()<Object?,Object?>", "bool(String,String)"],
+    types: ["~()", "Future<~>(QueryEvent)", "Null()", "@(@)", "Null(@)", "~(QueryEvent)", "~(Element)", "~(@)", "String(String)", "bool(String)", "Future<Response>(Client)", "~(Event)", "bool(EventTarget,@)", "bool(_Highlight)", "~(~())", "~(Element,ElementQuery)", "~(String,@)", "~(Object,StackTrace)", "~(Object?,Object?)", "@()", "~(Uint8List,String,int)", "bool(Node)", "~(String,String)", "bool(NodeValidator)", "bool()", "bool(EventTarget?)", "Null(ProgressEvent)", "String(Match)", "int()", "int(@,@)", "bool(Object?,Object?)", "int(Object?)", "bool(Element,String,String,_Html5NodeValidator)", "Uint8List(@,@)", "Null(~)", "~(Node,Node?)", "@(@,@)", "bool(Set<String>)", "Element(Node)", "bool(@)", "JsFunction(@)", "JsArray<@>(@)", "JsObject(@)", "~(EventTarget)", "Element(Element)", "Null(@)()", "_HandleObjectContext()", "bool(_HandleObject)", "~(@,@)", "@(@,String)", "Null(~())", "~(Object?)", "EventTarget(@)", "~(Symbol0,@)", "0^(0^,0^)<num>", "int(String)", "~(String,int)", "~(List<int>)", "MediaType()", "~(String,int?)", "String(String?)", "String?()", "int(_Line)", "int(int,int)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "Null(@,StackTrace)", "SourceSpanWithContext()", "~(String,Object)", "Null(Event)", "~(String,String?)", "Future<Null>()", "~(int,@)", "~(Object[StackTrace?])", "@(String)", "Null(Object,StackTrace)", "Object?(Object?)", "Object?(@)", "_Future<@>(@)", "Map<0^,1^>()<Object?,Object?>", "bool(String,String)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti")
   };
-  A._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"LegacyJavaScriptObject","UnknownJavaScriptObject":"LegacyJavaScriptObject","JavaScriptFunction":"LegacyJavaScriptObject","AbortPaymentEvent":"Event","ExtendableEvent":"Event","AElement":"SvgElement","GraphicsElement":"SvgElement","OpenDBRequest":"EventTarget","Request0":"EventTarget","_ResourceProgressEvent":"ProgressEvent","AudioElement":"HtmlElement","MediaElement":"HtmlElement","ShadowRoot":"Node","DocumentFragment":"Node","XmlDocument":"Document","PointerEvent":"MouseEvent","CompositionEvent":"UIEvent","DedicatedWorkerGlobalScope":"WorkerGlobalScope","Comment":"CharacterData","MathMLElement":"Element","HtmlFormControlsCollection":"HtmlCollection","File":"Blob","CDataSection":"Text","JSBool":{"bool":[],"TrustedGetRuntimeType":[]},"JSNull":{"Null":[],"TrustedGetRuntimeType":[]},"JSArray":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"JSIndexable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"JSIndexable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"double":[],"num":[],"Comparable":["num"]},"JSInt":{"double":[],"int":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSNumNotInt":{"double":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSString":{"String":[],"Comparable":["String"],"Pattern":[],"JSIndexable":["@"],"TrustedGetRuntimeType":[]},"LateError":{"Error":[]},"CodeUnits":{"ListBase":["int"],"UnmodifiableListMixin":["int"],"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"ListBase.E":"int","UnmodifiableListMixin.E":"int"},"EfficientLengthIterable":{"Iterable":["1"]},"ListIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"SubListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"ListIterator":{"Iterator":["1"]},"MappedIterable":{"Iterable":["2"],"Iterable.E":"2"},"EfficientLengthMappedIterable":{"MappedIterable":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"MappedIterator":{"Iterator":["2"]},"MappedListIterable":{"ListIterable":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListIterable.E":"2","Iterable.E":"2"},"WhereIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereIterator":{"Iterator":["1"]},"ExpandIterable":{"Iterable":["2"],"Iterable.E":"2"},"ExpandIterator":{"Iterator":["2"]},"TakeIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthTakeIterable":{"TakeIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"TakeIterator":{"Iterator":["1"]},"SkipIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthSkipIterable":{"SkipIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"SkipIterator":{"Iterator":["1"]},"EmptyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"EmptyIterator":{"Iterator":["1"]},"WhereTypeIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereTypeIterator":{"Iterator":["1"]},"UnmodifiableListBase":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ReversedListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"Symbol":{"Symbol0":[]},"ConstantMapView":{"UnmodifiableMapView":["1","2"],"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"ConstantMap":{"Map":["1","2"]},"ConstantStringMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"_ConstantMapKeyIterable":{"Iterable":["1"],"Iterable.E":"1"},"Instantiation":{"Closure":[],"Function":[]},"Instantiation1":{"Closure":[],"Function":[]},"Instantiation2":{"Closure":[],"Function":[]},"JSInvocationMirror":{"Invocation":[]},"NullError":{"TypeError":[],"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"Closure0Args":{"Closure":[],"Function":[]},"Closure2Args":{"Closure":[],"Function":[]},"TearOffClosure":{"Closure":[],"Function":[]},"StaticClosure":{"Closure":[],"Function":[]},"BoundClosure":{"Closure":[],"Function":[]},"_CyclicInitializationError":{"Error":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"JsLinkedHashMap":{"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"LinkedHashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"LinkedHashMapKeyIterator":{"Iterator":["1"]},"JSSyntaxRegExp":{"RegExp":[],"Pattern":[]},"_MatchImplementation":{"RegExpMatch":[],"Match":[]},"_AllMatchesIterable":{"Iterable":["RegExpMatch"],"Iterable.E":"RegExpMatch"},"_AllMatchesIterator":{"Iterator":["RegExpMatch"]},"StringMatch":{"Match":[]},"_StringAllMatchesIterable":{"Iterable":["Match"],"Iterable.E":"Match"},"_StringAllMatchesIterator":{"Iterator":["Match"]},"NativeByteBuffer":{"ByteBuffer":[],"TrustedGetRuntimeType":[]},"NativeTypedData":{"TypedData":[]},"NativeByteData":{"TypedData":[],"TrustedGetRuntimeType":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"],"TypedData":[],"JSIndexable":["1"]},"NativeTypedArrayOfDouble":{"NativeTypedArray":["double"],"ListBase":["double"],"JavaScriptIndexingBehavior":["double"],"List":["double"],"EfficientLengthIterable":["double"],"TypedData":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"]},"NativeTypedArrayOfInt":{"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeFloat32List":{"NativeTypedArray":["double"],"ListBase":["double"],"JavaScriptIndexingBehavior":["double"],"List":["double"],"EfficientLengthIterable":["double"],"TypedData":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeFloat64List":{"NativeTypedArray":["double"],"ListBase":["double"],"JavaScriptIndexingBehavior":["double"],"List":["double"],"EfficientLengthIterable":["double"],"TypedData":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeInt16List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt32List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt8List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint16List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint32List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"Uint32List":[],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8ClampedList":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"Uint8List":[],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"_Error":{"Error":[]},"_TypeError":{"TypeError":[],"Error":[]},"_Future":{"Future":["1"]},"AsyncError":{"Error":[]},"_AsyncCompleter":{"_Completer":["1"]},"StreamView":{"Stream":["1"]},"_StreamController":{"_StreamControllerLifecycle":["1"],"_EventDispatch":["1"]},"_AsyncStreamController":{"_AsyncStreamControllerDispatch":["1"],"_StreamController":["1"],"_StreamControllerLifecycle":["1"],"_EventDispatch":["1"]},"_ControllerStream":{"_StreamImpl":["1"],"Stream":["1"],"Stream.T":"1"},"_ControllerSubscription":{"_BufferingStreamSubscription":["1"],"StreamSubscription":["1"],"_EventDispatch":["1"]},"_BufferingStreamSubscription":{"StreamSubscription":["1"],"_EventDispatch":["1"]},"_StreamImpl":{"Stream":["1"]},"_DelayedData":{"_DelayedEvent":["1"]},"_DelayedDone":{"_DelayedEvent":["@"]},"_DoneStreamSubscription":{"StreamSubscription":["1"]},"_EmptyStream":{"Stream":["1"],"Stream.T":"1"},"_Zone":{"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_LinkedIdentityHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_LinkedCustomHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_LinkedHashSet":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"SetBase.E":"1"},"_LinkedHashSetIterator":{"Iterator":["1"]},"ListBase":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"MapBase":{"Map":["1","2"]},"MapView":{"Map":["1","2"]},"UnmodifiableMapView":{"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"SetBase":{"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_SetBase":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"Encoding":{"Codec":["String","List<int>"]},"_JsonMap":{"MapBase":["String","@"],"Map":["String","@"],"MapBase.K":"String","MapBase.V":"@"},"_JsonMapKeyIterable":{"ListIterable":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"ListIterable.E":"String","Iterable.E":"String"},"AsciiCodec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"Base64Codec":{"Codec":["List<int>","String"],"Codec.S":"List<int>"},"JsonUnsupportedObjectError":{"Error":[]},"JsonCyclicError":{"Error":[]},"JsonCodec":{"Codec":["Object?","String"],"Codec.S":"Object?"},"Latin1Codec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"Utf8Codec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"DateTime":{"Comparable":["DateTime"]},"double":{"num":[],"Comparable":["num"]},"int":{"num":[],"Comparable":["num"]},"List":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"num":{"Comparable":["num"]},"RegExpMatch":{"Match":[]},"Set":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"String":{"Comparable":["String"],"Pattern":[]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"Error":[]},"NoSuchMethodError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"OutOfMemoryError":{"Error":[]},"StackOverflowError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"_StringStackTrace":{"StackTrace":[]},"StringBuffer":{"StringSink":[]},"_Uri":{"Uri":[]},"_SimpleUri":{"Uri":[]},"_DataUri":{"Uri":[]},"Element":{"Node":[],"EventTarget":[]},"HtmlDocument":{"Document":[],"Node":[],"EventTarget":[]},"HttpRequest":{"EventTarget":[]},"Node":{"EventTarget":[]},"ProgressEvent":{"Event":[]},"_Html5NodeValidator":{"NodeValidator":[]},"HtmlElement":{"Element":[],"Node":[],"EventTarget":[]},"AnchorElement":{"Element":[],"Node":[],"EventTarget":[]},"AreaElement":{"Element":[],"Node":[],"EventTarget":[]},"BaseElement":{"Element":[],"Node":[],"EventTarget":[]},"BodyElement":{"Element":[],"Node":[],"EventTarget":[]},"CharacterData":{"Node":[],"EventTarget":[]},"Document":{"Node":[],"EventTarget":[]},"_ChildrenElementList":{"ListBase":["Element"],"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"],"ListBase.E":"Element"},"_FrozenElementList":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1"},"FocusEvent":{"Event":[]},"FormElement":{"Element":[],"Node":[],"EventTarget":[]},"HtmlCollection":{"ListBase":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"JSIndexable":["Node"],"ImmutableListMixin.E":"Node","ListBase.E":"Node"},"HttpRequestEventTarget":{"EventTarget":[]},"InputElement":{"Element":[],"Node":[],"EventTarget":[]},"MouseEvent":{"Event":[]},"_ChildNodeListLazy":{"ListBase":["Node"],"List":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"ListBase.E":"Node"},"NodeList":{"ListBase":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"JSIndexable":["Node"],"ImmutableListMixin.E":"Node","ListBase.E":"Node"},"SelectElement":{"Element":[],"Node":[],"EventTarget":[]},"TemplateElement":{"Element":[],"Node":[],"EventTarget":[]},"Text":{"CharacterData":[],"Node":[],"EventTarget":[]},"TextAreaElement":{"Element":[],"Node":[],"EventTarget":[]},"UIEvent":{"Event":[]},"Window":{"WindowBase":[],"EventTarget":[]},"WorkerGlobalScope":{"EventTarget":[]},"_Attr":{"Node":[],"EventTarget":[]},"_NamedNodeMap":{"ListBase":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"JSIndexable":["Node"],"ImmutableListMixin.E":"Node","ListBase.E":"Node"},"_AttributeMap":{"MapBase":["String","String"],"Map":["String","String"]},"_ElementAttributeMap":{"MapBase":["String","String"],"Map":["String","String"],"MapBase.K":"String","MapBase.V":"String"},"_ElementCssClassSet":{"SetBase":["String"],"Set":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"SetBase.E":"String"},"_EventStream":{"Stream":["1"],"Stream.T":"1"},"_EventStreamSubscription":{"StreamSubscription":["1"]},"NodeValidatorBuilder":{"NodeValidator":[]},"_SimpleNodeValidator":{"NodeValidator":[]},"_TemplatingNodeValidator":{"NodeValidator":[]},"FixedSizeListIterator":{"Iterator":["1"]},"_DOMWindowCrossFrame":{"WindowBase":[],"EventTarget":[]},"_SameOriginUriPolicy":{"UriPolicy":[]},"_ValidatingTreeSanitizer":{"NodeTreeSanitizer":[]},"CssClassSetImpl":{"SetBase":["String"],"Set":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"]},"FilteredElementList":{"ListBase":["Element"],"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"],"ListBase.E":"Element"},"VersionChangeEvent":{"Event":[]},"JsArray":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1"},"NullRejectionException":{"Exception":[]},"AttributeClassSet":{"SetBase":["String"],"Set":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"SetBase.E":"String"},"SvgElement":{"Element":[],"Node":[],"EventTarget":[]},"CanonicalizedMap":{"Map":["2","3"]},"ElementQuery":{"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"]},"QueryEvent":{"Event":[]},"_Query":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_DocumentQuery":{"_Query":["HtmlDocument"],"ListBase":["HtmlDocument"],"List":["HtmlDocument"],"EfficientLengthIterable":["HtmlDocument"],"Iterable":["HtmlDocument"],"ListBase.E":"HtmlDocument"},"_ElementQuery":{"ElementQuery":[],"_Query":["Element"],"ListBase":["Element"],"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"],"ListBase.E":"Element"},"BaseClient":{"Client":[]},"BrowserClient":{"Client":[]},"ByteStream":{"StreamView":["List<int>"],"Stream":["List<int>"],"StreamView.T":"List<int>","Stream.T":"List<int>"},"ClientException":{"Exception":[]},"Request":{"BaseRequest":[]},"CaseInsensitiveMap":{"CanonicalizedMap":["String","String","1"],"Map":["String","1"],"CanonicalizedMap.K":"String","CanonicalizedMap.V":"1","CanonicalizedMap.C":"String"},"PathException":{"Exception":[]},"PosixStyle":{"InternalStyle":[]},"UrlStyle":{"InternalStyle":[]},"WindowsStyle":{"InternalStyle":[]},"FileLocation":{"SourceLocation":[],"Comparable":["SourceLocation"]},"_FileSpan":{"FileSpan":[],"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceLocation":{"Comparable":["SourceLocation"]},"SourceLocationMixin":{"SourceLocation":[],"Comparable":["SourceLocation"]},"SourceSpan":{"Comparable":["SourceSpan"]},"SourceSpanBase":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanException":{"Exception":[]},"SourceSpanFormatException":{"FormatException":[],"Exception":[]},"SourceSpanMixin":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanWithContext":{"SourceSpan":[],"Comparable":["SourceSpan"]},"StringScannerException":{"FormatException":[],"Exception":[]},"NodeValidatorAllowAll":{"NodeValidator":[]},"ByteData":{"TypedData":[]},"Int8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint8ClampedList":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Int16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Int32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Float32List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"],"TypedData":[]},"Float64List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"],"TypedData":[]}}'));
+  A._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"LegacyJavaScriptObject","UnknownJavaScriptObject":"LegacyJavaScriptObject","JavaScriptFunction":"LegacyJavaScriptObject","AbortPaymentEvent":"Event","ExtendableEvent":"Event","AElement":"SvgElement","GraphicsElement":"SvgElement","OpenDBRequest":"EventTarget","Request0":"EventTarget","_ResourceProgressEvent":"ProgressEvent","AudioElement":"HtmlElement","MediaElement":"HtmlElement","ShadowRoot":"Node","DocumentFragment":"Node","XmlDocument":"Document","PointerEvent":"MouseEvent","CompositionEvent":"UIEvent","DedicatedWorkerGlobalScope":"WorkerGlobalScope","Comment":"CharacterData","MathMLElement":"Element","HtmlFormControlsCollection":"HtmlCollection","File":"Blob","CDataSection":"Text","JSBool":{"bool":[],"TrustedGetRuntimeType":[]},"JSNull":{"Null":[],"TrustedGetRuntimeType":[]},"JSArray":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"JSIndexable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"JSIndexable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"double":[],"num":[],"Comparable":["num"]},"JSInt":{"double":[],"int":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSNumNotInt":{"double":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSString":{"String":[],"Comparable":["String"],"Pattern":[],"JSIndexable":["@"],"TrustedGetRuntimeType":[]},"LateError":{"Error":[]},"CodeUnits":{"ListBase":["int"],"UnmodifiableListMixin":["int"],"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"ListBase.E":"int","UnmodifiableListMixin.E":"int"},"EfficientLengthIterable":{"Iterable":["1"]},"ListIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"SubListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"ListIterator":{"Iterator":["1"]},"MappedIterable":{"Iterable":["2"],"Iterable.E":"2"},"EfficientLengthMappedIterable":{"MappedIterable":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"MappedIterator":{"Iterator":["2"]},"MappedListIterable":{"ListIterable":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListIterable.E":"2","Iterable.E":"2"},"WhereIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereIterator":{"Iterator":["1"]},"ExpandIterable":{"Iterable":["2"],"Iterable.E":"2"},"ExpandIterator":{"Iterator":["2"]},"TakeIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthTakeIterable":{"TakeIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"TakeIterator":{"Iterator":["1"]},"SkipIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthSkipIterable":{"SkipIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"SkipIterator":{"Iterator":["1"]},"EmptyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"EmptyIterator":{"Iterator":["1"]},"WhereTypeIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereTypeIterator":{"Iterator":["1"]},"UnmodifiableListBase":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ReversedListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"Symbol":{"Symbol0":[]},"ConstantMapView":{"UnmodifiableMapView":["1","2"],"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"ConstantMap":{"Map":["1","2"]},"ConstantStringMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"_ConstantMapKeyIterable":{"Iterable":["1"],"Iterable.E":"1"},"Instantiation":{"Closure":[],"Function":[]},"Instantiation1":{"Closure":[],"Function":[]},"Instantiation2":{"Closure":[],"Function":[]},"JSInvocationMirror":{"Invocation":[]},"NullError":{"TypeError":[],"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"Closure0Args":{"Closure":[],"Function":[]},"Closure2Args":{"Closure":[],"Function":[]},"TearOffClosure":{"Closure":[],"Function":[]},"StaticClosure":{"Closure":[],"Function":[]},"BoundClosure":{"Closure":[],"Function":[]},"_CyclicInitializationError":{"Error":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"JsLinkedHashMap":{"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"LinkedHashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"LinkedHashMapKeyIterator":{"Iterator":["1"]},"JSSyntaxRegExp":{"RegExp":[],"Pattern":[]},"_MatchImplementation":{"RegExpMatch":[],"Match":[]},"_AllMatchesIterable":{"Iterable":["RegExpMatch"],"Iterable.E":"RegExpMatch"},"_AllMatchesIterator":{"Iterator":["RegExpMatch"]},"StringMatch":{"Match":[]},"_StringAllMatchesIterable":{"Iterable":["Match"],"Iterable.E":"Match"},"_StringAllMatchesIterator":{"Iterator":["Match"]},"NativeByteBuffer":{"ByteBuffer":[],"TrustedGetRuntimeType":[]},"NativeTypedData":{"TypedData":[]},"NativeByteData":{"TypedData":[],"TrustedGetRuntimeType":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"],"TypedData":[],"JSIndexable":["1"]},"NativeTypedArrayOfDouble":{"NativeTypedArray":["double"],"ListBase":["double"],"JavaScriptIndexingBehavior":["double"],"List":["double"],"EfficientLengthIterable":["double"],"TypedData":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"]},"NativeTypedArrayOfInt":{"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeFloat32List":{"NativeTypedArray":["double"],"ListBase":["double"],"JavaScriptIndexingBehavior":["double"],"List":["double"],"EfficientLengthIterable":["double"],"TypedData":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeFloat64List":{"NativeTypedArray":["double"],"ListBase":["double"],"JavaScriptIndexingBehavior":["double"],"List":["double"],"EfficientLengthIterable":["double"],"TypedData":[],"JSIndexable":["double"],"Iterable":["double"],"FixedLengthListMixin":["double"],"TrustedGetRuntimeType":[],"ListBase.E":"double","FixedLengthListMixin.E":"double"},"NativeInt16List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt32List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeInt8List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint16List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint32List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"Uint32List":[],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8ClampedList":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8List":{"NativeTypedArrayOfInt":[],"NativeTypedArray":["int"],"ListBase":["int"],"Uint8List":[],"JavaScriptIndexingBehavior":["int"],"List":["int"],"EfficientLengthIterable":["int"],"TypedData":[],"JSIndexable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"_Error":{"Error":[]},"_TypeError":{"TypeError":[],"Error":[]},"_Future":{"Future":["1"]},"AsyncError":{"Error":[]},"_AsyncCompleter":{"_Completer":["1"]},"StreamView":{"Stream":["1"]},"_StreamController":{"_StreamControllerLifecycle":["1"],"_EventDispatch":["1"]},"_AsyncStreamController":{"_AsyncStreamControllerDispatch":["1"],"_StreamController":["1"],"_StreamControllerLifecycle":["1"],"_EventDispatch":["1"]},"_ControllerStream":{"_StreamImpl":["1"],"Stream":["1"],"Stream.T":"1"},"_ControllerSubscription":{"_BufferingStreamSubscription":["1"],"StreamSubscription":["1"],"_EventDispatch":["1"]},"_BufferingStreamSubscription":{"StreamSubscription":["1"],"_EventDispatch":["1"]},"_StreamImpl":{"Stream":["1"]},"_DelayedData":{"_DelayedEvent":["1"]},"_DelayedDone":{"_DelayedEvent":["@"]},"_DoneStreamSubscription":{"StreamSubscription":["1"]},"_EmptyStream":{"Stream":["1"],"Stream.T":"1"},"_Zone":{"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_LinkedIdentityHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_LinkedCustomHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_LinkedHashSet":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"SetBase.E":"1"},"_LinkedHashSetIterator":{"Iterator":["1"]},"ListBase":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"MapBase":{"Map":["1","2"]},"MapView":{"Map":["1","2"]},"UnmodifiableMapView":{"_UnmodifiableMapView_MapView__UnmodifiableMapMixin":["1","2"],"MapView":["1","2"],"_UnmodifiableMapMixin":["1","2"],"Map":["1","2"]},"SetBase":{"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_SetBase":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"Encoding":{"Codec":["String","List<int>"]},"_JsonMap":{"MapBase":["String","@"],"Map":["String","@"],"MapBase.K":"String","MapBase.V":"@"},"_JsonMapKeyIterable":{"ListIterable":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"ListIterable.E":"String","Iterable.E":"String"},"AsciiCodec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"Base64Codec":{"Codec":["List<int>","String"],"Codec.S":"List<int>"},"JsonUnsupportedObjectError":{"Error":[]},"JsonCyclicError":{"Error":[]},"JsonCodec":{"Codec":["Object?","String"],"Codec.S":"Object?"},"Latin1Codec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"Utf8Codec":{"Encoding":[],"Codec":["String","List<int>"],"Codec.S":"String"},"DateTime":{"Comparable":["DateTime"]},"double":{"num":[],"Comparable":["num"]},"int":{"num":[],"Comparable":["num"]},"List":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"num":{"Comparable":["num"]},"RegExpMatch":{"Match":[]},"Set":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"String":{"Comparable":["String"],"Pattern":[]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"Error":[]},"NoSuchMethodError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"OutOfMemoryError":{"Error":[]},"StackOverflowError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"_StringStackTrace":{"StackTrace":[]},"StringBuffer":{"StringSink":[]},"_Uri":{"Uri":[]},"_SimpleUri":{"Uri":[]},"_DataUri":{"Uri":[]},"Element":{"Node":[],"EventTarget":[]},"HtmlDocument":{"Document":[],"Node":[],"EventTarget":[]},"HttpRequest":{"EventTarget":[]},"Node":{"EventTarget":[]},"ProgressEvent":{"Event":[]},"_Html5NodeValidator":{"NodeValidator":[]},"HtmlElement":{"Element":[],"Node":[],"EventTarget":[]},"AnchorElement":{"Element":[],"Node":[],"EventTarget":[]},"AreaElement":{"Element":[],"Node":[],"EventTarget":[]},"BaseElement":{"Element":[],"Node":[],"EventTarget":[]},"BodyElement":{"Element":[],"Node":[],"EventTarget":[]},"CharacterData":{"Node":[],"EventTarget":[]},"Document":{"Node":[],"EventTarget":[]},"_ChildrenElementList":{"ListBase":["Element"],"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"],"ListBase.E":"Element"},"_FrozenElementList":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1"},"FocusEvent":{"Event":[]},"FormElement":{"Element":[],"Node":[],"EventTarget":[]},"HtmlCollection":{"ListBase":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"JSIndexable":["Node"],"ImmutableListMixin.E":"Node","ListBase.E":"Node"},"HttpRequestEventTarget":{"EventTarget":[]},"InputElement":{"Element":[],"Node":[],"EventTarget":[]},"MouseEvent":{"Event":[]},"_ChildNodeListLazy":{"ListBase":["Node"],"List":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"ListBase.E":"Node"},"NodeList":{"ListBase":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"JSIndexable":["Node"],"ImmutableListMixin.E":"Node","ListBase.E":"Node"},"OListElement":{"Element":[],"Node":[],"EventTarget":[]},"SelectElement":{"Element":[],"Node":[],"EventTarget":[]},"TableElement":{"Element":[],"Node":[],"EventTarget":[]},"TableRowElement":{"Element":[],"Node":[],"EventTarget":[]},"TableSectionElement":{"Element":[],"Node":[],"EventTarget":[]},"TemplateElement":{"Element":[],"Node":[],"EventTarget":[]},"Text":{"CharacterData":[],"Node":[],"EventTarget":[]},"TextAreaElement":{"Element":[],"Node":[],"EventTarget":[]},"UIEvent":{"Event":[]},"Window":{"WindowBase":[],"EventTarget":[]},"WorkerGlobalScope":{"EventTarget":[]},"_Attr":{"Node":[],"EventTarget":[]},"_NamedNodeMap":{"ListBase":["Node"],"ImmutableListMixin":["Node"],"List":["Node"],"JavaScriptIndexingBehavior":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"JSIndexable":["Node"],"ImmutableListMixin.E":"Node","ListBase.E":"Node"},"_AttributeMap":{"MapBase":["String","String"],"Map":["String","String"]},"_ElementAttributeMap":{"MapBase":["String","String"],"Map":["String","String"],"MapBase.K":"String","MapBase.V":"String"},"_ElementCssClassSet":{"SetBase":["String"],"Set":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"SetBase.E":"String"},"_EventStream":{"Stream":["1"],"Stream.T":"1"},"_EventStreamSubscription":{"StreamSubscription":["1"]},"NodeValidatorBuilder":{"NodeValidator":[]},"_SimpleNodeValidator":{"NodeValidator":[]},"_TemplatingNodeValidator":{"NodeValidator":[]},"_SvgNodeValidator":{"NodeValidator":[]},"FixedSizeListIterator":{"Iterator":["1"]},"_DOMWindowCrossFrame":{"WindowBase":[],"EventTarget":[]},"_SameOriginUriPolicy":{"UriPolicy":[]},"_ValidatingTreeSanitizer":{"NodeTreeSanitizer":[]},"CssClassSetImpl":{"SetBase":["String"],"Set":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"]},"FilteredElementList":{"ListBase":["Element"],"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"],"ListBase.E":"Element"},"VersionChangeEvent":{"Event":[]},"JsArray":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1"},"NullRejectionException":{"Exception":[]},"ScriptElement0":{"SvgElement":[],"Element":[],"Node":[],"EventTarget":[]},"AttributeClassSet":{"SetBase":["String"],"Set":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"SetBase.E":"String"},"SvgElement":{"Element":[],"Node":[],"EventTarget":[]},"CanonicalizedMap":{"Map":["2","3"]},"ElementQuery":{"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"]},"QueryEvent":{"Event":[]},"_Query":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_DocumentQuery":{"_Query":["HtmlDocument"],"ListBase":["HtmlDocument"],"List":["HtmlDocument"],"EfficientLengthIterable":["HtmlDocument"],"Iterable":["HtmlDocument"],"ListBase.E":"HtmlDocument"},"_ElementQuery":{"ElementQuery":[],"_Query":["Element"],"ListBase":["Element"],"List":["Element"],"EfficientLengthIterable":["Element"],"Iterable":["Element"],"ListBase.E":"Element"},"BaseClient":{"Client":[]},"BrowserClient":{"Client":[]},"ByteStream":{"StreamView":["List<int>"],"Stream":["List<int>"],"StreamView.T":"List<int>","Stream.T":"List<int>"},"ClientException":{"Exception":[]},"Request":{"BaseRequest":[]},"CaseInsensitiveMap":{"CanonicalizedMap":["String","String","1"],"Map":["String","1"],"CanonicalizedMap.K":"String","CanonicalizedMap.V":"1","CanonicalizedMap.C":"String"},"PathException":{"Exception":[]},"PosixStyle":{"InternalStyle":[]},"UrlStyle":{"InternalStyle":[]},"WindowsStyle":{"InternalStyle":[]},"FileLocation":{"SourceLocation":[],"Comparable":["SourceLocation"]},"_FileSpan":{"FileSpan":[],"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceLocation":{"Comparable":["SourceLocation"]},"SourceLocationMixin":{"SourceLocation":[],"Comparable":["SourceLocation"]},"SourceSpan":{"Comparable":["SourceSpan"]},"SourceSpanBase":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanException":{"Exception":[]},"SourceSpanFormatException":{"FormatException":[],"Exception":[]},"SourceSpanMixin":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanWithContext":{"SourceSpan":[],"Comparable":["SourceSpan"]},"StringScannerException":{"FormatException":[],"Exception":[]},"NodeValidatorAllowAll":{"NodeValidator":[]},"ByteData":{"TypedData":[]},"Int8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint8ClampedList":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Int16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint16List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Int32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Uint32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"TypedData":[]},"Float32List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"],"TypedData":[]},"Float64List":{"List":["double"],"EfficientLengthIterable":["double"],"Iterable":["double"],"TypedData":[]}}'));
   A._Universe_addErasedTypes(init.typeUniverse, JSON.parse('{"UnmodifiableListBase":1,"NativeTypedArray":1,"_DelayedEvent":1,"_SetBase":1,"Converter":2,"_JsArray_JsObject_ListMixin":1}'));
   var string$ = {
     _must_: " must not be greater than the number of characters in the file, ",
@@ -20124,6 +20460,7 @@
       ImageData: findType("ImageData"),
       InputElement: findType("InputElement"),
       Invocation: findType("Invocation"),
+      Iterable_Node: findType("Iterable<Node>"),
       Iterable_String: findType("Iterable<String>"),
       Iterable_dynamic: findType("Iterable<@>"),
       Iterable_int: findType("Iterable<int>"),
@@ -20173,6 +20510,7 @@
       RegExp: findType("RegExp"),
       RegExpMatch: findType("RegExpMatch"),
       Response: findType("Response"),
+      ScriptElement: findType("ScriptElement0"),
       Set_String: findType("Set<String>"),
       SourceLocation: findType("SourceLocation"),
       SourceSpan: findType("SourceSpan"),
@@ -20183,6 +20521,7 @@
       String_Function: findType("String()"),
       String_Function_Match: findType("String(Match)"),
       String_Function_String: findType("String(String)"),
+      SvgElement: findType("SvgElement"),
       Symbol: findType("Symbol0"),
       TemplateElement: findType("TemplateElement"),
       Text: findType("Text"),
@@ -20284,6 +20623,7 @@
     B.NativeUint32List_methods = A.NativeUint32List.prototype;
     B.NativeUint8List_methods = A.NativeUint8List.prototype;
     B.PlainJavaScriptObject_methods = J.PlainJavaScriptObject.prototype;
+    B.TableElement_methods = A.TableElement.prototype;
     B.TextAreaElement_methods = A.TextAreaElement.prototype;
     B.UnknownJavaScriptObject_methods = J.UnknownJavaScriptObject.prototype;
     B.Window_methods = A.Window.prototype;
@@ -20633,8 +20973,8 @@
       }
       init.dispatchPropertyName = init.getIsolateTag("dispatch_record");
     }();
-    hunkHelpers.setOrUpdateInterceptorsByTag({DOMError: J.JavaScriptObject, MediaError: J.JavaScriptObject, Navigator: J.JavaScriptObject, NavigatorConcurrentHardware: J.JavaScriptObject, NavigatorUserMediaError: J.JavaScriptObject, OverconstrainedError: J.JavaScriptObject, PositionError: J.JavaScriptObject, GeolocationPositionError: J.JavaScriptObject, Range: J.JavaScriptObject, ArrayBuffer: A.NativeByteBuffer, ArrayBufferView: A.NativeTypedData, DataView: A.NativeByteData, Float32Array: A.NativeFloat32List, Float64Array: A.NativeFloat64List, Int16Array: A.NativeInt16List, Int32Array: A.NativeInt32List, Int8Array: A.NativeInt8List, Uint16Array: A.NativeUint16List, Uint32Array: A.NativeUint32List, Uint8ClampedArray: A.NativeUint8ClampedList, CanvasPixelArray: A.NativeUint8ClampedList, Uint8Array: A.NativeUint8List, HTMLAudioElement: A.HtmlElement, HTMLBRElement: A.HtmlElement, HTMLButtonElement: A.HtmlElement, HTMLCanvasElement: A.HtmlElement, HTMLContentElement: A.HtmlElement, HTMLDListElement: A.HtmlElement, HTMLDataElement: A.HtmlElement, HTMLDataListElement: A.HtmlElement, HTMLDetailsElement: A.HtmlElement, HTMLDialogElement: A.HtmlElement, HTMLDivElement: A.HtmlElement, HTMLEmbedElement: A.HtmlElement, HTMLFieldSetElement: A.HtmlElement, HTMLHRElement: A.HtmlElement, HTMLHeadElement: A.HtmlElement, HTMLHeadingElement: A.HtmlElement, HTMLHtmlElement: A.HtmlElement, HTMLIFrameElement: A.HtmlElement, HTMLImageElement: A.HtmlElement, HTMLLIElement: A.HtmlElement, HTMLLabelElement: A.HtmlElement, HTMLLegendElement: A.HtmlElement, HTMLLinkElement: A.HtmlElement, HTMLMapElement: A.HtmlElement, HTMLMediaElement: A.HtmlElement, HTMLMenuElement: A.HtmlElement, HTMLMetaElement: A.HtmlElement, HTMLMeterElement: A.HtmlElement, HTMLModElement: A.HtmlElement, HTMLOListElement: A.HtmlElement, HTMLObjectElement: A.HtmlElement, HTMLOptGroupElement: A.HtmlElement, HTMLOptionElement: A.HtmlElement, HTMLOutputElement: A.HtmlElement, HTMLParagraphElement: A.HtmlElement, HTMLParamElement: A.HtmlElement, HTMLPictureElement: A.HtmlElement, HTMLPreElement: A.HtmlElement, HTMLProgressElement: A.HtmlElement, HTMLQuoteElement: A.HtmlElement, HTMLScriptElement: A.HtmlElement, HTMLShadowElement: A.HtmlElement, HTMLSlotElement: A.HtmlElement, HTMLSourceElement: A.HtmlElement, HTMLSpanElement: A.HtmlElement, HTMLStyleElement: A.HtmlElement, HTMLTableCaptionElement: A.HtmlElement, HTMLTableCellElement: A.HtmlElement, HTMLTableDataCellElement: A.HtmlElement, HTMLTableHeaderCellElement: A.HtmlElement, HTMLTableColElement: A.HtmlElement, HTMLTableElement: A.HtmlElement, HTMLTableRowElement: A.HtmlElement, HTMLTableSectionElement: A.HtmlElement, HTMLTimeElement: A.HtmlElement, HTMLTitleElement: A.HtmlElement, HTMLTrackElement: A.HtmlElement, HTMLUListElement: A.HtmlElement, HTMLUnknownElement: A.HtmlElement, HTMLVideoElement: A.HtmlElement, HTMLDirectoryElement: A.HtmlElement, HTMLFontElement: A.HtmlElement, HTMLFrameElement: A.HtmlElement, HTMLFrameSetElement: A.HtmlElement, HTMLMarqueeElement: A.HtmlElement, HTMLElement: A.HtmlElement, HTMLAnchorElement: A.AnchorElement, HTMLAreaElement: A.AreaElement, HTMLBaseElement: A.BaseElement, Blob: A.Blob, File: A.Blob, HTMLBodyElement: A.BodyElement, Comment: A.CharacterData, ProcessingInstruction: A.CharacterData, CharacterData: A.CharacterData, CSSStyleDeclaration: A.CssStyleDeclaration, MSStyleCSSProperties: A.CssStyleDeclaration, CSS2Properties: A.CssStyleDeclaration, XMLDocument: A.Document, Document: A.Document, DOMException: A.DomException, DOMImplementation: A.DomImplementation, DOMTokenList: A.DomTokenList, MathMLElement: A.Element, Element: A.Element, AbortPaymentEvent: A.Event, AnimationEvent: A.Event, AnimationPlaybackEvent: A.Event, ApplicationCacheErrorEvent: A.Event, BackgroundFetchClickEvent: A.Event, BackgroundFetchEvent: A.Event, BackgroundFetchFailEvent: A.Event, BackgroundFetchedEvent: A.Event, BeforeInstallPromptEvent: A.Event, BeforeUnloadEvent: A.Event, BlobEvent: A.Event, CanMakePaymentEvent: A.Event, ClipboardEvent: A.Event, CloseEvent: A.Event, CustomEvent: A.Event, DeviceMotionEvent: A.Event, DeviceOrientationEvent: A.Event, ErrorEvent: A.Event, ExtendableEvent: A.Event, ExtendableMessageEvent: A.Event, FetchEvent: A.Event, FontFaceSetLoadEvent: A.Event, ForeignFetchEvent: A.Event, GamepadEvent: A.Event, HashChangeEvent: A.Event, InstallEvent: A.Event, MediaEncryptedEvent: A.Event, MediaKeyMessageEvent: A.Event, MediaQueryListEvent: A.Event, MediaStreamEvent: A.Event, MediaStreamTrackEvent: A.Event, MessageEvent: A.Event, MIDIConnectionEvent: A.Event, MIDIMessageEvent: A.Event, MutationEvent: A.Event, NotificationEvent: A.Event, PageTransitionEvent: A.Event, PaymentRequestEvent: A.Event, PaymentRequestUpdateEvent: A.Event, PopStateEvent: A.Event, PresentationConnectionAvailableEvent: A.Event, PresentationConnectionCloseEvent: A.Event, PromiseRejectionEvent: A.Event, PushEvent: A.Event, RTCDataChannelEvent: A.Event, RTCDTMFToneChangeEvent: A.Event, RTCPeerConnectionIceEvent: A.Event, RTCTrackEvent: A.Event, SecurityPolicyViolationEvent: A.Event, SensorErrorEvent: A.Event, SpeechRecognitionError: A.Event, SpeechRecognitionEvent: A.Event, SpeechSynthesisEvent: A.Event, StorageEvent: A.Event, SyncEvent: A.Event, TrackEvent: A.Event, TransitionEvent: A.Event, WebKitTransitionEvent: A.Event, VRDeviceEvent: A.Event, VRDisplayEvent: A.Event, VRSessionEvent: A.Event, MojoInterfaceRequestEvent: A.Event, USBConnectionEvent: A.Event, AudioProcessingEvent: A.Event, OfflineAudioCompletionEvent: A.Event, WebGLContextEvent: A.Event, Event: A.Event, InputEvent: A.Event, SubmitEvent: A.Event, IDBOpenDBRequest: A.EventTarget, IDBVersionChangeRequest: A.EventTarget, IDBRequest: A.EventTarget, EventTarget: A.EventTarget, FocusEvent: A.FocusEvent, HTMLFormElement: A.FormElement, HTMLCollection: A.HtmlCollection, HTMLFormControlsCollection: A.HtmlCollection, HTMLOptionsCollection: A.HtmlCollection, HTMLDocument: A.HtmlDocument, XMLHttpRequest: A.HttpRequest, XMLHttpRequestEventTarget: A.HttpRequestEventTarget, ImageData: A.ImageData, HTMLInputElement: A.InputElement, Location: A.Location, MouseEvent: A.MouseEvent, DragEvent: A.MouseEvent, PointerEvent: A.MouseEvent, WheelEvent: A.MouseEvent, DocumentFragment: A.Node, ShadowRoot: A.Node, DocumentType: A.Node, Node: A.Node, NodeList: A.NodeList, RadioNodeList: A.NodeList, ProgressEvent: A.ProgressEvent, ResourceProgressEvent: A.ProgressEvent, HTMLSelectElement: A.SelectElement, HTMLTemplateElement: A.TemplateElement, CDATASection: A.Text, Text: A.Text, HTMLTextAreaElement: A.TextAreaElement, CompositionEvent: A.UIEvent, KeyboardEvent: A.UIEvent, TextEvent: A.UIEvent, TouchEvent: A.UIEvent, UIEvent: A.UIEvent, Window: A.Window, DOMWindow: A.Window, DedicatedWorkerGlobalScope: A.WorkerGlobalScope, ServiceWorkerGlobalScope: A.WorkerGlobalScope, SharedWorkerGlobalScope: A.WorkerGlobalScope, WorkerGlobalScope: A.WorkerGlobalScope, Attr: A._Attr, NamedNodeMap: A._NamedNodeMap, MozNamedAttrMap: A._NamedNodeMap, IDBKeyRange: A.KeyRange, IDBVersionChangeEvent: A.VersionChangeEvent, SVGAElement: A.SvgElement, SVGAnimateElement: A.SvgElement, SVGAnimateMotionElement: A.SvgElement, SVGAnimateTransformElement: A.SvgElement, SVGAnimationElement: A.SvgElement, SVGCircleElement: A.SvgElement, SVGClipPathElement: A.SvgElement, SVGDefsElement: A.SvgElement, SVGDescElement: A.SvgElement, SVGDiscardElement: A.SvgElement, SVGEllipseElement: A.SvgElement, SVGFEBlendElement: A.SvgElement, SVGFEColorMatrixElement: A.SvgElement, SVGFEComponentTransferElement: A.SvgElement, SVGFECompositeElement: A.SvgElement, SVGFEConvolveMatrixElement: A.SvgElement, SVGFEDiffuseLightingElement: A.SvgElement, SVGFEDisplacementMapElement: A.SvgElement, SVGFEDistantLightElement: A.SvgElement, SVGFEFloodElement: A.SvgElement, SVGFEFuncAElement: A.SvgElement, SVGFEFuncBElement: A.SvgElement, SVGFEFuncGElement: A.SvgElement, SVGFEFuncRElement: A.SvgElement, SVGFEGaussianBlurElement: A.SvgElement, SVGFEImageElement: A.SvgElement, SVGFEMergeElement: A.SvgElement, SVGFEMergeNodeElement: A.SvgElement, SVGFEMorphologyElement: A.SvgElement, SVGFEOffsetElement: A.SvgElement, SVGFEPointLightElement: A.SvgElement, SVGFESpecularLightingElement: A.SvgElement, SVGFESpotLightElement: A.SvgElement, SVGFETileElement: A.SvgElement, SVGFETurbulenceElement: A.SvgElement, SVGFilterElement: A.SvgElement, SVGForeignObjectElement: A.SvgElement, SVGGElement: A.SvgElement, SVGGeometryElement: A.SvgElement, SVGGraphicsElement: A.SvgElement, SVGImageElement: A.SvgElement, SVGLineElement: A.SvgElement, SVGLinearGradientElement: A.SvgElement, SVGMarkerElement: A.SvgElement, SVGMaskElement: A.SvgElement, SVGMetadataElement: A.SvgElement, SVGPathElement: A.SvgElement, SVGPatternElement: A.SvgElement, SVGPolygonElement: A.SvgElement, SVGPolylineElement: A.SvgElement, SVGRadialGradientElement: A.SvgElement, SVGRectElement: A.SvgElement, SVGScriptElement: A.SvgElement, SVGSetElement: A.SvgElement, SVGStopElement: A.SvgElement, SVGStyleElement: A.SvgElement, SVGElement: A.SvgElement, SVGSVGElement: A.SvgElement, SVGSwitchElement: A.SvgElement, SVGSymbolElement: A.SvgElement, SVGTSpanElement: A.SvgElement, SVGTextContentElement: A.SvgElement, SVGTextElement: A.SvgElement, SVGTextPathElement: A.SvgElement, SVGTextPositioningElement: A.SvgElement, SVGTitleElement: A.SvgElement, SVGUseElement: A.SvgElement, SVGViewElement: A.SvgElement, SVGGradientElement: A.SvgElement, SVGComponentTransferFunctionElement: A.SvgElement, SVGFEDropShadowElement: A.SvgElement, SVGMPathElement: A.SvgElement});
-    hunkHelpers.setOrUpdateLeafTags({DOMError: true, MediaError: true, Navigator: true, NavigatorConcurrentHardware: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, GeolocationPositionError: true, Range: true, ArrayBuffer: true, ArrayBufferView: false, DataView: true, Float32Array: true, Float64Array: true, Int16Array: true, Int32Array: true, Int8Array: true, Uint16Array: true, Uint32Array: true, Uint8ClampedArray: true, CanvasPixelArray: true, Uint8Array: false, HTMLAudioElement: true, HTMLBRElement: true, HTMLButtonElement: true, HTMLCanvasElement: true, HTMLContentElement: true, HTMLDListElement: true, HTMLDataElement: true, HTMLDataListElement: true, HTMLDetailsElement: true, HTMLDialogElement: true, HTMLDivElement: true, HTMLEmbedElement: true, HTMLFieldSetElement: true, HTMLHRElement: true, HTMLHeadElement: true, HTMLHeadingElement: true, HTMLHtmlElement: true, HTMLIFrameElement: true, HTMLImageElement: true, HTMLLIElement: true, HTMLLabelElement: true, HTMLLegendElement: true, HTMLLinkElement: true, HTMLMapElement: true, HTMLMediaElement: true, HTMLMenuElement: true, HTMLMetaElement: true, HTMLMeterElement: true, HTMLModElement: true, HTMLOListElement: true, HTMLObjectElement: true, HTMLOptGroupElement: true, HTMLOptionElement: true, HTMLOutputElement: true, HTMLParagraphElement: true, HTMLParamElement: true, HTMLPictureElement: true, HTMLPreElement: true, HTMLProgressElement: true, HTMLQuoteElement: true, HTMLScriptElement: true, HTMLShadowElement: true, HTMLSlotElement: true, HTMLSourceElement: true, HTMLSpanElement: true, HTMLStyleElement: true, HTMLTableCaptionElement: true, HTMLTableCellElement: true, HTMLTableDataCellElement: true, HTMLTableHeaderCellElement: true, HTMLTableColElement: true, HTMLTableElement: true, HTMLTableRowElement: true, HTMLTableSectionElement: true, HTMLTimeElement: true, HTMLTitleElement: true, HTMLTrackElement: true, HTMLUListElement: true, HTMLUnknownElement: true, HTMLVideoElement: true, HTMLDirectoryElement: true, HTMLFontElement: true, HTMLFrameElement: true, HTMLFrameSetElement: true, HTMLMarqueeElement: true, HTMLElement: false, HTMLAnchorElement: true, HTMLAreaElement: true, HTMLBaseElement: true, Blob: true, File: true, HTMLBodyElement: true, Comment: true, ProcessingInstruction: true, CharacterData: false, CSSStyleDeclaration: true, MSStyleCSSProperties: true, CSS2Properties: true, XMLDocument: true, Document: false, DOMException: true, DOMImplementation: true, DOMTokenList: true, MathMLElement: true, Element: false, AbortPaymentEvent: true, AnimationEvent: true, AnimationPlaybackEvent: true, ApplicationCacheErrorEvent: true, BackgroundFetchClickEvent: true, BackgroundFetchEvent: true, BackgroundFetchFailEvent: true, BackgroundFetchedEvent: true, BeforeInstallPromptEvent: true, BeforeUnloadEvent: true, BlobEvent: true, CanMakePaymentEvent: true, ClipboardEvent: true, CloseEvent: true, CustomEvent: true, DeviceMotionEvent: true, DeviceOrientationEvent: true, ErrorEvent: true, ExtendableEvent: true, ExtendableMessageEvent: true, FetchEvent: true, FontFaceSetLoadEvent: true, ForeignFetchEvent: true, GamepadEvent: true, HashChangeEvent: true, InstallEvent: true, MediaEncryptedEvent: true, MediaKeyMessageEvent: true, MediaQueryListEvent: true, MediaStreamEvent: true, MediaStreamTrackEvent: true, MessageEvent: true, MIDIConnectionEvent: true, MIDIMessageEvent: true, MutationEvent: true, NotificationEvent: true, PageTransitionEvent: true, PaymentRequestEvent: true, PaymentRequestUpdateEvent: true, PopStateEvent: true, PresentationConnectionAvailableEvent: true, PresentationConnectionCloseEvent: true, PromiseRejectionEvent: true, PushEvent: true, RTCDataChannelEvent: true, RTCDTMFToneChangeEvent: true, RTCPeerConnectionIceEvent: true, RTCTrackEvent: true, SecurityPolicyViolationEvent: true, SensorErrorEvent: true, SpeechRecognitionError: true, SpeechRecognitionEvent: true, SpeechSynthesisEvent: true, StorageEvent: true, SyncEvent: true, TrackEvent: true, TransitionEvent: true, WebKitTransitionEvent: true, VRDeviceEvent: true, VRDisplayEvent: true, VRSessionEvent: true, MojoInterfaceRequestEvent: true, USBConnectionEvent: true, AudioProcessingEvent: true, OfflineAudioCompletionEvent: true, WebGLContextEvent: true, Event: false, InputEvent: false, SubmitEvent: false, IDBOpenDBRequest: true, IDBVersionChangeRequest: true, IDBRequest: true, EventTarget: false, FocusEvent: true, HTMLFormElement: true, HTMLCollection: true, HTMLFormControlsCollection: true, HTMLOptionsCollection: true, HTMLDocument: true, XMLHttpRequest: true, XMLHttpRequestEventTarget: false, ImageData: true, HTMLInputElement: true, Location: true, MouseEvent: true, DragEvent: true, PointerEvent: true, WheelEvent: true, DocumentFragment: true, ShadowRoot: true, DocumentType: true, Node: false, NodeList: true, RadioNodeList: true, ProgressEvent: true, ResourceProgressEvent: true, HTMLSelectElement: true, HTMLTemplateElement: true, CDATASection: true, Text: true, HTMLTextAreaElement: true, CompositionEvent: true, KeyboardEvent: true, TextEvent: true, TouchEvent: true, UIEvent: false, Window: true, DOMWindow: true, DedicatedWorkerGlobalScope: true, ServiceWorkerGlobalScope: true, SharedWorkerGlobalScope: true, WorkerGlobalScope: true, Attr: true, NamedNodeMap: true, MozNamedAttrMap: true, IDBKeyRange: true, IDBVersionChangeEvent: true, SVGAElement: true, SVGAnimateElement: true, SVGAnimateMotionElement: true, SVGAnimateTransformElement: true, SVGAnimationElement: true, SVGCircleElement: true, SVGClipPathElement: true, SVGDefsElement: true, SVGDescElement: true, SVGDiscardElement: true, SVGEllipseElement: true, SVGFEBlendElement: true, SVGFEColorMatrixElement: true, SVGFEComponentTransferElement: true, SVGFECompositeElement: true, SVGFEConvolveMatrixElement: true, SVGFEDiffuseLightingElement: true, SVGFEDisplacementMapElement: true, SVGFEDistantLightElement: true, SVGFEFloodElement: true, SVGFEFuncAElement: true, SVGFEFuncBElement: true, SVGFEFuncGElement: true, SVGFEFuncRElement: true, SVGFEGaussianBlurElement: true, SVGFEImageElement: true, SVGFEMergeElement: true, SVGFEMergeNodeElement: true, SVGFEMorphologyElement: true, SVGFEOffsetElement: true, SVGFEPointLightElement: true, SVGFESpecularLightingElement: true, SVGFESpotLightElement: true, SVGFETileElement: true, SVGFETurbulenceElement: true, SVGFilterElement: true, SVGForeignObjectElement: true, SVGGElement: true, SVGGeometryElement: true, SVGGraphicsElement: true, SVGImageElement: true, SVGLineElement: true, SVGLinearGradientElement: true, SVGMarkerElement: true, SVGMaskElement: true, SVGMetadataElement: true, SVGPathElement: true, SVGPatternElement: true, SVGPolygonElement: true, SVGPolylineElement: true, SVGRadialGradientElement: true, SVGRectElement: true, SVGScriptElement: true, SVGSetElement: true, SVGStopElement: true, SVGStyleElement: true, SVGElement: true, SVGSVGElement: true, SVGSwitchElement: true, SVGSymbolElement: true, SVGTSpanElement: true, SVGTextContentElement: true, SVGTextElement: true, SVGTextPathElement: true, SVGTextPositioningElement: true, SVGTitleElement: true, SVGUseElement: true, SVGViewElement: true, SVGGradientElement: true, SVGComponentTransferFunctionElement: true, SVGFEDropShadowElement: true, SVGMPathElement: true});
+    hunkHelpers.setOrUpdateInterceptorsByTag({DOMError: J.JavaScriptObject, MediaError: J.JavaScriptObject, Navigator: J.JavaScriptObject, NavigatorConcurrentHardware: J.JavaScriptObject, NavigatorUserMediaError: J.JavaScriptObject, OverconstrainedError: J.JavaScriptObject, PositionError: J.JavaScriptObject, GeolocationPositionError: J.JavaScriptObject, Range: J.JavaScriptObject, Screen: J.JavaScriptObject, ArrayBuffer: A.NativeByteBuffer, ArrayBufferView: A.NativeTypedData, DataView: A.NativeByteData, Float32Array: A.NativeFloat32List, Float64Array: A.NativeFloat64List, Int16Array: A.NativeInt16List, Int32Array: A.NativeInt32List, Int8Array: A.NativeInt8List, Uint16Array: A.NativeUint16List, Uint32Array: A.NativeUint32List, Uint8ClampedArray: A.NativeUint8ClampedList, CanvasPixelArray: A.NativeUint8ClampedList, Uint8Array: A.NativeUint8List, HTMLAudioElement: A.HtmlElement, HTMLBRElement: A.HtmlElement, HTMLButtonElement: A.HtmlElement, HTMLCanvasElement: A.HtmlElement, HTMLContentElement: A.HtmlElement, HTMLDListElement: A.HtmlElement, HTMLDataElement: A.HtmlElement, HTMLDataListElement: A.HtmlElement, HTMLDetailsElement: A.HtmlElement, HTMLDialogElement: A.HtmlElement, HTMLDivElement: A.HtmlElement, HTMLEmbedElement: A.HtmlElement, HTMLFieldSetElement: A.HtmlElement, HTMLHRElement: A.HtmlElement, HTMLHeadElement: A.HtmlElement, HTMLHeadingElement: A.HtmlElement, HTMLHtmlElement: A.HtmlElement, HTMLIFrameElement: A.HtmlElement, HTMLImageElement: A.HtmlElement, HTMLLIElement: A.HtmlElement, HTMLLabelElement: A.HtmlElement, HTMLLegendElement: A.HtmlElement, HTMLLinkElement: A.HtmlElement, HTMLMapElement: A.HtmlElement, HTMLMediaElement: A.HtmlElement, HTMLMenuElement: A.HtmlElement, HTMLMetaElement: A.HtmlElement, HTMLMeterElement: A.HtmlElement, HTMLModElement: A.HtmlElement, HTMLObjectElement: A.HtmlElement, HTMLOptGroupElement: A.HtmlElement, HTMLOptionElement: A.HtmlElement, HTMLOutputElement: A.HtmlElement, HTMLParagraphElement: A.HtmlElement, HTMLParamElement: A.HtmlElement, HTMLPictureElement: A.HtmlElement, HTMLPreElement: A.HtmlElement, HTMLProgressElement: A.HtmlElement, HTMLQuoteElement: A.HtmlElement, HTMLScriptElement: A.HtmlElement, HTMLShadowElement: A.HtmlElement, HTMLSlotElement: A.HtmlElement, HTMLSourceElement: A.HtmlElement, HTMLSpanElement: A.HtmlElement, HTMLStyleElement: A.HtmlElement, HTMLTableCaptionElement: A.HtmlElement, HTMLTableCellElement: A.HtmlElement, HTMLTableDataCellElement: A.HtmlElement, HTMLTableHeaderCellElement: A.HtmlElement, HTMLTableColElement: A.HtmlElement, HTMLTimeElement: A.HtmlElement, HTMLTitleElement: A.HtmlElement, HTMLTrackElement: A.HtmlElement, HTMLUListElement: A.HtmlElement, HTMLUnknownElement: A.HtmlElement, HTMLVideoElement: A.HtmlElement, HTMLDirectoryElement: A.HtmlElement, HTMLFontElement: A.HtmlElement, HTMLFrameElement: A.HtmlElement, HTMLFrameSetElement: A.HtmlElement, HTMLMarqueeElement: A.HtmlElement, HTMLElement: A.HtmlElement, HTMLAnchorElement: A.AnchorElement, HTMLAreaElement: A.AreaElement, HTMLBaseElement: A.BaseElement, Blob: A.Blob, File: A.Blob, HTMLBodyElement: A.BodyElement, Comment: A.CharacterData, ProcessingInstruction: A.CharacterData, CharacterData: A.CharacterData, CSSStyleDeclaration: A.CssStyleDeclaration, MSStyleCSSProperties: A.CssStyleDeclaration, CSS2Properties: A.CssStyleDeclaration, XMLDocument: A.Document, Document: A.Document, DOMException: A.DomException, DOMImplementation: A.DomImplementation, DOMTokenList: A.DomTokenList, MathMLElement: A.Element, Element: A.Element, AbortPaymentEvent: A.Event, AnimationEvent: A.Event, AnimationPlaybackEvent: A.Event, ApplicationCacheErrorEvent: A.Event, BackgroundFetchClickEvent: A.Event, BackgroundFetchEvent: A.Event, BackgroundFetchFailEvent: A.Event, BackgroundFetchedEvent: A.Event, BeforeInstallPromptEvent: A.Event, BeforeUnloadEvent: A.Event, BlobEvent: A.Event, CanMakePaymentEvent: A.Event, ClipboardEvent: A.Event, CloseEvent: A.Event, CustomEvent: A.Event, DeviceMotionEvent: A.Event, DeviceOrientationEvent: A.Event, ErrorEvent: A.Event, ExtendableEvent: A.Event, ExtendableMessageEvent: A.Event, FetchEvent: A.Event, FontFaceSetLoadEvent: A.Event, ForeignFetchEvent: A.Event, GamepadEvent: A.Event, HashChangeEvent: A.Event, InstallEvent: A.Event, MediaEncryptedEvent: A.Event, MediaKeyMessageEvent: A.Event, MediaQueryListEvent: A.Event, MediaStreamEvent: A.Event, MediaStreamTrackEvent: A.Event, MessageEvent: A.Event, MIDIConnectionEvent: A.Event, MIDIMessageEvent: A.Event, MutationEvent: A.Event, NotificationEvent: A.Event, PageTransitionEvent: A.Event, PaymentRequestEvent: A.Event, PaymentRequestUpdateEvent: A.Event, PopStateEvent: A.Event, PresentationConnectionAvailableEvent: A.Event, PresentationConnectionCloseEvent: A.Event, PromiseRejectionEvent: A.Event, PushEvent: A.Event, RTCDataChannelEvent: A.Event, RTCDTMFToneChangeEvent: A.Event, RTCPeerConnectionIceEvent: A.Event, RTCTrackEvent: A.Event, SecurityPolicyViolationEvent: A.Event, SensorErrorEvent: A.Event, SpeechRecognitionError: A.Event, SpeechRecognitionEvent: A.Event, SpeechSynthesisEvent: A.Event, StorageEvent: A.Event, SyncEvent: A.Event, TrackEvent: A.Event, TransitionEvent: A.Event, WebKitTransitionEvent: A.Event, VRDeviceEvent: A.Event, VRDisplayEvent: A.Event, VRSessionEvent: A.Event, MojoInterfaceRequestEvent: A.Event, USBConnectionEvent: A.Event, AudioProcessingEvent: A.Event, OfflineAudioCompletionEvent: A.Event, WebGLContextEvent: A.Event, Event: A.Event, InputEvent: A.Event, SubmitEvent: A.Event, IDBOpenDBRequest: A.EventTarget, IDBVersionChangeRequest: A.EventTarget, IDBRequest: A.EventTarget, EventTarget: A.EventTarget, FocusEvent: A.FocusEvent, HTMLFormElement: A.FormElement, HTMLCollection: A.HtmlCollection, HTMLFormControlsCollection: A.HtmlCollection, HTMLOptionsCollection: A.HtmlCollection, HTMLDocument: A.HtmlDocument, XMLHttpRequest: A.HttpRequest, XMLHttpRequestEventTarget: A.HttpRequestEventTarget, ImageData: A.ImageData, HTMLInputElement: A.InputElement, Location: A.Location, MouseEvent: A.MouseEvent, DragEvent: A.MouseEvent, PointerEvent: A.MouseEvent, WheelEvent: A.MouseEvent, DocumentFragment: A.Node, ShadowRoot: A.Node, DocumentType: A.Node, Node: A.Node, NodeList: A.NodeList, RadioNodeList: A.NodeList, HTMLOListElement: A.OListElement, ProgressEvent: A.ProgressEvent, ResourceProgressEvent: A.ProgressEvent, HTMLSelectElement: A.SelectElement, HTMLTableElement: A.TableElement, HTMLTableRowElement: A.TableRowElement, HTMLTableSectionElement: A.TableSectionElement, HTMLTemplateElement: A.TemplateElement, CDATASection: A.Text, Text: A.Text, HTMLTextAreaElement: A.TextAreaElement, CompositionEvent: A.UIEvent, KeyboardEvent: A.UIEvent, TextEvent: A.UIEvent, TouchEvent: A.UIEvent, UIEvent: A.UIEvent, Window: A.Window, DOMWindow: A.Window, DedicatedWorkerGlobalScope: A.WorkerGlobalScope, ServiceWorkerGlobalScope: A.WorkerGlobalScope, SharedWorkerGlobalScope: A.WorkerGlobalScope, WorkerGlobalScope: A.WorkerGlobalScope, Attr: A._Attr, NamedNodeMap: A._NamedNodeMap, MozNamedAttrMap: A._NamedNodeMap, IDBKeyRange: A.KeyRange, IDBVersionChangeEvent: A.VersionChangeEvent, SVGScriptElement: A.ScriptElement0, SVGAElement: A.SvgElement, SVGAnimateElement: A.SvgElement, SVGAnimateMotionElement: A.SvgElement, SVGAnimateTransformElement: A.SvgElement, SVGAnimationElement: A.SvgElement, SVGCircleElement: A.SvgElement, SVGClipPathElement: A.SvgElement, SVGDefsElement: A.SvgElement, SVGDescElement: A.SvgElement, SVGDiscardElement: A.SvgElement, SVGEllipseElement: A.SvgElement, SVGFEBlendElement: A.SvgElement, SVGFEColorMatrixElement: A.SvgElement, SVGFEComponentTransferElement: A.SvgElement, SVGFECompositeElement: A.SvgElement, SVGFEConvolveMatrixElement: A.SvgElement, SVGFEDiffuseLightingElement: A.SvgElement, SVGFEDisplacementMapElement: A.SvgElement, SVGFEDistantLightElement: A.SvgElement, SVGFEFloodElement: A.SvgElement, SVGFEFuncAElement: A.SvgElement, SVGFEFuncBElement: A.SvgElement, SVGFEFuncGElement: A.SvgElement, SVGFEFuncRElement: A.SvgElement, SVGFEGaussianBlurElement: A.SvgElement, SVGFEImageElement: A.SvgElement, SVGFEMergeElement: A.SvgElement, SVGFEMergeNodeElement: A.SvgElement, SVGFEMorphologyElement: A.SvgElement, SVGFEOffsetElement: A.SvgElement, SVGFEPointLightElement: A.SvgElement, SVGFESpecularLightingElement: A.SvgElement, SVGFESpotLightElement: A.SvgElement, SVGFETileElement: A.SvgElement, SVGFETurbulenceElement: A.SvgElement, SVGFilterElement: A.SvgElement, SVGForeignObjectElement: A.SvgElement, SVGGElement: A.SvgElement, SVGGeometryElement: A.SvgElement, SVGGraphicsElement: A.SvgElement, SVGImageElement: A.SvgElement, SVGLineElement: A.SvgElement, SVGLinearGradientElement: A.SvgElement, SVGMarkerElement: A.SvgElement, SVGMaskElement: A.SvgElement, SVGMetadataElement: A.SvgElement, SVGPathElement: A.SvgElement, SVGPatternElement: A.SvgElement, SVGPolygonElement: A.SvgElement, SVGPolylineElement: A.SvgElement, SVGRadialGradientElement: A.SvgElement, SVGRectElement: A.SvgElement, SVGSetElement: A.SvgElement, SVGStopElement: A.SvgElement, SVGStyleElement: A.SvgElement, SVGSVGElement: A.SvgElement, SVGSwitchElement: A.SvgElement, SVGSymbolElement: A.SvgElement, SVGTSpanElement: A.SvgElement, SVGTextContentElement: A.SvgElement, SVGTextElement: A.SvgElement, SVGTextPathElement: A.SvgElement, SVGTextPositioningElement: A.SvgElement, SVGTitleElement: A.SvgElement, SVGUseElement: A.SvgElement, SVGViewElement: A.SvgElement, SVGGradientElement: A.SvgElement, SVGComponentTransferFunctionElement: A.SvgElement, SVGFEDropShadowElement: A.SvgElement, SVGMPathElement: A.SvgElement, SVGElement: A.SvgElement});
+    hunkHelpers.setOrUpdateLeafTags({DOMError: true, MediaError: true, Navigator: true, NavigatorConcurrentHardware: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, GeolocationPositionError: true, Range: true, Screen: true, ArrayBuffer: true, ArrayBufferView: false, DataView: true, Float32Array: true, Float64Array: true, Int16Array: true, Int32Array: true, Int8Array: true, Uint16Array: true, Uint32Array: true, Uint8ClampedArray: true, CanvasPixelArray: true, Uint8Array: false, HTMLAudioElement: true, HTMLBRElement: true, HTMLButtonElement: true, HTMLCanvasElement: true, HTMLContentElement: true, HTMLDListElement: true, HTMLDataElement: true, HTMLDataListElement: true, HTMLDetailsElement: true, HTMLDialogElement: true, HTMLDivElement: true, HTMLEmbedElement: true, HTMLFieldSetElement: true, HTMLHRElement: true, HTMLHeadElement: true, HTMLHeadingElement: true, HTMLHtmlElement: true, HTMLIFrameElement: true, HTMLImageElement: true, HTMLLIElement: true, HTMLLabelElement: true, HTMLLegendElement: true, HTMLLinkElement: true, HTMLMapElement: true, HTMLMediaElement: true, HTMLMenuElement: true, HTMLMetaElement: true, HTMLMeterElement: true, HTMLModElement: true, HTMLObjectElement: true, HTMLOptGroupElement: true, HTMLOptionElement: true, HTMLOutputElement: true, HTMLParagraphElement: true, HTMLParamElement: true, HTMLPictureElement: true, HTMLPreElement: true, HTMLProgressElement: true, HTMLQuoteElement: true, HTMLScriptElement: true, HTMLShadowElement: true, HTMLSlotElement: true, HTMLSourceElement: true, HTMLSpanElement: true, HTMLStyleElement: true, HTMLTableCaptionElement: true, HTMLTableCellElement: true, HTMLTableDataCellElement: true, HTMLTableHeaderCellElement: true, HTMLTableColElement: true, HTMLTimeElement: true, HTMLTitleElement: true, HTMLTrackElement: true, HTMLUListElement: true, HTMLUnknownElement: true, HTMLVideoElement: true, HTMLDirectoryElement: true, HTMLFontElement: true, HTMLFrameElement: true, HTMLFrameSetElement: true, HTMLMarqueeElement: true, HTMLElement: false, HTMLAnchorElement: true, HTMLAreaElement: true, HTMLBaseElement: true, Blob: true, File: true, HTMLBodyElement: true, Comment: true, ProcessingInstruction: true, CharacterData: false, CSSStyleDeclaration: true, MSStyleCSSProperties: true, CSS2Properties: true, XMLDocument: true, Document: false, DOMException: true, DOMImplementation: true, DOMTokenList: true, MathMLElement: true, Element: false, AbortPaymentEvent: true, AnimationEvent: true, AnimationPlaybackEvent: true, ApplicationCacheErrorEvent: true, BackgroundFetchClickEvent: true, BackgroundFetchEvent: true, BackgroundFetchFailEvent: true, BackgroundFetchedEvent: true, BeforeInstallPromptEvent: true, BeforeUnloadEvent: true, BlobEvent: true, CanMakePaymentEvent: true, ClipboardEvent: true, CloseEvent: true, CustomEvent: true, DeviceMotionEvent: true, DeviceOrientationEvent: true, ErrorEvent: true, ExtendableEvent: true, ExtendableMessageEvent: true, FetchEvent: true, FontFaceSetLoadEvent: true, ForeignFetchEvent: true, GamepadEvent: true, HashChangeEvent: true, InstallEvent: true, MediaEncryptedEvent: true, MediaKeyMessageEvent: true, MediaQueryListEvent: true, MediaStreamEvent: true, MediaStreamTrackEvent: true, MessageEvent: true, MIDIConnectionEvent: true, MIDIMessageEvent: true, MutationEvent: true, NotificationEvent: true, PageTransitionEvent: true, PaymentRequestEvent: true, PaymentRequestUpdateEvent: true, PopStateEvent: true, PresentationConnectionAvailableEvent: true, PresentationConnectionCloseEvent: true, PromiseRejectionEvent: true, PushEvent: true, RTCDataChannelEvent: true, RTCDTMFToneChangeEvent: true, RTCPeerConnectionIceEvent: true, RTCTrackEvent: true, SecurityPolicyViolationEvent: true, SensorErrorEvent: true, SpeechRecognitionError: true, SpeechRecognitionEvent: true, SpeechSynthesisEvent: true, StorageEvent: true, SyncEvent: true, TrackEvent: true, TransitionEvent: true, WebKitTransitionEvent: true, VRDeviceEvent: true, VRDisplayEvent: true, VRSessionEvent: true, MojoInterfaceRequestEvent: true, USBConnectionEvent: true, AudioProcessingEvent: true, OfflineAudioCompletionEvent: true, WebGLContextEvent: true, Event: false, InputEvent: false, SubmitEvent: false, IDBOpenDBRequest: true, IDBVersionChangeRequest: true, IDBRequest: true, EventTarget: false, FocusEvent: true, HTMLFormElement: true, HTMLCollection: true, HTMLFormControlsCollection: true, HTMLOptionsCollection: true, HTMLDocument: true, XMLHttpRequest: true, XMLHttpRequestEventTarget: false, ImageData: true, HTMLInputElement: true, Location: true, MouseEvent: true, DragEvent: true, PointerEvent: true, WheelEvent: true, DocumentFragment: true, ShadowRoot: true, DocumentType: true, Node: false, NodeList: true, RadioNodeList: true, HTMLOListElement: true, ProgressEvent: true, ResourceProgressEvent: true, HTMLSelectElement: true, HTMLTableElement: true, HTMLTableRowElement: true, HTMLTableSectionElement: true, HTMLTemplateElement: true, CDATASection: true, Text: true, HTMLTextAreaElement: true, CompositionEvent: true, KeyboardEvent: true, TextEvent: true, TouchEvent: true, UIEvent: false, Window: true, DOMWindow: true, DedicatedWorkerGlobalScope: true, ServiceWorkerGlobalScope: true, SharedWorkerGlobalScope: true, WorkerGlobalScope: true, Attr: true, NamedNodeMap: true, MozNamedAttrMap: true, IDBKeyRange: true, IDBVersionChangeEvent: true, SVGScriptElement: true, SVGAElement: true, SVGAnimateElement: true, SVGAnimateMotionElement: true, SVGAnimateTransformElement: true, SVGAnimationElement: true, SVGCircleElement: true, SVGClipPathElement: true, SVGDefsElement: true, SVGDescElement: true, SVGDiscardElement: true, SVGEllipseElement: true, SVGFEBlendElement: true, SVGFEColorMatrixElement: true, SVGFEComponentTransferElement: true, SVGFECompositeElement: true, SVGFEConvolveMatrixElement: true, SVGFEDiffuseLightingElement: true, SVGFEDisplacementMapElement: true, SVGFEDistantLightElement: true, SVGFEFloodElement: true, SVGFEFuncAElement: true, SVGFEFuncBElement: true, SVGFEFuncGElement: true, SVGFEFuncRElement: true, SVGFEGaussianBlurElement: true, SVGFEImageElement: true, SVGFEMergeElement: true, SVGFEMergeNodeElement: true, SVGFEMorphologyElement: true, SVGFEOffsetElement: true, SVGFEPointLightElement: true, SVGFESpecularLightingElement: true, SVGFESpotLightElement: true, SVGFETileElement: true, SVGFETurbulenceElement: true, SVGFilterElement: true, SVGForeignObjectElement: true, SVGGElement: true, SVGGeometryElement: true, SVGGraphicsElement: true, SVGImageElement: true, SVGLineElement: true, SVGLinearGradientElement: true, SVGMarkerElement: true, SVGMaskElement: true, SVGMetadataElement: true, SVGPathElement: true, SVGPatternElement: true, SVGPolygonElement: true, SVGPolylineElement: true, SVGRadialGradientElement: true, SVGRectElement: true, SVGSetElement: true, SVGStopElement: true, SVGStyleElement: true, SVGSVGElement: true, SVGSwitchElement: true, SVGSymbolElement: true, SVGTSpanElement: true, SVGTextContentElement: true, SVGTextElement: true, SVGTextPathElement: true, SVGTextPositioningElement: true, SVGTitleElement: true, SVGUseElement: true, SVGViewElement: true, SVGGradientElement: true, SVGComponentTransferFunctionElement: true, SVGFEDropShadowElement: true, SVGMPathElement: true, SVGElement: false});
     A.NativeTypedArray.$nativeSuperclassTag = "ArrayBufferView";
     A._NativeTypedArrayOfDouble_NativeTypedArray_ListMixin.$nativeSuperclassTag = "ArrayBufferView";
     A._NativeTypedArrayOfDouble_NativeTypedArray_ListMixin_FixedLengthListMixin.$nativeSuperclassTag = "ArrayBufferView";

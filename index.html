@@ -15,6 +15,7 @@
         <script defer src="index.js"></script>
 
         <link rel="stylesheet" type="text/css" href="index.css">
+        <style id="mobile-style"></style>
     </head>
     <body>
         <!-- <div id="c-image">A</div> -->
@@ -22,9 +23,9 @@
         <hr>
         <div id="c-pages">
             <button class="c-page-sel"><img src="assets/icons/cube.svg"/>home</button>
-            <button class="c-page-sel"><img src="assets/icons/content.svg"/>work</button>
-            <button class="c-page-sel"><img src="assets/icons/toolbox.svg"/>tool</button>
-            <button class="c-page-sel"><img src="assets/icons/description.svg"/>docs</button>
+            <!-- <button class="c-page-sel"><img src="assets/icons/content.svg"/>work</button> -->
+            <!-- <button class="c-page-sel"><img src="assets/icons/toolbox.svg"/>tool</button> -->
+            <!-- <button class="c-page-sel"><img src="assets/icons/description.svg"/>docs</button> -->
             <button class="c-page-sel"><img src="assets/icons/link.svg"/>link</button>
             <button class="c-page-sel"><img src="assets/icons/settings.svg"/>conf</button>
             <!-- <button class="c-page-sel"><img src="assets/icons/content.svg"/>note</button> -->
@@ -57,6 +58,10 @@
                 <div class="c-links-work"></div>
                 <hr>
                 <div class="c-links-social"></div>
+                <hr>
+                <div class="c-links-tool"></div>
+                <hr>
+                <div class="c-links-docs"></div>
             </div>
             <!-- <hr> -->
         </div>
@@ -85,16 +90,27 @@
                 <label for="bk-logout">succesfully logged in</label>
                 <button id="bk-logout" name="bk-logout">[logout?]</button>
             </div>
+            <hr>
+            <button id="edit-links">edit links</button>
         </div>
         <div id="newnote-gui" style="display: none;">
             <div id="newnote-header">
                 <div id="newnote-header-text">edit</div>
                 <input type="text" id="newnote-type" value="note" />
-                <button id="newnote-delete">delete</button>
-                <button id="newnote-cancel">cancel</button>
-                <button id="newnote-create">confirm</button>
             </div>
             <textarea id="newnote-text"></textarea>
+            <div id="newnote-footer">
+                <button id="newnote-cancel">cancel</button>
+                <button id="newnote-delete">delete</button>
+                <button id="newnote-create">confirm</button>
+            </div>
+        </div>
+        <div id="links-gui" style="display: none;">
+            <div id="links-header">
+                <div>links</div>
+                <button id="links-close" class="button-no-style"><img src="assets/icons/close.svg" /></button>
+            </div>
+            <div id="links-container"></div>
         </div>
         <!-- <hr> -->
 

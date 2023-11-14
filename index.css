@@ -54,6 +54,31 @@ hr {
     border-color: var(--bg3);
 }
 
+img {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+}
+
+.button-no-style {
+    border: none;
+    font-size: 1em;
+    background: none;
+    color: var(--fg);
+}
+
+.button-no-style:hover {
+    cursor: pointer;
+}
+
+.button-no-style:focus {
+    outline: none;
+}
+
 .unlogged {
     color: var(--bg3);
 }
@@ -77,21 +102,21 @@ hr {
 }
 
 #c-pages button:nth-of-type(1) { color: var(--borange); }
-#c-pages button:nth-of-type(2) { color: var(--byellow); }
-#c-pages button:nth-of-type(3) { color: var(--bpurple); }
-#c-pages button:nth-of-type(4) { color: var(--bred); }
-#c-pages button:nth-of-type(5) { color: var(--baqua); }
-#c-pages button:nth-of-type(6) { color: var(--bblue); }
-#c-pages button:nth-of-type(7) { color: var(--bgreen); }
+/* #c-pages button:nth-of-type(2) { color: var(--byellow); } */
+/* #c-pages button:nth-of-type(3) { color: var(--bpurple); } */
+/* #c-pages button:nth-of-type(4) { color: var(--bred); } */
+#c-pages button:nth-of-type(2) { color: var(--baqua); }
+#c-pages button:nth-of-type(3) { color: var(--bblue); }
+/* #c-pages button:nth-of-type(7) { color: var(--bgreen); } */
 
 /* https://isotropic.co/tool/hex-color-to-css-filter/ */
 #c-pages button:nth-of-type(1) img { filter: invert(47%) sepia(96%) saturate(579%) hue-rotate(347deg) brightness(102%) contrast(99%); }
-#c-pages button:nth-of-type(2) img { filter: invert(92%) sepia(6%) saturate(6983%) hue-rotate(332deg) brightness(100%) contrast(97%); }
-#c-pages button:nth-of-type(3) img { filter: invert(61%) sepia(82%) saturate(274%) hue-rotate(298deg) brightness(89%) contrast(85%); }
-#c-pages button:nth-of-type(4) img { filter: invert(29%) sepia(100%) saturate(2311%) hue-rotate(345deg) brightness(120%) contrast(97%); }
-#c-pages button:nth-of-type(5) img { filter: invert(75%) sepia(39%) saturate(368%) hue-rotate(59deg) brightness(90%) contrast(82%); }
-#c-pages button:nth-of-type(6) img { filter: invert(65%) sepia(19%) saturate(341%) hue-rotate(105deg) brightness(94%) contrast(86%); }
-#c-pages button:nth-of-type(7) img { filter: invert(69%) sepia(81%) saturate(434%) hue-rotate(15deg) brightness(92%) contrast(86%); }
+/* #c-pages button:nth-of-type(2) img { filter: invert(92%) sepia(6%) saturate(6983%) hue-rotate(332deg) brightness(100%) contrast(97%); } */
+/* #c-pages button:nth-of-type(3) img { filter: invert(61%) sepia(82%) saturate(274%) hue-rotate(298deg) brightness(89%) contrast(85%); } */
+/* #c-pages button:nth-of-type(4) img { filter: invert(29%) sepia(100%) saturate(2311%) hue-rotate(345deg) brightness(120%) contrast(97%); } */
+#c-pages button:nth-of-type(2) img { filter: invert(75%) sepia(39%) saturate(368%) hue-rotate(59deg) brightness(90%) contrast(82%); }
+#c-pages button:nth-of-type(3) img { filter: invert(65%) sepia(19%) saturate(341%) hue-rotate(105deg) brightness(94%) contrast(86%); }
+/* #c-pages button:nth-of-type(7) img { filter: invert(69%) sepia(81%) saturate(434%) hue-rotate(15deg) brightness(92%) contrast(86%); } */
 
 .c-page-sel {
     background: none;
@@ -263,6 +288,8 @@ hr {
     font-size: 1em;
     color: var(--fg);
     white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
     /* overflow: hidden; */
     /* text-overflow: ellipsis; */
     margin-left: 0.5em;
@@ -315,6 +342,7 @@ input:focus {
 .form {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .form button {
@@ -368,7 +396,19 @@ input:focus {
     flex-grow: 1;
 }
 
-#newnote-header button {
+#newnote-footer {
+    display: flex;
+    height: 5%;
+    widht: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    flex-grow: 1;
+}
+
+#newnote-footer button {
+    margin-top: 0.5em;
     margin-left: 1em;
     background: var(--bg0);
     color: var(--fg);
@@ -377,7 +417,7 @@ input:focus {
     border: none;
 }
 
-#newnote-header button:hover {
+#newnote-footer button:hover {
     background: var(--bg0_s);
     cursor: pointer;
 }
@@ -394,7 +434,7 @@ input:focus {
 
 #newnote-text {
     width: 98%;
-    height: 93%;
+    height: 88%;
     border: none;
     box-sizing: border-box;
     background: var(--bg0_s);
@@ -426,6 +466,7 @@ input:focus {
 .c-links-title {
     text-decoration: underline;
     font-size: 1.5em;
+    text-align: center;
 }
 
 .c-link {
@@ -453,6 +494,14 @@ input:focus {
     align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
+    min-height: 2em;
+
+    background: var(--bg0_s);
+    border: 1px solid transparent;
+    border-radius: 0.3em;
+    box-sizing: border-box;
+    padding: 0.1em 0.3em;
+    margin: 1em;
 }
 
 #c-home-links>div>div {
@@ -461,6 +510,63 @@ input:focus {
 
 #c-home-links>hr {
     width: 100%;
+}
+
+#links-gui {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    min-height: 80%;
+    background: var(--bg0_h);
+}
+
+#links-header {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#links-header div {
+    display: flex;
+    flex-grow: 1;
+    padding-left: 1em;
+    padding-top: 0.25em;
+}
+
+#links-header img {
+    filter: var(--f_fg);
+    height: 2em;
+}
+
+#links-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.links-container-link {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.links-container-link button:hover {
+    cursor: pointer;
+    background: var(--bg0);
+}
+
+.inum {
+    width: 4em;
+}
+
+.icat {
+    width: 10em;
 }
 
 /* =========== MISC =========== */

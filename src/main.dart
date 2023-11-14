@@ -6,11 +6,27 @@ import "cookies.dart";
 import "package:http/http.dart" as http;
 import "dart:convert" show utf8, jsonDecode;
 import "package:dquery/dquery.dart" show $, ElementQuery, QueryEvent;
-import "dart:html" show Element, Event, window, MouseEvent, InputElement, TextAreaElement;
+import "dart:html" show Element, Event, window, MouseEvent, InputElement, TextAreaElement, document;
 import "dart:js" as js;
 
 string __currentNoteId = "";
 int __currentNoteInd = 0;
+
+bool isUserUsingMobile() {
+    RegExp re = RegExp(r"Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini");
+
+    // User agent string method
+    bool isMobile = re.hasMatch(window.navigator.userAgent);
+
+    // Screen resolution method
+    if (!isMobile) {
+        int screenWidth = window.screen?.width as int;
+        int screenHeight = window.screen?.height as int;
+        isMobile = (screenWidth < 768 || screenHeight < 768);
+    }
+
+    return isMobile;
+}
 
 Future<void> main() async {
     setPageTo(0);
@@ -23,6 +39,11 @@ Future<void> main() async {
     addBackendlessLinks();
     // Todos
     addBackendlessTodos();
+
+    if (isUserUsingMobile()) {
+        $("#mobile-style").first.innerHtml = "body{font-size:0.7em;}#c-title{font-size:1.3em}";
+        print("IM MOBILE YE WANKER");
+    }
 
     ElementQuery sel = $(".c-page-sel");
     List<Element> selButtons = sel.toList();
@@ -128,6 +149,15 @@ Future<void> main() async {
         __currentNoteId = "";
         $("#newnote-gui").hide();
     });
+
+    $("#links-close").on("click", (e) {
+        window.location.reload();
+    });
+
+    $("#edit-links").on("click", (e) {
+        $("#links-gui").show();
+    });
+
 }
 
 void setPageTo(int page) {
@@ -139,12 +169,12 @@ void setPageTo(int page) {
     // $("#c-page-note").hide();
     $("#c-page-conf").hide();
     if (page == 0) $("#c-page-home").show();
-    if (page == 1) $("#c-page-work").show();
-    if (page == 2) $("#c-page-tool").show();
-    if (page == 3) $("#c-page-docs").show();
-    if (page == 4) $("#c-page-link").show();
+    // if (page == 1) $("#c-page-work").show();
+    // if (page == 2) $("#c-page-tool").show();
+    // if (page == 3) $("#c-page-docs").show();
+    if (page == 1) $("#c-page-link").show();
     // if (page == 5) $("#c-page-note").show();
-    if (page == 5) $("#c-page-conf").show();
+    if (page == 2) $("#c-page-conf").show();
 }
 
 /*
@@ -152,12 +182,14 @@ void setPageTo(int page) {
     fields:
         content - string 500
         type - string 250
+
     table: links
     fields:
         category - string 250
         href - string 250
         name - string 250
         priority - int
+
     table: todo
         name - string 250
         status - string 250 (todo, doing, complete)
@@ -174,49 +206,88 @@ Future<void> addBackendlessNotes() async {
 }
 
 Future<void> addBackendlessLinks() async {
-    $("c-links-work").children().detach();
-    $("c-links-tool").children().detach();
-    $("c-links-docs").children().detach();
-    $("c-page-link").children().detach();
-
-    JSON j = await bk.Data.find("links", bk.DataQuery().pageSize(100));
-    j["jsarr"].forEach((obj) {
-        addLinkTo(obj["name"], obj["href"], obj["category"], obj["objectId"]);
+    addLinkTo("", "", "", 0, "");
+    JSON j = await bk.Data.find("links", bk.DataQuery().pageSize(100).sortBy(["category", "priority"]));
+    j["jsarr"].reversed.forEach((obj) {
+        addLinkTo(obj["name"], obj["href"], obj["category"], obj["priority"], obj["objectId"]);
     });
 }
 
 int __link_id = 0;
 
-void addLinkTo(string name, string href, string whereid, string oid) {
+void addLinkTo(string name, string href, string whereid, int priority, string oid) {
     string escWhereid = whereid.replaceAll(" ", "-");
-    ElementQuery q = $(".c-links-$escWhereid");
+    int linkID = oid == "" ? -1 : __link_id;
+
+    if (oid != "") {
+        ElementQuery q = $(".c-links-$escWhereid");
+
+        if (q.length == 0) {
+            $("#c-page-link").append("""
+                <div class="c-links-$escWhereid c-links-list">
+                    <div class="c-links-title">$whereid</div>
+                </div>
+            """.parseHTML());
+
+            q = $(".c-links-$escWhereid");
+        }
 
 
-    if (q.length == 0) {
-        $("#c-page-link").append("""
-            <div class="c-links-$escWhereid c-links-list">
-                <div class="c-links-title">$whereid</div>
-            </div>
+        q.append("""
+            <button id="c-link-$__link_id" class="c-link button-no-style">
+                $name
+            </button>
         """.parseHTML());
 
-        q = $(".c-links-$escWhereid");
+        $("#c-link-$linkID").on("mouseup", (QueryEvent e) {
+            if (e.button == 0) window.location.href = href;
+            if (e.button == 1) js.context.callMethod("open", [href]);
+            if (e.button == 2); // TODO: edit
+        });
+
+        ++__link_id;
     }
 
-    q.append("""
-        <div id="c-link-$__link_id" class="c-link">
-            $name
+    $("#links-container").append("""
+        <div class="links-container-link" id="links-container-$linkID">
+            <input id="links-name-$linkID" type="text" value="$name" />
+            <input id="links-href-$linkID" type="text" value="$href" />
+            <input id="links-cate-$linkID" type="text" value="$whereid" class="icat"/>
+            <input id="links-prio-$linkID" type="number" value="$priority" class="inum" />
+            <button id="link-delete-$linkID" class="button-no-style">delete</button>
+            <button id="link-submit-$linkID" class="button-no-style">submit</button>
         </div>
     """.parseHTML());
 
-    int linkID = __link_id;
-
-    $("#c-link-$linkID").on("mouseup", (QueryEvent e) {
-        if (e.button == 0) window.location.href = href;
-        if (e.button == 1) js.context.callMethod("open", [href]);
-        if (e.button == 2); // TODO: edit
+    $("#link-submit-$linkID").on("click", (e) async {
+        if (oid == "") { // create new
+            await bk.Data.add("links", [{
+                "name": ($("#links-name-$linkID").first as InputElement).value,
+                "href": ($("#links-href-$linkID").first as InputElement).value,
+                "category": ($("#links-cate-$linkID").first as InputElement).value,
+                "priority": int.parse(($("#links-prio-$linkID").first as InputElement).value as string),
+            }]);
+            ($("#links-name-$linkID").first as InputElement).value = "";
+            ($("#links-href-$linkID").first as InputElement).value = "";
+            ($("#links-cate-$linkID").first as InputElement).value = "";
+            ($("#links-prio-$linkID").first as InputElement).value = "0";
+        } else {
+            await bk.Data.update("links", oid, {
+                "name": ($("#links-name-$linkID").first as InputElement).value,
+                "href": ($("#links-href-$linkID").first as InputElement).value,
+                "category": ($("#links-cate-$linkID").first as InputElement).value,
+                "priority": int.parse(($("#links-prio-$linkID").first as InputElement).value as string),
+            });
+        }
     });
 
-    ++__link_id;
+    $("#link-delete-$linkID").on("click", (e) async {
+        if (oid != "" && window.confirm("delete link?")) {
+            await bk.Data.delete("links", oid);
+            $("#links-container-$linkID").detach();
+        }
+    });
+
 }
 
 int __todo_id = 0;
@@ -293,11 +364,11 @@ int __note_id = 0;
 
 void addNote(string name, string date, string type, string oid) {
     $(".c-notes").prepend("""
-        <div class="c-notes-note" id="c-notes-note-$__note_id">
+        <button class="c-notes-note button-no-style" id="c-notes-note-$__note_id">
             <div class="c-notes-note-text">$name</div>
             <div class="c-notes-note-date">$date</div>
             <div class="c-notes-note-type">$type</div>
-        </div>
+        </button>
     """.parseHTML());
 
     int noteID = __note_id;
