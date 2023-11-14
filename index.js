@@ -8630,7 +8630,7 @@
     main() {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        re, t1, isMobile, screenWidth, screenHeight, sel, selButtons, i, $async$temp1;
+        $async$returnValue, re, t1, isMobile, screenWidth, screenHeight, sel, selButtons, i, $async$temp1;
       var $async$main = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -8642,9 +8642,6 @@
               $.BackendlessDB_serverURL = "modernthought.backendless.app";
               $.BackendlessDB_userToken = A.getCookie("userToken");
               A.UserService_isValidLogin();
-              A.addBackendlessNotes();
-              A.addBackendlessLinks();
-              A.addBackendlessTodos();
               re = A.RegExp_RegExp("Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini");
               t1 = window.navigator.userAgent;
               t1.toString;
@@ -8673,9 +8670,9 @@
               A.$("#bk-login", null)._on$4("click", t1._as(new A.main_closure0()), null, false);
               A.$("#bk-logout", null)._on$4("click", t1._as(new A.main_closure1()), null, false);
               $async$temp1 = A;
-              $async$goto = 2;
+              $async$goto = 3;
               return A._asyncAwait(A.UserService_isValidLogin(), $async$main);
-            case 2:
+            case 3:
               // returning from await.
               if ($async$temp1.boolConversionCheck($async$result)) {
                 A._showHide(A.$("#bk-login-form", null)._elements, false);
@@ -8685,6 +8682,19 @@
                 A._showHide(A.$("#bk-logout-form", null)._elements, false);
                 A.$("#c-title", null).addClass$1("unlogged");
               }
+              $async$temp1 = J;
+              $async$goto = 4;
+              return A._asyncAwait(A.UserService_isValidLogin(), $async$main);
+            case 4:
+              // returning from await.
+              if (!$async$temp1.$eq$($async$result, true)) {
+                // goto return
+                $async$goto = 1;
+                break;
+              }
+              A.addBackendlessNotes();
+              A.addBackendlessLinks();
+              A.addBackendlessTodos();
               A.$("#newtask", null)._on$4("click", t1._as(new A.main_closure2()), null, false);
               A.$("#newnote", null)._on$4("click", t1._as(new A.main_closure3()), null, false);
               A.$("#newnote-cancel", null)._on$4("click", t1._as(new A.main_closure4()), null, false);
@@ -8692,8 +8702,9 @@
               A.$("#newnote-create", null)._on$4("click", t1._as(new A.main_closure6()), null, false);
               A.$("#links-close", null)._on$4("click", t1._as(new A.main_closure7()), null, false);
               A.$("#edit-links", null)._on$4("click", t1._as(new A.main_closure8()), null, false);
-              // implicit return
-              return A._asyncReturn(null, $async$completer);
+            case 1:
+              // return
+              return A._asyncReturn($async$returnValue, $async$completer);
           }
       });
       return A._asyncStartSync($async$main, $async$completer);
@@ -8933,6 +8944,21 @@
     },
     isBrowserObject(o) {
       return type$.Blob._is(o) || type$.Event._is(o) || type$.KeyRange._is(o) || type$.ImageData._is(o) || type$.Node._is(o) || type$.Window._is(o) || type$.WorkerGlobalScope._is(o);
+    },
+    printString(string) {
+      if (typeof dartPrint == "function") {
+        dartPrint(string);
+        return;
+      }
+      if (typeof console == "object" && typeof console.log != "undefined") {
+        console.log(string);
+        return;
+      }
+      if (typeof print == "function") {
+        print(string);
+        return;
+      }
+      throw "Unable to print message: " + String(string);
     },
     throwLateFieldADI(fieldName) {
       return A.throwExpression(A.LateError$fieldADI(fieldName));
@@ -19647,7 +19673,7 @@
     $call$body$main_closure5(e) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        passw, t1, t2, uname, $async$temp1;
+        passw, j, t1, t2, uname, $async$temp1;
       var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -19672,6 +19698,9 @@
               return A._asyncAwait(A.UserService_login(uname, passw, 30), $async$call$1);
             case 6:
               // returning from await.
+              j = $async$result;
+              if (j.containsKey$1("errorData"))
+                A.printString(j.toString$0(0));
             case 5:
               // join
             case 3:

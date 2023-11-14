@@ -31,14 +31,6 @@ bool isUserUsingMobile() {
 Future<void> main() async {
     setPageTo(0);
     bk.initApp("modernthought");
-    // Project on home
-    // addGithubProjects();
-    // Notes on home
-    addBackendlessNotes();
-    // Link, proj, tool, docs pages
-    addBackendlessLinks();
-    // Todos
-    addBackendlessTodos();
 
     if (isUserUsingMobile()) {
         $("#mobile-style").first.innerHtml = "body{font-size:0.7em;}#c-title{font-size:1.3em}";
@@ -60,7 +52,8 @@ Future<void> main() async {
         string? uname = ($("#bk-uname").first as InputElement).value;
         string? passw = ($("#bk-passw").first as InputElement).value;
         if (passw != null && uname != null) { if (passw != "" && uname != "") {
-                await bk.UserService.login(uname, passw, stayLoggedFor:30);
+                JSON j = await bk.UserService.login(uname, passw, stayLoggedFor:30);
+                if (j.containsKey("errorData")) print(j);
         } }
         if (await bk.UserService.isValidLogin()) {
             $("#bk-login-form").hide();
@@ -85,6 +78,17 @@ Future<void> main() async {
         $("#bk-logout-form").hide();
         $("#c-title").addClass("unlogged");
     }
+
+    if ((await bk.UserService.isValidLogin()) != true) return;
+    // Project on home
+    // addGithubProjects();
+    // Notes on home
+    addBackendlessNotes();
+    // Link, proj, tool, docs pages
+    addBackendlessLinks();
+    // Todos
+    addBackendlessTodos();
+
 
     $("#newtask").on("click", (e) async {
         string? prompt = js.context.callMethod("prompt", ["Input new issue"]);
