@@ -501,7 +501,7 @@ input:focus {
     border-radius: 0.3em;
     box-sizing: border-box;
     padding: 0.1em 0.3em;
-    margin: 1em;
+    margin: 1em 0;
 }
 
 #c-home-links>div>div {
