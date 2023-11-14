@@ -45,6 +45,38 @@ body {
     padding-right: 2em;
 }
 
+@media screen and (min-width: 1200px) {
+    .squeeze {
+        width: 90%;
+        left: 2%;
+        position: relative;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .squeeze {
+        width: 80%;
+        left: 7%;
+        position: relative;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .squeeze {
+        width: 70%;
+        left: 12%;
+        position: relative;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .squeeze {
+        width: 60%;
+        left: 18%;
+        position: relative;
+    }
+}
+
 * {
     font-family: 'Custom';
     /* outline: 1px solid green; */

@@ -42,7 +42,8 @@ Future<void> main() async {
 
     if (isUserUsingMobile()) {
         $("#mobile-style").first.innerHtml = "body{font-size:0.7em;}#c-title{font-size:1.3em}";
-        print("IM MOBILE YE WANKER");
+    } else {
+        $("body").addClass("squeeze");
     }
 
     ElementQuery sel = $(".c-page-sel");

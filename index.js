@@ -8663,8 +8663,8 @@
               if (isMobile) {
                 t1 = A.$("#mobile-style", null);
                 J.set$innerHtml$x(t1.get$first(t1), "body{font-size:0.7em;}#c-title{font-size:1.3em}");
-                A.printString("IM MOBILE YE WANKER");
-              }
+              } else
+                A.$("body", null).addClass$1("squeeze");
               sel = A.$(".c-page-sel", null);
               selButtons = sel.toList$0(sel);
               for (t1 = type$.nullable_dynamic_Function_Event, i = 0; i < selButtons.length; ++i)
@@ -8933,21 +8933,6 @@
     },
     isBrowserObject(o) {
       return type$.Blob._is(o) || type$.Event._is(o) || type$.KeyRange._is(o) || type$.ImageData._is(o) || type$.Node._is(o) || type$.Window._is(o) || type$.WorkerGlobalScope._is(o);
-    },
-    printString(string) {
-      if (typeof dartPrint == "function") {
-        dartPrint(string);
-        return;
-      }
-      if (typeof console == "object" && typeof console.log != "undefined") {
-        console.log(string);
-        return;
-      }
-      if (typeof print == "function") {
-        print(string);
-        return;
-      }
-      throw "Unable to print message: " + String(string);
     },
     throwLateFieldADI(fieldName) {
       return A.throwExpression(A.LateError$fieldADI(fieldName));
