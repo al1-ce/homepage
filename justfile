@@ -16,9 +16,9 @@ build:
 # Build in release mode
 release:
     #!/bin/bash
-    rm js/*
+    rm index.js.map
     dart compile js src/main.dart -o index.js {{DFLAGS}}
-    rm js/*.deps
+    rm index.js.deps
 
 # Cheatsheet:
 # Set a variable (variable case is arbitrary)

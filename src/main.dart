@@ -1,13 +1,16 @@
-import "dqext.dart";
-import "backendless.dart" as bk;
-import "types.dart";
-import "cookies.dart";
-
-import "package:http/http.dart" as http;
-import "dart:convert" show utf8, jsonDecode;
-import "package:dquery/dquery.dart" show $, ElementQuery, QueryEvent;
+import "dart:convert" show utf8, jsonDecode, jsonEncode;
 import "dart:html" show Element, Event, window, MouseEvent, InputElement, TextAreaElement, document;
 import "dart:js" as js;
+
+import "package:http/http.dart" as http;
+import "package:dquery/dquery.dart" show $, ElementQuery, QueryEvent;
+
+import "lib/dqext.dart";
+import "lib/backendless.dart" as bk show UserService, DataQuery;
+import "lib/types.dart";
+import "lib/cookies.dart";
+
+import "storage.dart" as storage;
 
 string __currentNoteId = "";
 int __currentNoteInd = 0;
@@ -30,7 +33,7 @@ bool isUserUsingMobile() {
 
 Future<void> main() async {
     setPageTo(0);
-    bk.initApp("modernthought");
+    storage.init(getOrInitCookie("use_local_storage", "false") == "true");
 
     if (isUserUsingMobile()) {
         $("#mobile-style").first.innerHtml = "body{font-size:0.7em;}#c-title{font-size:1.3em}";
@@ -46,40 +49,47 @@ Future<void> main() async {
 
     // addConfig("Test", "test__test1", (b) {}, false);
     // addConfig("Test2", "test__test2", (b) {}, true);
-    // addConfig("Test3", "test__test3", (b) {});
+    addConfig("Use local storage", "use_local_storage", (b) {
+        if (b == true) $("#bk-login-form").hide();
+        if (b == true) $("#bk-logout-form").hide();
+        if (b != storage.isUsingLocal()) window.location.reload();
+    });
 
-    $("#bk-login").on("click", (e) async {
-        string? uname = ($("#bk-uname").first as InputElement).value;
-        string? passw = ($("#bk-passw").first as InputElement).value;
-        if (passw != null && uname != null) { if (passw != "" && uname != "") {
-                JSON j = await bk.UserService.login(uname, passw, stayLoggedFor:30);
-                if (j.containsKey("errorData")) print(j);
-        } }
+    if (!storage.isUsingLocal()) {
+        $("#bk-login").on("click", (e) async {
+            string? uname = ($("#bk-uname").first as InputElement).value;
+            string? passw = ($("#bk-passw").first as InputElement).value;
+            if (passw != null && uname != null) { if (passw != "" && uname != "") {
+                    JSON j = await bk.UserService.login(uname, passw, stayLoggedFor:30);
+                    if (j.containsKey("errorData")) print(j);
+            } }
+            if (await bk.UserService.isValidLogin()) {
+                $("#bk-login-form").hide();
+                $("#bk-logout-form").show();
+                window.location.reload();
+            }
+        });
+
+        $("#bk-logout").on("click", (e) async {
+            if (window.confirm("Do you want to log out?") == false) return;
+            await bk.UserService.logout();
+            $("#bk-login-form").show();
+            $("#bk-logout-form").hide();
+            window.location.reload();
+        });
+
         if (await bk.UserService.isValidLogin()) {
             $("#bk-login-form").hide();
             $("#bk-logout-form").show();
-            window.location.reload();
+        } else {
+            $("#bk-login-form").show();
+            $("#bk-logout-form").hide();
+            $("#c-title").addClass("unlogged");
         }
-    });
 
-    $("#bk-logout").on("click", (e) async {
-        if (window.confirm("Do you want to log out?") == false) return;
-        await bk.UserService.logout();
-        $("#bk-login-form").show();
-        $("#bk-logout-form").hide();
-        window.location.reload();
-    });
-
-    if (await bk.UserService.isValidLogin()) {
-        $("#bk-login-form").hide();
-        $("#bk-logout-form").show();
-    } else {
-        $("#bk-login-form").show();
-        $("#bk-logout-form").hide();
-        $("#c-title").addClass("unlogged");
+        if ((await bk.UserService.isValidLogin()) != true) return;
     }
 
-    if ((await bk.UserService.isValidLogin()) != true) return;
     // Project on home
     // addGithubProjects();
     // Notes on home
@@ -93,8 +103,8 @@ Future<void> main() async {
     $("#newtask").on("click", (e) async {
         string? prompt = js.context.callMethod("prompt", ["Input new issue"]);
         if (prompt == null || prompt == "") return;
-        JSON j = await bk.Data.add("todo", [{"name": prompt, "status": "todo"}]);
-        addTodo(prompt, "todo", j["jsarr"][0]);
+        string _id = await storage.add("todo", {"name": prompt, "status": "todo"});
+        addTodo(prompt, "todo", _id);
     });
 
     $("#newnote").on("click", (e) async {
@@ -114,7 +124,7 @@ Future<void> main() async {
     $("#newnote-delete").on("click", (e) async {
         if (__currentNoteId != "") {
             if (!window.confirm("Delete note?")) return;
-            await bk.Data.delete("notes", __currentNoteId);
+            await storage.delete("notes", __currentNoteId);
             $("#c-notes-note-$__currentNoteInd").detach();
         }
 
@@ -128,20 +138,20 @@ Future<void> main() async {
         if (__currentNoteId == "") {
             // creating new note
             if (ta.value != "") {
-                JSON j = await bk.Data.add("notes", [{
+                string _id = await storage.add("notes", {
                     "content": ta.value,
                     "type": ia.value
-                }]);
+                });
                 DateTime _created = DateTime.now();
                 string _date = monthShort(_created.month) + " " + _created.day.toString() +
                        ", " + _created.year.toString();
 
-                addNote(ta.value as string, _date, ia.value as string, j["jsarr"][0]);
+                addNote(ta.value as string, _date, ia.value as string, _id);
             }
         } else {
             // updating old note
             if (ta.value != "") {
-                await bk.Data.update("notes", __currentNoteId, {
+                await storage.update("notes", __currentNoteId, {
                     "content": ta.value,
                     "type": ia.value
                 });
@@ -190,9 +200,9 @@ void setPageTo(int page) {
 
     table: links
     fields:
-        category - string 250
-        href - string 250
         name - string 250
+        href - string 250
+        category - string 250
         priority - int
 
     table: todo
@@ -201,7 +211,7 @@ void setPageTo(int page) {
 */
 
 Future<void> addBackendlessNotes() async {
-    JSON j = await bk.Data.find("notes", bk.DataQuery().pageSize(100).sortBy(["created"]));
+    JSON j = await storage.get("notes", bk.DataQuery().pageSize(100).sortBy(["created"]));
     j["jsarr"].forEach((obj) {
         DateTime _created = DateTime.fromMillisecondsSinceEpoch(obj["created"]);
         string _date = monthShort(_created.month) + " " + _created.day.toString() +
@@ -212,7 +222,7 @@ Future<void> addBackendlessNotes() async {
 
 Future<void> addBackendlessLinks() async {
     addLinkTo("", "", "", 0, "");
-    JSON j = await bk.Data.find("links", bk.DataQuery().pageSize(100).sortBy(["category", "priority"]));
+    JSON j = await storage.get("links", bk.DataQuery().pageSize(100).sortBy(["category", "priority"]));
     j["jsarr"].reversed.forEach((obj) {
         addLinkTo(obj["name"], obj["href"], obj["category"], obj["priority"], obj["objectId"]);
     });
@@ -266,18 +276,18 @@ void addLinkTo(string name, string href, string whereid, int priority, string oi
 
     $("#link-submit-$linkID").on("click", (e) async {
         if (oid == "") { // create new
-            await bk.Data.add("links", [{
+            await storage.add("links", {
                 "name": ($("#links-name-$linkID").first as InputElement).value,
                 "href": ($("#links-href-$linkID").first as InputElement).value,
                 "category": ($("#links-cate-$linkID").first as InputElement).value,
                 "priority": int.parse(($("#links-prio-$linkID").first as InputElement).value as string),
-            }]);
+            });
             ($("#links-name-$linkID").first as InputElement).value = "";
             ($("#links-href-$linkID").first as InputElement).value = "";
             ($("#links-cate-$linkID").first as InputElement).value = "";
             ($("#links-prio-$linkID").first as InputElement).value = "0";
         } else {
-            await bk.Data.update("links", oid, {
+            await storage.update("links", oid, {
                 "name": ($("#links-name-$linkID").first as InputElement).value,
                 "href": ($("#links-href-$linkID").first as InputElement).value,
                 "category": ($("#links-cate-$linkID").first as InputElement).value,
@@ -288,7 +298,7 @@ void addLinkTo(string name, string href, string whereid, int priority, string oi
 
     $("#link-delete-$linkID").on("click", (e) async {
         if (oid != "" && window.confirm("delete link?")) {
-            await bk.Data.delete("links", oid);
+            await storage.delete("links", oid);
             $("#links-container-$linkID").detach();
         }
     });
@@ -298,7 +308,7 @@ void addLinkTo(string name, string href, string whereid, int priority, string oi
 int __todo_id = 0;
 
 Future<void> addBackendlessTodos() async {
-    JSON j = await bk.Data.find("todo", bk.DataQuery().pageSize(100).sortBy(["created"]));
+    JSON j = await storage.get("todo", bk.DataQuery().pageSize(100).sortBy(["created"]));
     j["jsarr"].forEach((obj) { addTodo(obj["name"], obj["status"], obj["objectId"]); });
 }
 
@@ -326,21 +336,21 @@ void addTodo(string name, string status, string oid) {
     $("#c-task-$__todo_id").on("mouseup", (QueryEvent e) {
         if (e.button == 0) { // complete
             if (status == "done") {
-                bk.Data.update("todo", oid, {"status": "todo"});
+                storage.update("todo", oid, {"status": "todo"});
                 status = "todo";
             } else {
-                bk.Data.update("todo", oid, {"status": "done"});
+                storage.update("todo", oid, {"status": "done"});
                 status = "done";
             }
         }
         if (e.button == 1) { // doing
-            bk.Data.update("todo", oid, {"status": "doing"});
+            storage.update("todo", oid, {"status": "doing"});
             status = "doing";
 
         }
         if (e.button == 2) { // delete
             if (!window.confirm("Delete task?")) return;
-            bk.Data.delete("todo", oid);
+            storage.delete("todo", oid);
             $("#c-task-$todoID").detach();
         }
         if (status == "doing") {
@@ -438,6 +448,9 @@ void addConfig(string name, string cookieName, Function(bool) callback, [bool in
     }
 
     $("#$_id").on("click", buttonCallback);
+
+    // required to set correct graphics and
+    // do initial callback
     buttonCallback(new Event(""), true);
 
     ++__config_id;
