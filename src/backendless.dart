@@ -160,7 +160,7 @@ class UserService {
         bool isLoggedIn = r == "true";
 
         if (!isLoggedIn) {
-            delCookie("userToken");
+            // delCookie("userToken");
             BackendlessDB.userToken = "";
         }
 
