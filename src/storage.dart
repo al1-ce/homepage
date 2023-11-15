@@ -2,11 +2,9 @@ library storage;
 
 import "dart:html" show window, Storage;
 import "dart:js_interop" show NullableUndefineableJSAnyExtension;
-import "dart:js_interop" show JSArray;
-import "dart:convert" show utf8, jsonEncode;
+import "dart:convert" show jsonEncode;
 
 import "lib/backendless.dart" as bk;
-import "lib/cookies.dart";
 import "lib/types.dart";
 
 bool __usingLocalStorage = false;
@@ -153,9 +151,9 @@ Future<JSON> get(string table, [bk.DataQuery? query = null]) async {
         return j;
     } else {
         if (query != null) {
-            return await bk.Data.data(table);
+            return await bk.Data.find(table, query);
         } else {
-            return await bk.Data.find(table, query as bk.DataQuery);
+            return await bk.Data.data(table);
         }
     }
 }
