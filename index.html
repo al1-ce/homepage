@@ -79,6 +79,7 @@
         </div>
         <!-- <div id="c-page-note" class="c-page"></div> -->
         <div id="c-page-conf" class="c-page">
+            <h2 id="login-header" class="config-header">Storage Account</h2>
             <div id="bk-login-form" class="form" style="display: none;">
                 <label for="bk-uname">uname:</label>
                 <input id="bk-uname" name="bk-uname" type="username"/>
@@ -90,8 +91,17 @@
                 <label for="bk-logout">succesfully logged in</label>
                 <button id="bk-logout" name="bk-logout">[logout?]</button>
             </div>
-            <hr>
-            <button id="edit-links">[edit links]</button>
+            <br id="login-separator">
+            <h2 class="config-header">Storage Provider</h2>
+            <div id="storage-options" class="config-options">
+                <button>Local</button>
+                <button>Backendless</button>
+            </div>
+            <br>
+            <h2 class="config-header">Misc</h2>
+            <div class="config-options">
+                <button id="edit-links">Edit links</button>
+            </div>
         </div>
         <div id="newnote-gui" style="display: none;">
             <div id="newnote-header">

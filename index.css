@@ -229,6 +229,10 @@ img {
     max-width: 30%;
 }
 
+.c-notes, .c-tasks {
+    min-height: 2em;
+}
+
 .c-notes {
     display: flex;
     justify-content: flex-start;
@@ -586,6 +590,7 @@ input:focus {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .links-container-link button:hover {
@@ -599,6 +604,26 @@ input:focus {
 
 .icat {
     width: 10em;
+}
+
+.config-header {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}
+
+.config-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.config-options button {
+    padding: 0.5em;
+    background: var(--bg1) !important;
+    border-radius: 0.5em;
+    border: 0px solid transparent;
+    margin-right: 0.5em;
 }
 
 /* =========== MISC =========== */

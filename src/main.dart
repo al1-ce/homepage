@@ -49,10 +49,26 @@ Future<void> main() async {
 
     // addConfig("Test", "test__test1", (b) {}, false);
     // addConfig("Test2", "test__test2", (b) {}, true);
-    addConfig("Use local storage", "use_local_storage", (b) {
-        if (b == true) $("#bk-login-form").hide();
-        if (b == true) $("#bk-logout-form").hide();
-        if (b != storage.isUsingLocal()) window.location.reload();
+    // addConfig("Use local storage", "use_local_storage", (b) {
+    //     if (b == true) $("#bk-login-form").hide();
+    //     if (b == true) $("#bk-logout-form").hide();
+    //     if (b != storage.isUsingLocal()) window.location.reload();
+    // });
+    if (storage.isUsingLocal()) {
+        $("#login-header").hide();
+        $("#login-separator").hide();
+        $("#bk-login-form").hide();
+        $("#bk-logout-form").hide();
+    }
+
+    List<Element> soptions = $("#storage-options").children();
+    soptions[0].addEventListener("click", (Event e) {
+        setCookie("use_local_storage", "true");
+        window.location.reload();
+    });
+    soptions[1].addEventListener("click", (Event e) {
+        setCookie("use_local_storage", "false");
+        window.location.reload();
     });
 
     if (!storage.isUsingLocal()) {
@@ -101,7 +117,7 @@ Future<void> main() async {
 
 
     $("#newtask").on("click", (e) async {
-        string? prompt = js.context.callMethod("prompt", ["Input new issue"]);
+        string? prompt = js.context.callMethod("prompt", ["Input new task"]);
         if (prompt == null || prompt == "") return;
         string _id = await storage.add("todo", {"name": prompt, "status": "todo"});
         addTodo(prompt, "todo", _id);
@@ -265,9 +281,9 @@ void addLinkTo(string name, string href, string whereid, int priority, string oi
 
     $("#links-container").append("""
         <div class="links-container-link" id="links-container-$linkID">
-            <input id="links-name-$linkID" type="text" value="$name" />
-            <input id="links-href-$linkID" type="text" value="$href" />
-            <input id="links-cate-$linkID" type="text" value="$whereid" class="icat"/>
+            <input id="links-name-$linkID" type="text" value="$name" placeholder="name" />
+            <input id="links-href-$linkID" type="text" value="$href" placeholder="url" />
+            <input id="links-cate-$linkID" type="text" value="$whereid" class="icat" placeholder="category" />
             <input id="links-prio-$linkID" type="number" value="$priority" class="inum" />
             <button id="link-delete-$linkID" class="button-no-style">delete</button>
             <button id="link-submit-$linkID" class="button-no-style">submit</button>
