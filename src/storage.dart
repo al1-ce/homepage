@@ -1,7 +1,7 @@
 library storage;
 
 import "dart:html" show window, Storage;
-import "dart:js_interop" show NullableUndefineableJSAnyExtension;
+// import "dart:js_interop" show NullableUndefineableJSAnyExtension;
 import "dart:convert" show jsonEncode;
 
 import "lib/backendless.dart" as bk;
@@ -74,7 +74,8 @@ __storageCache = {
 */
 Map<string, JSON> __storageCache = new Map<string, JSON>();
 
-bool isAvailable() { return !window.localStorage.isUndefinedOrNull; }
+bool isAvailable() { return true; }
+// bool isAvailable() { return !window.localStorage.isUndefinedOrNull; }
 bool isUsingLocal() { return __usingLocalStorage; }
 
 void init(bool shouldUseLocalStorage) {

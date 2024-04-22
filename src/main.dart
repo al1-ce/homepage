@@ -265,9 +265,9 @@ void addLinkTo(string name, string href, string whereid, int priority, string oi
 
 
         q.append("""
-            <button id="c-link-$__link_id" class="c-link button-no-style">
+            <a id="c-link-$__link_id" class="c-link button-no-style">
                 $name
-            </button>
+            </a>
         """.parseHTML());
 
         $("#c-link-$linkID").on("mouseup", (QueryEvent e) {
