@@ -486,6 +486,23 @@ input:focus {
     outline: none;
 }
 
+.c-notes-note-type[note-class="link"] {
+    /* background: #32302f; */
+    background: #2d3234ff;
+}
+
+.c-notes-note-type[note-class="scrape"] {
+    background: #2d3431ff;
+}
+
+.c-notes-note-type[note-class="buy"] {
+    background: #352e2cff;
+}
+
+.c-notes-note-type[note-class="note"] {
+    background: #35322cff;
+}
+
 #c-page-link {
     display: flex;
     flex-direction: row;

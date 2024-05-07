@@ -247,8 +247,15 @@ Future<void> addBackendlessLinks() async {
 int __link_id = 0;
 
 void addLinkTo(string name, string href, string whereid, int priority, string oid) {
+    name = fixStringHTML(name);
     string escWhereid = whereid.replaceAll(" ", "-");
+    escWhereid = fixStringHTML(escWhereid);
     int linkID = oid == "" ? -1 : __link_id;
+
+    if (href.contains("<") || href.contains(">")) {
+        window.alert("Link contains invalid symbols!");
+        return;
+    }
 
     if (oid != "") {
         ElementQuery q = $(".c-links-$escWhereid");
@@ -329,6 +336,8 @@ Future<void> addBackendlessTodos() async {
 }
 
 void addTodo(string name, string status, string oid) {
+    name = fixStringHTML(name);
+
     string icon = "check_box_outline";
     string addStatus = "";
     if (status == "doing") {
@@ -394,11 +403,16 @@ void addTodo(string name, string status, string oid) {
 int __note_id = 0;
 
 void addNote(string name, string date, string type, string oid) {
+    // string og_name = name;
+    name = fixStringHTML(name);
+    date = fixStringHTML(date);
+    type = fixStringHTML(type);
+
     $(".c-notes").prepend("""
         <button class="c-notes-note button-no-style" id="c-notes-note-$__note_id">
             <div class="c-notes-note-text">$name</div>
             <div class="c-notes-note-date">$date</div>
-            <div class="c-notes-note-type">$type</div>
+            <div class="c-notes-note-type" note-class="$type">$type</div>
         </button>
     """.parseHTML());
 
@@ -470,6 +484,16 @@ void addConfig(string name, string cookieName, Function(bool) callback, [bool in
     buttonCallback(new Event(""), true);
 
     ++__config_id;
+}
+
+string fixStringHTML(string s) {
+    string o = s;
+    o = o.replaceAll("<", "&lt;");
+    o = o.replaceAll(">", "&gt;");
+    o = o.replaceAll("/", "&#47;");
+    o = o.replaceAll("\"", "&apos;");
+    o = o.replaceAll("\'", "&quot;");
+    return o;
 }
 
 string monthShort(int m) {
