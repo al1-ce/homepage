@@ -210,7 +210,8 @@ Future<void> setupStorageDB() async {
 }
 
 Future<void> setupSaltcornDB() async {
-    JSON data = await storage.get("tools");
+    // TODO: query all pages
+    JSON data = await storage.get("tools",  bk.DataQuery().pageSize(100));
 
     // if (data.containsKey("error") || !data.containsKey("success")) return;
 
