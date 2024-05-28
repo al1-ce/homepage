@@ -357,8 +357,8 @@ class Data {
         return j;
     }
 
-    /// Counts number of matching objects, see "DataQuery.where()" for whereClause
-    static Future<JSON> count(string table, string whereClause, [bool distinct = false]) async {
+    /// Counts number of matching objects, see "DataQuery.where()" for whereClause or set to empty for no clause
+    static Future<int> count(string table, string whereClause, [bool distinct = false]) async {
         Map<string, string> headers = {
             "Content-Type": "application/json"
         };
@@ -367,15 +367,21 @@ class Data {
             headers["user-token"] = BackendlessDB.userToken;
         }
 
-        http.Response response = await http.post(
-            BackendlessDB.serverQURI(
-                "api/data/" + table + "/count", {"where": whereClause}
-                ), headers: headers, body: jsonEncode({"distinct": distinct.toString()})
-            );
+        http.Response response;
+        if (whereClause == "") {
+            response = await http.post(
+                BackendlessDB.serverURI(
+                    "api/data/" + table + "/count"), headers: headers, body: jsonEncode({"distinct": distinct.toString()})
+                );
+        } else {
+            response = await http.post(
+                BackendlessDB.serverQURI(
+                    "api/data/" + table + "/count", {"where": whereClause}
+                    ), headers: headers, body: jsonEncode({"distinct": distinct.toString()})
+                );
+        }
 
-        JSON j = jsonDecode(utf8.decode(response.bodyBytes));
-
-        return j;
+        return int.parse(utf8.decode(response.bodyBytes)) as int;
     }
 
 }

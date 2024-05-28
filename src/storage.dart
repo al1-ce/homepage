@@ -178,6 +178,14 @@ Future<void> delete(string table, string id) async {
     }
 }
 
+Future<int> count(string table) async {
+    if (__usingLocalStorage) {
+        return ((__storageCache[table]?["jsarr"] as List).length) as int;
+    } else {
+        return await bk.Data.count(table, "");
+    }
+}
+
 void __storeJSON(string table, JSON value) {
     string j = jsonEncode(value);
     window.localStorage[table] = j;

@@ -210,9 +210,6 @@ Future<void> setupStorageDB() async {
 }
 
 Future<void> setupSaltcornDB() async {
-    // TODO: query all pages
-    JSON data = await storage.get("tools",  bk.DataQuery().pageSize(100));
-
     // if (data.containsKey("error") || !data.containsKey("success")) return;
 
     $("#pagesel-tools").show();
@@ -247,44 +244,49 @@ Future<void> setupSaltcornDB() async {
 
     $(".c-tools-list").children().forEach((Element e) => e.remove());
     $("#tool-searchbar").first.replaceWith($("#tool-searchbar").first.clone(false));
+    
+    int count = await storage.count("tools");
+    for (int N = 0; N < (count / 100 + 1); ++N) {
+        // TODO: query all pages
+        JSON data = await storage.get("tools", bk.DataQuery().pageSize(100).offset(N * 100));
+        var fields = data["jsarr"];
+        // fields.sort((a, b) => a["name"].compareTo(b["name"]) as int);
 
-    var fields = data["jsarr"];
-    // fields.sort((a, b) => a["name"].compareTo(b["name"]) as int);
+        for (int i = 0; i < fields.length; ++i) {
+            JSON field = fields[i] as JSON;
+            string id = "tools-el-${field["objectId"]}";
+            addTool(field["name"], field["description"], field["href"], field["tags"], id);
 
-    for (int i = 0; i < fields.length; ++i) {
-        JSON field = fields[i] as JSON;
-        string id = "tools-el-${field["objectId"]}";
-        addTool(field["name"], field["description"], field["href"], field["tags"], id);
+            $("#tool-searchbar").on("input", (QueryEvent e) {
+                string text = ($("#tool-searchbar").first as InputElement).value as string;
+                if (
+                    (field["name"] as string).toLowerCase().contains(text.toLowerCase()) ||
+                    (field["tags"] as string).toLowerCase().contains(text.toLowerCase()) ||
+                    (field["description"] as string).toLowerCase().contains(text.toLowerCase())
+                    ) {
+                    $("#$id").show();
+                } else {
+                    $("#$id").hide();
+                }
+            });
 
-        $("#tool-searchbar").on("input", (QueryEvent e) {
-            string text = ($("#tool-searchbar").first as InputElement).value as string;
-            if (
-                (field["name"] as string).toLowerCase().contains(text.toLowerCase()) ||
-                (field["tags"] as string).toLowerCase().contains(text.toLowerCase()) ||
-                (field["description"] as string).toLowerCase().contains(text.toLowerCase())
-                ) {
-                $("#$id").show();
-            } else {
-                $("#$id").hide();
-            }
-        });
+            $("#c-tool-edit-$id").on("click", (QueryEvent e) {
+                $("#tool-gui-header-text").first.text = "edit";
+                __currentToolId = '${field["objectId"]}';
+                ($("#tool-edit-name").first as InputElement).value = field["name"];
+                ($("#tool-edit-href").first as InputElement).value = field["href"];
+                ($("#tool-edit-desc").first as InputElement).value = field["description"];
+                ($("#tool-edit-tags").first as InputElement).value = field["tags"];
+                $("#tool-gui-edit").show();
+            });
 
-        $("#c-tool-edit-$id").on("click", (QueryEvent e) {
-            $("#tool-gui-header-text").first.text = "edit";
-            __currentToolId = '${field["objectId"]}';
-            ($("#tool-edit-name").first as InputElement).value = field["name"];
-            ($("#tool-edit-href").first as InputElement).value = field["href"];
-            ($("#tool-edit-desc").first as InputElement).value = field["description"];
-            ($("#tool-edit-tags").first as InputElement).value = field["tags"];
-            $("#tool-gui-edit").show();
-        });
+            $("#c-tool-del-$id").on("click", (QueryEvent e) {
+                if (window.confirm("Do you want to delete tool '${field["name"]}'?") == false) return;
+                storage.delete("tools", '${field["objectId"]}');
+                $("#$id").first.remove();
+            });
 
-        $("#c-tool-del-$id").on("click", (QueryEvent e) {
-            if (window.confirm("Do you want to delete tool '${field["name"]}'?") == false) return;
-            storage.delete("tools", '${field["objectId"]}');
-            $("#$id").first.remove();
-        });
-
+        }
     }
 }
 
