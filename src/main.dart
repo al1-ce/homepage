@@ -1,6 +1,7 @@
 import "dart:convert" show utf8, jsonDecode, jsonEncode;
 import "dart:html" show Element, Event, window, MouseEvent, InputElement, TextAreaElement, document;
 import "dart:js" as js;
+import "dart:js_interop" show JSArray;
 
 import "package:http/http.dart" as http;
 import "package:dquery/dquery.dart" show $, ElementQuery, QueryEvent;
@@ -9,11 +10,13 @@ import "lib/dqext.dart";
 import "lib/backendless.dart" as bk show UserService, DataQuery;
 import "lib/types.dart";
 import "lib/cookies.dart";
+import "lib/saltcorn.dart" as saltcorn;
 
 import "storage.dart" as storage;
 
 string __currentNoteId = "";
 int __currentNoteInd = 0;
+string __currentToolId = "";
 
 bool isUserUsingMobile() {
     RegExp re = RegExp(r"Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini");
@@ -32,7 +35,7 @@ bool isUserUsingMobile() {
 }
 
 Future<void> main() async {
-    setPageTo(0);
+    setPageTo(2);
     storage.init(getOrInitCookie("use_local_storage", "false") == "true");
 
     if (isUserUsingMobile()) {
@@ -54,12 +57,6 @@ Future<void> main() async {
     //     if (b == true) $("#bk-logout-form").hide();
     //     if (b != storage.isUsingLocal()) window.location.reload();
     // });
-    if (storage.isUsingLocal()) {
-        $("#login-header").hide();
-        $("#login-separator").hide();
-        $("#bk-login-form").hide();
-        $("#bk-logout-form").hide();
-    }
 
     List<Element> soptions = $("#storage-options").children();
     soptions[0].addEventListener("click", (Event e) {
@@ -71,41 +68,60 @@ Future<void> main() async {
         window.location.reload();
     });
 
-    if (!storage.isUsingLocal()) {
-        $("#bk-login").on("click", (e) async {
-            string? uname = ($("#bk-uname").first as InputElement).value;
-            string? passw = ($("#bk-passw").first as InputElement).value;
-            if (passw != null && uname != null) { if (passw != "" && uname != "") {
-                    JSON j = await bk.UserService.login(uname, passw, stayLoggedFor:30);
-                    if (j.containsKey("errorData")) print(j);
-            } }
-            if (await bk.UserService.isValidLogin()) {
-                $("#bk-login-form").hide();
-                $("#bk-logout-form").show();
-                window.location.reload();
-            }
-        });
+    if (storage.isUsingLocal()) {
+        setupLocalDB();
+    } else {
+        setupBackendlessDB();
+    }
 
-        $("#bk-logout").on("click", (e) async {
-            if (window.confirm("Do you want to log out?") == false) return;
-            await bk.UserService.logout();
-            $("#bk-login-form").show();
-            $("#bk-logout-form").hide();
-            window.location.reload();
-        });
+    setupSaltcornDB();
+}
 
+Future<void> setupLocalDB() async {
+    $("#login-header").hide();
+    $("#login-separator").hide();
+    $("#bk-login-form").hide();
+    $("#bk-logout-form").hide();
+
+    setupStorageDB();
+}
+
+Future<void> setupBackendlessDB() async {
+    $("#bk-login").on("click", (e) async {
+        string? uname = ($("#bk-uname").first as InputElement).value;
+        string? passw = ($("#bk-passw").first as InputElement).value;
+        if (passw != null && uname != null) { if (passw != "" && uname != "") {
+                JSON j = await bk.UserService.login(uname, passw, stayLoggedFor:30);
+                if (j.containsKey("errorData")) print(j);
+        } }
         if (await bk.UserService.isValidLogin()) {
             $("#bk-login-form").hide();
             $("#bk-logout-form").show();
-        } else {
-            $("#bk-login-form").show();
-            $("#bk-logout-form").hide();
-            $("#c-title").addClass("unlogged");
+            window.location.reload();
         }
+    });
 
-        if ((await bk.UserService.isValidLogin()) != true) return;
+    $("#bk-logout").on("click", (e) async {
+        if (window.confirm("Do you want to log out?") == false) return;
+        await bk.UserService.logout();
+        $("#bk-login-form").show();
+        $("#bk-logout-form").hide();
+        window.location.reload();
+    });
+
+    if (await bk.UserService.isValidLogin()) {
+        $("#bk-login-form").hide();
+        $("#bk-logout-form").show();
+    } else {
+        $("#bk-login-form").show();
+        $("#bk-logout-form").hide();
+        $("#c-title").addClass("unlogged");
     }
 
+    if ((await bk.UserService.isValidLogin()) == true) setupStorageDB();
+}
+
+Future<void> setupStorageDB() async {
     // Project on home
     // addGithubProjects();
     // Notes on home
@@ -188,7 +204,121 @@ Future<void> main() async {
     $("#edit-links").on("click", (e) {
         $("#links-gui").show();
     });
+}
 
+Future<void> setupSaltcornDB() async {
+    JSON data;
+    try {
+        data = await saltcorn.data("tools");
+    } on Exception {
+        print("Failed to locate saltcorn database");
+        return;
+    }
+
+    print(data);
+
+    if (data.containsKey("error") || !data.containsKey("success")) return;
+
+    $("#pagesel-tools").show();
+
+    $("#tool-addnew").on("click", (QueryEvent e) {
+        $("#tool-gui-header-text").first.text = "new";
+        __currentToolId = "";
+        ($("#tool-edit-name").first as InputElement).value = "";
+        ($("#tool-edit-href").first as InputElement).value = "";
+        ($("#tool-edit-desc").first as InputElement).value = "";
+        ($("#tool-edit-tags").first as InputElement).value = "";
+        $("#tool-gui-edit").show();
+    });
+
+    $("#tool-gui-cancel").on("click", (QueryEvent e) {
+        $("#tool-gui-edit").hide();
+    });
+
+    $("#tool-gui-confirm").on("click", (QueryEvent e) async {
+        string name = ($("#tool-edit-name").first as InputElement).value as string;
+        string href = ($("#tool-edit-href").first as InputElement).value as string;
+        string desc = ($("#tool-edit-desc").first as InputElement).value as string;
+        string tags = ($("#tool-edit-tags").first as InputElement).value as string;
+        if (name == "" || href == "" || desc == "" || tags == "") return;
+        if (__currentToolId == "") {
+            JSON j = await saltcorn.add("tools", {"name": name, "href": href, "description": desc, "tags": tags});
+            if (j.containsKey("success")) {
+                addTool(name, desc, href, tags, "tools-el-${j['id']}");
+            } else {
+                window.alert("Failed to add tool");
+            }
+        } else {
+            JSON j = await saltcorn.update("tools", __currentToolId, {"name": name, "href": href, "description": desc, "tags": tags});
+            if (j.containsKey("success")) {
+                if (j["success"] == true) {
+                    $("#tools-el-${__currentToolId}").first.remove();
+                    addTool(name, desc, href, tags, "tools-el-${__currentToolId}");
+                }
+            }
+        }
+        $("#tool-gui-edit").hide();
+    });
+
+    $(".c-tools-list").children().forEach((Element e) => e.remove());
+    $("#tool-searchbar").first.replaceWith($("#tool-searchbar").first.clone(false));
+
+    var fields = data["success"];
+    fields.sort((a, b) => a["name"].compareTo(b["name"]) as int);
+
+    for (int i = 0; i < fields.length; ++i) {
+        JSON field = fields[i] as JSON;
+        string id = "tools-el-${field["id"]}";
+        addTool(field["name"], field["description"], field["href"], field["tags"], id);
+
+        $("#tool-searchbar").on("input", (QueryEvent e) {
+            string text = ($("#tool-searchbar").first as InputElement).value as string;
+            if (
+                (field["name"] as string).contains(text) ||
+                (field["tags"] as string).contains(text) ||
+                (field["description"] as string).contains(text)
+                ) {
+                $("#$id").show();
+            } else {
+                $("#$id").hide();
+            }
+        });
+
+        $("#c-tool-edit-$id").on("click", (QueryEvent e) {
+            $("#tool-gui-header-text").first.text = "edit";
+            __currentToolId = '${field["id"]}';
+            ($("#tool-edit-name").first as InputElement).value = field["name"];
+            ($("#tool-edit-href").first as InputElement).value = field["href"];
+            ($("#tool-edit-desc").first as InputElement).value = field["description"];
+            ($("#tool-edit-tags").first as InputElement).value = field["tags"];
+            $("#tool-gui-edit").show();
+        });
+
+        $("#c-tool-del-$id").on("click", (QueryEvent e) {
+            if (window.confirm("Do you want to delete tool '${field["name"]}'?") == false) return;
+            saltcorn.delete("tools", '${field["id"]}');
+            $("#$id").first.remove();
+        });
+
+    }
+}
+
+void addTool(string name, string desc, string href, string p_tags, string id) {
+    List<string> taglist = p_tags.split(',');
+    string tags = "";
+    for (int j = 0; j < taglist.length; ++j) {
+        string tag = taglist[j];
+        tags += """ <div class="tool-tag" data="$tag">$tag</div> """;
+    }
+    $(".c-tools-list").append(parse("""
+    <div class="c-tool" id="$id">
+        <div class="c-tool-name"><a href="$href">$name</a></div>
+        <div class="c-tool-desc">$desc</div>
+        <div class="c-tool-tags">$tags</div>
+        <button class="c-tool-edit button-no-style" id="c-tool-edit-$id"><img src="assets/icons/edit_square.svg"/></button>
+        <button class="c-tool-del button-no-style" id="c-tool-del-$id"><img src="assets/icons/close.svg"/></button>
+    </div>
+    """));
 }
 
 void setPageTo(int page) {
@@ -201,11 +331,11 @@ void setPageTo(int page) {
     $("#c-page-conf").hide();
     if (page == 0) $("#c-page-home").show();
     // if (page == 1) $("#c-page-work").show();
-    // if (page == 2) $("#c-page-tool").show();
+    if (page == 2) $("#c-page-tool").show();
     // if (page == 3) $("#c-page-docs").show();
     if (page == 1) $("#c-page-link").show();
     // if (page == 5) $("#c-page-note").show();
-    if (page == 2) $("#c-page-conf").show();
+    if (page == 3) $("#c-page-conf").show();
 }
 
 /*

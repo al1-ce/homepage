@@ -31,7 +31,15 @@
     --fg1:     #ebdbb2;
     --fg0:     #fbf1c7;
 
+    /* https://isotropic.co/tool/hex-color-to-css-filter/ */
     --f_fg: invert(83%) sepia(32%) saturate(231%) hue-rotate(5deg) brightness(101%) contrast(92%);
+    --f_bg: invert(12%) sepia(23%) saturate(0%) hue-rotate(146deg) brightness(108%) contrast(95%);
+    --f_reg: invert(59%) sepia(74%) saturate(6214%) hue-rotate(341deg) brightness(99%) contrast(99%);
+    --f_yellow: invert(87%) sepia(39%) saturate(2628%) hue-rotate(334deg) brightness(105%) contrast(96%);
+    --f_blue: invert(73%) sepia(15%) saturate(421%) hue-rotate(105deg) brightness(84%) contrast(84%);
+    --f_purple: invert(64%) sepia(50%) saturate(353%) hue-rotate(295deg) brightness(88%) contrast(86%);
+    --f_aqua: invert(81%) sepia(17%) saturate(777%) hue-rotate(59deg) brightness(86%) contrast(89%);
+    --f_orange: invert(55%) sepia(84%) saturate(2069%) hue-rotate(349deg) brightness(103%) contrast(99%);
 }
 
 @font-face{font-family: 'Custom'; src: url("assets/space.ttf") format('truetype');}
@@ -87,7 +95,6 @@ hr {
 }
 
 img {
-    user-drag: none;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -134,21 +141,14 @@ img {
 }
 
 #c-pages button:nth-of-type(1) { color: var(--borange); }
-/* #c-pages button:nth-of-type(2) { color: var(--byellow); } */
-/* #c-pages button:nth-of-type(3) { color: var(--bpurple); } */
-/* #c-pages button:nth-of-type(4) { color: var(--bred); } */
-#c-pages button:nth-of-type(2) { color: var(--baqua); }
-#c-pages button:nth-of-type(3) { color: var(--bblue); }
-/* #c-pages button:nth-of-type(7) { color: var(--bgreen); } */
+#c-pages button:nth-of-type(2) { color: var(--bpurple); }
+#c-pages button:nth-of-type(3) { color: var(--baqua); }
+#c-pages button:nth-of-type(4) { color: var(--bblue); }
 
-/* https://isotropic.co/tool/hex-color-to-css-filter/ */
-#c-pages button:nth-of-type(1) img { filter: invert(47%) sepia(96%) saturate(579%) hue-rotate(347deg) brightness(102%) contrast(99%); }
-/* #c-pages button:nth-of-type(2) img { filter: invert(92%) sepia(6%) saturate(6983%) hue-rotate(332deg) brightness(100%) contrast(97%); } */
-/* #c-pages button:nth-of-type(3) img { filter: invert(61%) sepia(82%) saturate(274%) hue-rotate(298deg) brightness(89%) contrast(85%); } */
-/* #c-pages button:nth-of-type(4) img { filter: invert(29%) sepia(100%) saturate(2311%) hue-rotate(345deg) brightness(120%) contrast(97%); } */
-#c-pages button:nth-of-type(2) img { filter: invert(75%) sepia(39%) saturate(368%) hue-rotate(59deg) brightness(90%) contrast(82%); }
-#c-pages button:nth-of-type(3) img { filter: invert(65%) sepia(19%) saturate(341%) hue-rotate(105deg) brightness(94%) contrast(86%); }
-/* #c-pages button:nth-of-type(7) img { filter: invert(69%) sepia(81%) saturate(434%) hue-rotate(15deg) brightness(92%) contrast(86%); } */
+#c-pages button:nth-of-type(1) img { filter: var(--f_orange); }
+#c-pages button:nth-of-type(2) img { filter: var(--f_purple); }
+#c-pages button:nth-of-type(3) img { filter: var(--f_aqua); }
+#c-pages button:nth-of-type(4) img { filter: var(--f_blue); }
 
 .c-page-sel {
     background: none;
@@ -213,7 +213,7 @@ img {
 }
 
 /* ========== HOMEPAGE ========== */
-#c-page-home {}
+/* #c-page-home {} */
 
 #c-home-notebook {
     width: 70%;
@@ -408,9 +408,7 @@ input:focus {
     filter: var(--f_fg);
 }
 
-#c-page-conf button div {
-
-}
+/* #c-page-conf button div {} */
 
 #newnote-gui {
     position: absolute;
@@ -424,7 +422,7 @@ input:focus {
 #newnote-header {
     display: flex;
     height: 5%;
-    widht: 100%;
+    /* width: 100%; */
     justify-content: space-around;
     align-items: center;
     padding-left: 1em;
@@ -435,7 +433,7 @@ input:focus {
 #newnote-footer {
     display: flex;
     height: 5%;
-    widht: 100%;
+    /* width: 100%; */
     justify-content: space-around;
     align-items: center;
     padding-left: 1em;
@@ -643,6 +641,114 @@ input:focus {
     margin-right: 0.5em;
 }
 
+/* =========== TOOLS ========== */
+.c-tool-search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.c-tool-search input {
+    width: 95%;
+}
+
+.c-tool-search>button>img{ filter: var(--f_fg); }
+
+/* .c-tools-list {} */
+
+.c-tool {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.c-tool>button>img{ filter: var(--f_fg); }
+
+/* .c-tool-name {} */
+.c-tool-name a { text-decoration: none; color: var(--bblue); }
+.c-tool-desc {
+    width: 100%;
+    text-align: right;
+    margin-left: 1em;
+}
+.c-tool-tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left: 1em;
+}
+.tool-tag {
+    background: #2d2d2dff;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    padding: 0.1em;
+    margin: 0.2em;
+}
+
+.tool-tag[data="cli"] { background: #2d3234ff; }
+.tool-tag[data="tui"] { background: #2d3234ff; }
+.tool-tag[data="lang"] { background: #2d3431ff; }
+.tool-tag[data="gui"] { background: #352e2cff; }
+.tool-tag[data="lib"] { background: #35322cff; }
+
+#tool-gui-edit {
+    position: absolute;
+    top: 30vh;
+    left: 10%;
+    width: 80%;
+    /* height: 80%; */
+    background: var(--bg0_h);
+}
+
+#tool-gui-header, #tool-gui-header-text {
+    width: 100%;
+    text-align: center;
+}
+
+#tool-edit-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    justify-items: stretch;
+    padding: 1em;
+}
+
+#tool-edit-main > * {
+    width: 100%;
+    height: 10%;
+}
+
+#tool-edit-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding-bottom: 1em;
+}
+
+#tool-edit-footer button {
+    margin-top: 0.5em;
+    margin-left: 1em;
+    background: var(--bg0);
+    color: var(--fg);
+    font-size: 1em;
+    text-decoration: underline;
+    border: none;
+}
+
+#tool-edit-footer button:hover {
+    background: var(--bg0_s);
+    cursor: pointer;
+}
+
 /* =========== MISC =========== */
 
 #p-back-img {
@@ -653,7 +759,6 @@ input:focus {
     left: 0;
     top: 0;
     transform: translate(0, 25%);
-    user-drag: none;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;

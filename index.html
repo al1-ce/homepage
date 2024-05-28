@@ -27,6 +27,7 @@
             <!-- <button class="c-page-sel"><img src="assets/icons/toolbox.svg"/>tool</button> -->
             <!-- <button class="c-page-sel"><img src="assets/icons/description.svg"/>docs</button> -->
             <button class="c-page-sel"><img src="assets/icons/link.svg"/>link</button>
+            <button class="c-page-sel" id="pagesel-tools" style="display: none;"><img src="assets/icons/toolbox.svg"/>tool</button>
             <button class="c-page-sel"><img src="assets/icons/settings.svg"/>conf</button>
             <!-- <button class="c-page-sel"><img src="assets/icons/content.svg"/>note</button> -->
         </div>
@@ -70,7 +71,11 @@
             <div class="c-links-work c-links-list"></div>
         </div>
         <div id="c-page-tool" class="c-page">
-            <div class="c-links-tool c-links-list"></div>
+            <div class="c-tool-search">
+                <input id="tool-searchbar"></input>
+                <button id="tool-addnew" class="button-no-style"><img src="assets/icons/post_add.svg"/></button>
+            </div>
+            <div class="c-tools-list c-links-list"></div>
         </div>
         <div id="c-page-docs" class="c-page">
             <div class="c-links-docs c-links-list"></div>
@@ -121,6 +126,25 @@
                 <button id="links-close" class="button-no-style"><img src="assets/icons/close.svg" /></button>
             </div>
             <div id="links-container"></div>
+        </div>
+        <div id="tool-gui-edit" style="display: none;">
+            <div id="tool-gui-header">
+                <div id="tool-gui-header-text">edit</div>
+            </div>
+            <div id="tool-edit-main">
+                <label for="tool-edit-name">name:</label>
+                <input id="tool-edit-name" name="tool-edit-name"/>
+                <label for="tool-edit-href">href:</label>
+                <input id="tool-edit-href" name="tool-edit-href"/>
+                <label for="tool-edit-desc">description:</label>
+                <input id="tool-edit-desc" name="tool-edit-desc"/>
+                <label for="tool-edit-tags">tags:</label>
+                <input id="tool-edit-tags" name="tool-edit-tags"/>
+            </div>
+            <div id="tool-edit-footer">
+                <button id="tool-gui-cancel">cancel</button>
+                <button id="tool-gui-confirm">confirm</button>
+            </div>
         </div>
         <!-- <hr> -->
 
