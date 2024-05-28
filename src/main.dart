@@ -258,9 +258,9 @@ Future<void> setupSaltcornDB() async {
         $("#tool-searchbar").on("input", (QueryEvent e) {
             string text = ($("#tool-searchbar").first as InputElement).value as string;
             if (
-                (field["name"] as string).contains(text) ||
-                (field["tags"] as string).contains(text) ||
-                (field["description"] as string).contains(text)
+                (field["name"] as string).toLowerCase().contains(text.toLowerCase()) ||
+                (field["tags"] as string).toLowerCase().contains(text.toLowerCase()) ||
+                (field["description"] as string).toLowerCase().contains(text.toLowerCase())
                 ) {
                 $("#$id").show();
             } else {
@@ -297,7 +297,7 @@ void addTool(string name, string desc, string href, string p_tags, string id) {
     $(".c-tools-list").append(parse("""
     <div class="c-tool" id="$id">
         <div class="c-tool-name"><a href="$href">$name</a></div>
-        <div class="c-tool-desc">$desc</div>
+        <div class="c-tool-desc">${fixStringHTML(desc)}</div>
         <div class="c-tool-tags">$tags</div>
         <button class="c-tool-edit button-no-style" id="c-tool-edit-$id"><img src="assets/icons/edit_square.svg"/></button>
         <button class="c-tool-del button-no-style" id="c-tool-del-$id"><img src="assets/icons/close.svg"/></button>
