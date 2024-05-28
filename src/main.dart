@@ -73,8 +73,6 @@ Future<void> main() async {
     } else {
         setupBackendlessDB();
     }
-
-    setupSaltcornDB();
 }
 
 Future<void> setupLocalDB() async {
@@ -84,6 +82,7 @@ Future<void> setupLocalDB() async {
     $("#bk-logout-form").hide();
 
     setupStorageDB();
+    setupSaltcornDB();
 }
 
 Future<void> setupBackendlessDB() async {
@@ -118,7 +117,11 @@ Future<void> setupBackendlessDB() async {
         $("#c-title").addClass("unlogged");
     }
 
-    if ((await bk.UserService.isValidLogin()) == true) setupStorageDB();
+    if ((await bk.UserService.isValidLogin()) == true) {
+        setupStorageDB();
+        setupSaltcornDB();
+    }
+    // if ((await bk.UserService.isValidLogin()) == true) 
 }
 
 Future<void> setupStorageDB() async {
@@ -207,17 +210,9 @@ Future<void> setupStorageDB() async {
 }
 
 Future<void> setupSaltcornDB() async {
-    JSON data;
-    try {
-        data = await saltcorn.data("tools");
-    } on Exception {
-        print("Failed to locate saltcorn database");
-        return;
-    }
+    JSON data = await storage.get("tools");
 
-    print(data);
-
-    if (data.containsKey("error") || !data.containsKey("success")) return;
+    // if (data.containsKey("error") || !data.containsKey("success")) return;
 
     $("#pagesel-tools").show();
 
@@ -240,22 +235,11 @@ Future<void> setupSaltcornDB() async {
         string href = ($("#tool-edit-href").first as InputElement).value as string;
         string desc = ($("#tool-edit-desc").first as InputElement).value as string;
         string tags = ($("#tool-edit-tags").first as InputElement).value as string;
-        if (name == "" || href == "" || desc == "" || tags == "") return;
+        if (name == "" || href == "") return;
         if (__currentToolId == "") {
-            JSON j = await saltcorn.add("tools", {"name": name, "href": href, "description": desc, "tags": tags});
-            if (j.containsKey("success")) {
-                addTool(name, desc, href, tags, "tools-el-${j['id']}");
-            } else {
-                window.alert("Failed to add tool");
-            }
+            storage.add("tools", {"name": name, "href": href, "description": desc, "tags": tags});
         } else {
-            JSON j = await saltcorn.update("tools", __currentToolId, {"name": name, "href": href, "description": desc, "tags": tags});
-            if (j.containsKey("success")) {
-                if (j["success"] == true) {
-                    $("#tools-el-${__currentToolId}").first.remove();
-                    addTool(name, desc, href, tags, "tools-el-${__currentToolId}");
-                }
-            }
+            storage.update("tools", __currentToolId, {"name": name, "href": href, "description": desc, "tags": tags});
         }
         $("#tool-gui-edit").hide();
     });
@@ -263,12 +247,12 @@ Future<void> setupSaltcornDB() async {
     $(".c-tools-list").children().forEach((Element e) => e.remove());
     $("#tool-searchbar").first.replaceWith($("#tool-searchbar").first.clone(false));
 
-    var fields = data["success"];
-    fields.sort((a, b) => a["name"].compareTo(b["name"]) as int);
+    var fields = data["jsarr"];
+    // fields.sort((a, b) => a["name"].compareTo(b["name"]) as int);
 
     for (int i = 0; i < fields.length; ++i) {
         JSON field = fields[i] as JSON;
-        string id = "tools-el-${field["id"]}";
+        string id = "tools-el-${field["objectId"]}";
         addTool(field["name"], field["description"], field["href"], field["tags"], id);
 
         $("#tool-searchbar").on("input", (QueryEvent e) {
@@ -286,7 +270,7 @@ Future<void> setupSaltcornDB() async {
 
         $("#c-tool-edit-$id").on("click", (QueryEvent e) {
             $("#tool-gui-header-text").first.text = "edit";
-            __currentToolId = '${field["id"]}';
+            __currentToolId = '${field["objectId"]}';
             ($("#tool-edit-name").first as InputElement).value = field["name"];
             ($("#tool-edit-href").first as InputElement).value = field["href"];
             ($("#tool-edit-desc").first as InputElement).value = field["description"];
@@ -296,7 +280,7 @@ Future<void> setupSaltcornDB() async {
 
         $("#c-tool-del-$id").on("click", (QueryEvent e) {
             if (window.confirm("Do you want to delete tool '${field["name"]}'?") == false) return;
-            saltcorn.delete("tools", '${field["id"]}');
+            storage.delete("tools", '${field["objectId"]}');
             $("#$id").first.remove();
         });
 
