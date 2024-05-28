@@ -35,7 +35,7 @@ bool isUserUsingMobile() {
 }
 
 Future<void> main() async {
-    setPageTo(2);
+    setPageTo(0);
     storage.init(getOrInitCookie("use_local_storage", "false") == "true");
 
     if (isUserUsingMobile()) {
