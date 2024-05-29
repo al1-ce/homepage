@@ -40,6 +40,7 @@
     --f_purple: invert(64%) sepia(50%) saturate(353%) hue-rotate(295deg) brightness(88%) contrast(86%);
     --f_aqua: invert(81%) sepia(17%) saturate(777%) hue-rotate(59deg) brightness(86%) contrast(89%);
     --f_orange: invert(55%) sepia(84%) saturate(2069%) hue-rotate(349deg) brightness(103%) contrast(99%);
+    --f_gray: invert(67%) sepia(18%) saturate(344%) hue-rotate(355deg) brightness(90%) contrast(87%);
 }
 
 @font-face{font-family: 'Custom'; src: url("assets/space.ttf") format('truetype');}
@@ -141,13 +142,13 @@ img {
 }
 
 #c-pages button:nth-of-type(1) { color: var(--borange); }
-#c-pages button:nth-of-type(2) { color: var(--bpurple); }
-#c-pages button:nth-of-type(3) { color: var(--baqua); }
+#c-pages button:nth-of-type(2) { color: var(--baqua); }
+#c-pages button:nth-of-type(3) { color: var(--bpurple); }
 #c-pages button:nth-of-type(4) { color: var(--bblue); }
 
 #c-pages button:nth-of-type(1) img { filter: var(--f_orange); }
-#c-pages button:nth-of-type(2) img { filter: var(--f_purple); }
-#c-pages button:nth-of-type(3) img { filter: var(--f_aqua); }
+#c-pages button:nth-of-type(2) img { filter: var(--f_aqua); }
+#c-pages button:nth-of-type(3) img { filter: var(--f_purple); }
 #c-pages button:nth-of-type(4) img { filter: var(--f_blue); }
 
 .c-page-sel {
@@ -342,7 +343,7 @@ img {
 }
 
 .c-task-doing img {
-    filter: invert(75%) sepia(39%) saturate(368%) hue-rotate(59deg) brightness(90%) contrast(82%);
+    filter: var(--f_aqua);
 }
 
 .c-task-done div {
@@ -350,7 +351,7 @@ img {
 }
 
 .c-task-done img {
-    filter: invert(67%) sepia(18%) saturate(344%) hue-rotate(355deg) brightness(90%) contrast(87%);
+    filter: var(--f_gray);
 }
 
 /* ========== CONFIG ========== */
@@ -651,8 +652,13 @@ input:focus {
     margin-bottom: 1em;
 }
 
-.c-tool-search input {
-    width: 95%;
+#tool-searchbar {
+    width: 70%;
+    border-right: 1px solid #444;
+}
+
+#tool-tag-searchbar {
+    width: 25%;
 }
 
 .c-tool-search>button>img{ filter: var(--f_fg); }
@@ -667,7 +673,7 @@ input:focus {
     width: 100%;
 }
 
-.c-tool>button>img{ filter: var(--f_fg); }
+.c-tool>button>img{ filter: var(--f_gray); }
 
 /* .c-tool-name {} */
 .c-tool-name a { text-decoration: none; color: var(--bblue); }

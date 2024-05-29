@@ -244,6 +244,7 @@ Future<void> setupSaltcornDB() async {
 
     $(".c-tools-list").children().forEach((Element e) => e.remove());
     $("#tool-searchbar").first.replaceWith($("#tool-searchbar").first.clone(false));
+    $("#tool-tag-searchbar").first.replaceWith($("#tool-tag-searchbar").first.clone(false));
     
     int count = await storage.count("tools");
     for (int N = 0; N < (count / 100 + 1); ++N) {
@@ -257,18 +258,22 @@ Future<void> setupSaltcornDB() async {
             string id = "tools-el-${field["objectId"]}";
             addTool(field["name"], field["description"], field["href"], field["tags"], id);
 
-            $("#tool-searchbar").on("input", (QueryEvent e) {
+            var searchFunc = (QueryEvent e) {
                 string text = ($("#tool-searchbar").first as InputElement).value as string;
+                string ttag = ($("#tool-tag-searchbar").first as InputElement).value as string;
                 if (
-                    (field["name"] as string).toLowerCase().contains(text.toLowerCase()) ||
-                    (field["tags"] as string).toLowerCase().contains(text.toLowerCase()) ||
-                    (field["description"] as string).toLowerCase().contains(text.toLowerCase())
+                    ((field["name"] as string).toLowerCase().contains(text.toLowerCase()) ||
+                    (field["description"] as string).toLowerCase().contains(text.toLowerCase())) &&
+                    ("," + (field["tags"] as string) + ",").toLowerCase().contains(ttag.toLowerCase())
                     ) {
                     $("#$id").show();
                 } else {
                     $("#$id").hide();
                 }
-            });
+            };
+
+            $("#tool-searchbar").on("input", searchFunc);
+            $("#tool-tag-searchbar").on("input", searchFunc);
 
             $("#c-tool-edit-$id").on("click", (QueryEvent e) {
                 $("#tool-gui-header-text").first.text = "edit";
@@ -388,17 +393,17 @@ void addLinkTo(string name, string href, string whereid, int priority, string oi
         }
 
 
-        q.append("""
-            <a id="c-link-$__link_id" class="c-link button-no-style">
+        q.append(parse("""
+            <a id="c-link-$__link_id" class="c-link button-no-style"  href="$href">
                 $name
             </a>
-        """.parseHTML());
+        """));
 
-        $("#c-link-$linkID").on("mouseup", (QueryEvent e) {
-            if (e.button == 0) window.location.href = href;
-            if (e.button == 1) js.context.callMethod("open", [href]);
-            if (e.button == 2); // TODO: edit
-        });
+        // $("#c-link-$linkID").on("mouseup", (QueryEvent e) {
+        //     if (e.button == 0) window.location.href = href;
+        //     if (e.button == 1) js.context.callMethod("open", [href]);
+        //     if (e.button == 2); // TODO: edit
+        // });
 
         ++__link_id;
     }
