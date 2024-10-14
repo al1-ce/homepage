@@ -134,6 +134,13 @@ img {
     text-align: center;
 }
 
+#c-footer {
+    width: 100%;
+    text-align: left;
+    font-size: 1.5em;
+    color: var(--bg5);
+}
+
 #c-pages {
     display: flex;
     flex-direction: row;
@@ -412,7 +419,7 @@ input:focus {
 /* #c-page-conf button div {} */
 
 #newnote-gui {
-    position: absolute;
+    position: fixed;
     top: 10%;
     left: 10%;
     width: 80%;
@@ -704,7 +711,7 @@ input:focus {
 .tool-tag[data="lib"] { background: #35322cff; }
 
 #tool-gui-edit {
-    position: absolute;
+    position: fixed;
     top: 30vh;
     left: 10%;
     width: 80%;

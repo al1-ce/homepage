@@ -1,6 +1,7 @@
 library storage;
 
-import "dart:html" show window, Storage;
+import "dart:html" show window, Storage, document;
+import "dart:io";
 // import "dart:js_interop" show NullableUndefineableJSAnyExtension;
 import "dart:convert" show jsonEncode;
 
@@ -183,6 +184,68 @@ Future<int> count(string table) async {
         return ((__storageCache[table]?["jsarr"] as List).length) as int;
     } else {
         return await bk.Data.count(table, "");
+    }
+}
+
+Future<void> exportDB() async {
+    JSON tools = await getTableData("tools");
+    JSON notes = await getTableData("notes");
+    JSON links = await getTableData("links");
+    JSON todo  = await getTableData("todo");
+
+    exportFile("homepage-export-todo.csv", todo);
+    exportFile("homepage-export-tools.csv", tools);
+    exportFile("homepage-export-notes.csv", notes);
+    exportFile("homepage-export-links.csv", links);
+}
+
+Future<void> exportFile(string name, JSON data) async {
+    var fields = data["jsarr"];
+    string csv = "";
+    bool didHeader = false;
+    for (var field in fields) {
+        if (!didHeader) {
+            for (var key in field.keys) {
+                csv += key + ",";
+            }
+            csv = csv.substring(0, csv.length - 1);
+            csv += "\n";
+            didHeader = true;
+        }
+
+        for (var key in field.keys) {
+            if (field[key] is string && field[key].contains(",")) { csv += '\"'; }
+            csv += field[key].toString();
+            if (field[key] is string && field[key].contains(",")) { csv += '\"'; }
+            csv += ",";
+        }
+
+        csv = csv.substring(0, csv.length - 1);
+        csv += "\n";
+    }
+    csv = csv.substring(0, csv.length - 1);
+
+    // window.open(, "_blank");
+    var link = document.createElement("a");
+    link.setAttribute("href", Uri.dataFromString(csv, mimeType: "text/plain").toString());
+    link.setAttribute("download", name);
+    link.click();
+    link.remove();
+}
+
+Future<JSON> getTableData(string table) async {
+    if (__usingLocalStorage) {
+        return get(table);
+    } else {
+        JSON j = { "jsarr": [] };
+        int cnt = await count(table);
+        for (int N = 0; N < (cnt / 100 + 1); ++N) {
+            JSON data = await get(table, bk.DataQuery().pageSize(100).offset(N * 100));
+            var fields = data["jsarr"];
+            // print(fields);
+            j["jsarr"] += fields;
+        }
+        return j;
     }
 }
 

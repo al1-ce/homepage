@@ -36,7 +36,7 @@ bool isUserUsingMobile() {
 
 Future<void> main() async {
     setPageTo(0);
-    storage.init(getOrInitCookie("use_local_storage", "false") == "true");
+    storage.init(getOrInitCookie("use_local_storage", "true") == "true");
 
     if (isUserUsingMobile()) {
         $("#mobile-style").first.innerHtml = "body{font-size:0.7em;}#c-title{font-size:1.3em}";
@@ -69,10 +69,16 @@ Future<void> main() async {
     });
 
     if (storage.isUsingLocal()) {
+        $("#c-footer").text = "@local_terminal";
         setupLocalDB();
     } else {
+        $("#c-footer").text = "@remote_terminal";
         setupBackendlessDB();
     }
+
+    $("#db-export").on("click", (QueryEvent e) {
+        storage.exportDB();
+    });
 }
 
 Future<void> setupLocalDB() async {
@@ -111,17 +117,18 @@ Future<void> setupBackendlessDB() async {
     if (await bk.UserService.isValidLogin()) {
         $("#bk-login-form").hide();
         $("#bk-logout-form").show();
+        $("#c-footer").text = "@remote_terminal";
     } else {
         $("#bk-login-form").show();
         $("#bk-logout-form").hide();
-        $("#c-title").addClass("unlogged");
+        $("#c-footer").text = "@remote_terminal: unauthorized";
     }
 
     if ((await bk.UserService.isValidLogin()) == true) {
         setupStorageDB();
         setupSaltcornDB();
     }
-    // if ((await bk.UserService.isValidLogin()) == true) 
+    // if ((await bk.UserService.isValidLogin()) == true)
 }
 
 Future<void> setupStorageDB() async {
