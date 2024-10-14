@@ -10336,7 +10336,7 @@
     exportFile($name, data) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        t1, t2, csv, didHeader, field, t3, t4, key, link, buffer, indices;
+        t1, t2, csv, didHeader, field, t3, t4, key, shoudSurround, t5, link, buffer, indices;
       var $async$exportFile = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -10354,10 +10354,15 @@
                 }
                 for (t3 = J.getInterceptor$x(field), t4 = J.get$iterator$ax(t1._as(t3.get$keys(field))); t4.moveNext$0();) {
                   key = t4.get$current(t4);
-                  if (typeof t3.$index(field, key) == "string" && A._asBool(J.contains$1$asx(t3.$index(field, key), ",")))
+                  if (typeof t3.$index(field, key) == "string")
+                    shoudSurround = A._asBool(J.contains$1$asx(t3.$index(field, key), ",")) || A._asBool(J.contains$1$asx(t3.$index(field, key), "\n"));
+                  else
+                    shoudSurround = false;
+                  if (shoudSurround)
                     csv += '"';
-                  csv += J.toString$0$(t3.$index(field, key));
-                  csv = (typeof t3.$index(field, key) == "string" && A._asBool(J.contains$1$asx(t3.$index(field, key), ",")) ? csv + '"' : csv) + ",";
+                  t5 = J.toString$0$(t3.$index(field, key));
+                  csv += A.stringReplaceAllUnchecked(t5, "\n", "\\n");
+                  csv = (shoudSurround ? csv + '"' : csv) + ",";
                 }
                 csv = B.JSString_methods.substring$2(csv, 0, csv.length - 1) + "\n";
               }

@@ -214,9 +214,10 @@ Future<void> exportFile(string name, JSON data) async {
         }
 
         for (var key in field.keys) {
-            if (field[key] is string && field[key].contains(",")) { csv += '\"'; }
-            csv += field[key].toString();
-            if (field[key] is string && field[key].contains(",")) { csv += '\"'; }
+            bool shoudSurround = field[key] is string && (field[key].contains(",") || field[key].contains("\n"));
+            if (shoudSurround) { csv += '\"'; }
+            csv += field[key].toString().replaceAll("\n", "\\n");
+            if (shoudSurround) { csv += '\"'; }
             csv += ",";
         }
 
